@@ -81,3 +81,9 @@
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
+
+/* Non-bolded table data */
+.text-[9px] {
+  font-size: 9px !important;
+  line-height: 1 !important;
+}

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -25,28 +26,28 @@ const PremiumsTable: React.FC = () => {
             <TableHead className="text-xs font-semibold text-center py-2 px-4">Total</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="text-[11px]">
+        <TableBody className="text-[10px]">
           {/* Property */}
           <TableRow>
             <TableCell className="font-medium py-1 px-4">Property</TableCell>
             <TableCell colSpan={14} className="py-1 px-4"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Personal excluding Home and Product Warranty</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Personal excluding Home and Product Warranty</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Home Warranty</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Home Warranty</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Product Warranty</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Product Warranty</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
@@ -56,9 +57,9 @@ const PremiumsTable: React.FC = () => {
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Commercial</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Commercial</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow className="bg-gray-50">
@@ -82,25 +83,25 @@ const PremiumsTable: React.FC = () => {
             <TableCell colSpan={14} className="py-1 px-4"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">Private Passenger</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">Private Passenger</TableCell>
             <TableCell colSpan={14} className="py-1 px-4"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Liability</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Personal Accident</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Personal Accident</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Other</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Other</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
@@ -111,25 +112,25 @@ const PremiumsTable: React.FC = () => {
           </TableRow>
           
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">Other than Private Passenger</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">Other than Private Passenger</TableCell>
             <TableCell colSpan={14} className="py-1 px-4"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Liability</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Personal Accident</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Personal Accident</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Other</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Other</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
@@ -140,25 +141,25 @@ const PremiumsTable: React.FC = () => {
           </TableRow>
           
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">Facility Assoc. Residual Market</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">Facility Assoc. Residual Market</TableCell>
             <TableCell colSpan={14} className="py-1 px-4"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Liability</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Personal Accident</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Personal Accident</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Other</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Other</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
@@ -169,25 +170,25 @@ const PremiumsTable: React.FC = () => {
           </TableRow>
           
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">Automobile - Subtotal</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">Automobile - Subtotal</TableCell>
             <TableCell colSpan={14} className="py-1 px-4"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Liability</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Personal Accident</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Personal Accident</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-16 py-1 px-4">- Other</TableCell>
+            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Other</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow className="bg-gray-50">
@@ -205,9 +206,9 @@ const PremiumsTable: React.FC = () => {
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Equipment Warranty</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Equipment Warranty</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           
@@ -249,57 +250,57 @@ const PremiumsTable: React.FC = () => {
             <TableCell colSpan={14} className="py-1 px-4"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Comprehensive General Liability (with products)</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Comprehensive General Liability (with products)</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Comprehensive General Liability (without products)</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Comprehensive General Liability (without products)</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Cyber Liability</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Cyber Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Directors and Officers Liability</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Directors and Officers Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Excess Liability</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Excess Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Professional Liability</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Professional Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Umbrella Liability</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Umbrella Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Pollution Liability</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Pollution Liability</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- All other</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- All other</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow className="bg-gray-50">
@@ -329,15 +330,15 @@ const PremiumsTable: React.FC = () => {
             <TableCell colSpan={14} className="py-1 px-4"></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- Contract Surety</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Contract Surety</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-8 py-1 px-4">- All Other Surety</TableCell>
+            <TableCell className="pl-8 py-1 px-4 text-[9px]">- All Other Surety</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow className="bg-gray-50">
@@ -375,15 +376,15 @@ const PremiumsTable: React.FC = () => {
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-4 py-1 px-4">Reinsurance assumed</TableCell>
+            <TableCell className="pl-4 py-1 px-4 text-[9px]">Reinsurance assumed</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="pl-4 py-1 px-4">Reinsurance ceded</TableCell>
+            <TableCell className="pl-4 py-1 px-4 text-[9px]">Reinsurance ceded</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
           <TableRow className="bg-primary-50">
@@ -393,9 +394,9 @@ const PremiumsTable: React.FC = () => {
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="font-medium py-1 px-4">Dividends - direct</TableCell>
+            <TableCell className="font-medium py-1 px-4 text-[9px]">Dividends - direct</TableCell>
             {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
+              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
         </TableBody>
