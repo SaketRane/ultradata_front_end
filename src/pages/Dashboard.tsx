@@ -37,8 +37,21 @@ const Dashboard: React.FC = () => {
   const [sheet, setSheet] = useState<string>("");
   const [insurerSearchTerm, setInsurerSearchTerm] = useState<string>("");
 
-  // Mock data for dropdowns - updated years to only include 2022-2013
-  const years = ["2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013"];
+  // Mock data for dropdowns - updated years to include 2024-2014 with "Coming Soon" label for 2024
+  const years = [
+    { value: "2024", label: "2024 (Coming Soon)", disabled: true },
+    { value: "2023", label: "2023" },
+    { value: "2022", label: "2022" },
+    { value: "2021", label: "2021" },
+    { value: "2020", label: "2020" },
+    { value: "2019", label: "2019" },
+    { value: "2018", label: "2018" },
+    { value: "2017", label: "2017" },
+    { value: "2016", label: "2016" },
+    { value: "2015", label: "2015" },
+    { value: "2014", label: "2014" }
+  ];
+  
   // Updated sections list based on user request
   const sections = [
     "Financial Statements", 
@@ -149,8 +162,12 @@ const Dashboard: React.FC = () => {
                       <SelectGroup>
                         <SelectLabel>Years</SelectLabel>
                         {years.map((y) => (
-                          <SelectItem key={y} value={y}>
-                            {y}
+                          <SelectItem 
+                            key={y.value} 
+                            value={y.value}
+                            disabled={y.disabled}
+                          >
+                            {y.label}
                           </SelectItem>
                         ))}
                       </SelectGroup>
