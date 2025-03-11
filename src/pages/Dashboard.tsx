@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -182,7 +183,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
-        <div className="container mx-auto py-4 px-6">
+        <div className="container mx-auto py-4 px-4">
           <div className="flex items-center justify-between">
             <Logo size="md" />
             
@@ -230,8 +231,8 @@ const Dashboard: React.FC = () => {
         </div>
       </header>
       
-      <main className="flex-1 container mx-auto py-8 px-6 page-transition">
-        <section className="mb-8">
+      <main className="flex-1 container mx-auto py-8 px-3 page-transition">
+        <section className="mb-8 max-w-[95%] mx-auto">
           <Card className="shadow-lg glass w-full">
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -354,7 +355,7 @@ const Dashboard: React.FC = () => {
         </section>
         
         {shouldShowPremiumsTable() && (
-          <section className="mb-8">
+          <section className="mb-8 max-w-[95%] mx-auto">
             <Card className="shadow-lg glass w-full">
               <CardContent className="p-6">
                 <h2 className="text-xl font-semibold mb-4">Premiums Written by Province</h2>
