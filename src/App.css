@@ -1,3 +1,4 @@
+
 #root {
   margin: 0 auto;
   padding: 1rem; /* Reduced padding */
@@ -46,6 +47,11 @@
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+/* Compact table rows */
+.compact-table tr {
+  line-height: 1;
 }
 
 /* Wider container for data display */
