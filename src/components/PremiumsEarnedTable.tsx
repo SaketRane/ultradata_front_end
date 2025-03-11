@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -391,12 +390,6 @@ const PremiumsEarnedTable: React.FC = () => {
             <TableCell className="font-bold py-1 px-4">TOTAL - NET</TableCell>
             {Array(15).fill(0).map((_, i) => (
               <TableCell key={i} className="text-center font-bold py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4 text-[9px]">Dividends - direct</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
             ))}
           </TableRow>
         </TableBody>
