@@ -1,32 +1,31 @@
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
 
 const PremiumsTable: React.FC = () => {
   return (
     <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
-      <Table className="min-w-[1200px] text-sm">
+      <Table className="min-w-[1200px] text-xs">
         <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
           <TableRow>
-            <TableHead className="w-[250px] font-semibold text-left">Class of Insurance</TableHead>
-            <TableHead className="font-semibold text-center">NL</TableHead>
-            <TableHead className="font-semibold text-center">PE</TableHead>
-            <TableHead className="font-semibold text-center">NS</TableHead>
-            <TableHead className="font-semibold text-center">NB</TableHead>
-            <TableHead className="font-semibold text-center">QC</TableHead>
-            <TableHead className="font-semibold text-center">ON</TableHead>
-            <TableHead className="font-semibold text-center">MB</TableHead>
-            <TableHead className="font-semibold text-center">SK</TableHead>
-            <TableHead className="font-semibold text-center">AB</TableHead>
-            <TableHead className="font-semibold text-center">BC</TableHead>
-            <TableHead className="font-semibold text-center">YK</TableHead>
-            <TableHead className="font-semibold text-center">NW</TableHead>
-            <TableHead className="font-semibold text-center">NU</TableHead>
-            <TableHead className="font-semibold text-center">OUT</TableHead>
-            <TableHead className="font-semibold text-center">Total</TableHead>
+            <TableHead className="w-[250px] text-xs font-semibold text-left">Class of Insurance</TableHead>
+            <TableHead className="text-xs font-semibold text-center">NL</TableHead>
+            <TableHead className="text-xs font-semibold text-center">PE</TableHead>
+            <TableHead className="text-xs font-semibold text-center">NS</TableHead>
+            <TableHead className="text-xs font-semibold text-center">NB</TableHead>
+            <TableHead className="text-xs font-semibold text-center">QC</TableHead>
+            <TableHead className="text-xs font-semibold text-center">ON</TableHead>
+            <TableHead className="text-xs font-semibold text-center">MB</TableHead>
+            <TableHead className="text-xs font-semibold text-center">SK</TableHead>
+            <TableHead className="text-xs font-semibold text-center">AB</TableHead>
+            <TableHead className="text-xs font-semibold text-center">BC</TableHead>
+            <TableHead className="text-xs font-semibold text-center">YK</TableHead>
+            <TableHead className="text-xs font-semibold text-center">NW</TableHead>
+            <TableHead className="text-xs font-semibold text-center">NU</TableHead>
+            <TableHead className="text-xs font-semibold text-center">OUT</TableHead>
+            <TableHead className="text-xs font-semibold text-center">Total</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="text-xs">
+        <TableBody className="text-[11px]">
           {/* Property */}
           <TableRow>
             <TableCell className="font-medium">Property</TableCell>
