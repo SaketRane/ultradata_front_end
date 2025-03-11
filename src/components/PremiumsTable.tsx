@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 const PremiumsTable: React.FC = () => {
   return (
     <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
-      <Table className="min-w-[1200px] text-xs">
+      <Table className="min-w-[1200px] text-xs dropdown-data">
         <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
           <TableRow>
             <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4">Class of Insurance</TableHead>

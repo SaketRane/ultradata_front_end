@@ -60,3 +60,10 @@
   width: 100%;
   padding: 0 0.5rem; /* Minimal padding */
 }
+
+/* Smaller text for dropdown data */
+.dropdown-data {
+  font-size: 0.7rem;
+  line-height: 0.9rem;
+}
+

@@ -235,14 +235,14 @@ const Dashboard: React.FC = () => {
         <section className="mb-4 w-full mx-auto">
           <Card className="shadow-lg glass w-full">
             <CardContent className="p-3">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 dropdown-data">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Year</label>
                   <Select value={year} onValueChange={setYear}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select Year" />
                     </SelectTrigger>
-                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
+                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
                       <SelectGroup>
                         <SelectLabel>Years</SelectLabel>
                         {years.map((y) => (
@@ -270,7 +270,7 @@ const Dashboard: React.FC = () => {
                       <SelectValue placeholder="Select Insurer" />
                     </SelectTrigger>
                     <SelectContent 
-                      className="z-50 bg-white/95 backdrop-blur-sm border-border max-h-[300px]" 
+                      className="z-50 bg-white/95 backdrop-blur-sm border-border max-h-[300px] dropdown-data" 
                       position="popper"
                     >
                       <div className="px-3 py-2 sticky top-0 bg-white z-10 border-b">
@@ -308,7 +308,7 @@ const Dashboard: React.FC = () => {
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select Section" />
                     </SelectTrigger>
-                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
+                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
                       <SelectGroup>
                         <SelectLabel>Sections</SelectLabel>
                         {sections.map((sec) => (
@@ -331,7 +331,7 @@ const Dashboard: React.FC = () => {
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder={!section ? "Select Section First" : "Select Sheet"} />
                     </SelectTrigger>
-                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
+                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
                       <SelectGroup>
                         <SelectLabel>Sheets</SelectLabel>
                         {availableSheets.length > 0 ? (
