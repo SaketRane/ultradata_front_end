@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -26,8 +25,8 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { insurers } from "@/data/insurers";
 import { Input } from "@/components/ui/input";
+import PremiumsTable from "@/components/PremiumsTable";
 
-// Define section-to-sheets mapping with internal codes
 const sectionSheetsMapping = {
   "Financial Statements": {
     code: "FS",
@@ -103,7 +102,6 @@ const sectionSheetsMapping = {
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   
-  // State for the dropdown values
   const [year, setYear] = useState<string>("");
   const [insurer, setInsurer] = useState<string>("");
   const [section, setSection] = useState<string>("");
@@ -111,7 +109,6 @@ const Dashboard: React.FC = () => {
   const [insurerSearchTerm, setInsurerSearchTerm] = useState<string>("");
   const [availableSheets, setAvailableSheets] = useState<Array<{code: string, label: string}>>([]);
 
-  // Mock data for dropdowns - updated years to include 2024-2014 with "Coming Soon" label for 2024
   const years = [
     { value: "2024", label: "2024 (Coming Soon)", disabled: true },
     { value: "2023", label: "2023" },
@@ -125,31 +122,27 @@ const Dashboard: React.FC = () => {
     { value: "2015", label: "2015" },
     { value: "2014", label: "2014" }
   ];
-  
-  // Updated sections list based on user request
+
   const sections = Object.keys(sectionSheetsMapping);
-  
-  // Filter insurers based on search term
+
   const filteredInsurers = insurerSearchTerm.length > 0
     ? insurers.filter(ins => 
         ins.name.toLowerCase().startsWith(insurerSearchTerm.toLowerCase()))
     : insurers;
-  
-  // Update available sheets when section changes
+
   useEffect(() => {
     if (section) {
       setAvailableSheets(sectionSheetsMapping[section].sheets);
-      // Reset sheet selection when section changes
       setSheet("");
     } else {
       setAvailableSheets([]);
     }
   }, [section]);
-  
+
   useEffect(() => {
     document.title = "UltraData | Dashboard";
   }, []);
-  
+
   const handleLogout = () => {
     toast.info('Logging out...');
     setTimeout(() => {
@@ -157,33 +150,33 @@ const Dashboard: React.FC = () => {
     }, 1000);
   };
 
-  // When an insurer is selected, we'll get both the name (displayed) and the code (stored)
   const handleInsurerChange = (value: string) => {
     setInsurer(value);
-    // The code is stored in the background, but we don't need to display it
     const selectedInsurer = insurers.find(ins => ins.name === value);
     console.log("Selected insurer code:", selectedInsurer?.code);
   };
 
-  // When a section is selected, we'll get both the name (displayed) and the code (stored)
   const handleSectionChange = (value: string) => {
     setSection(value);
     const selectedSection = sectionSheetsMapping[value];
     console.log("Selected section code:", selectedSection.code);
   };
 
-  // When a sheet is selected, we'll get both the name (displayed) and the code (stored)
   const handleSheetChange = (value: string) => {
     setSheet(value);
     const selectedSheet = availableSheets.find(s => s.label === value);
     console.log("Selected sheet code:", selectedSheet?.code);
   };
 
-  // Reset search when closing the dropdown
   const handleInsurerOpenChange = (open: boolean) => {
     if (!open) {
       setInsurerSearchTerm("");
     }
+  };
+
+  const shouldShowPremiumsTable = () => {
+    return section === "Provincial Stats" && 
+           availableSheets.find(s => s.code === "6710")?.label === sheet;
   };
 
   return (
@@ -359,6 +352,17 @@ const Dashboard: React.FC = () => {
             </CardContent>
           </Card>
         </section>
+        
+        {shouldShowPremiumsTable() && (
+          <section className="mb-8">
+            <Card className="shadow-lg glass w-full">
+              <CardContent className="p-6">
+                <h2 className="text-xl font-semibold mb-4">Premiums Written by Province</h2>
+                <PremiumsTable />
+              </CardContent>
+            </Card>
+          </section>
+        )}
       </main>
       
       <footer className="bg-white border-t border-gray-200 py-6">
