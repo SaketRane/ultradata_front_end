@@ -28,6 +28,7 @@ import { Input } from "@/components/ui/input";
 import PremiumsTable from "@/components/PremiumsTable";
 import PremiumsEarnedTable from "@/components/PremiumsEarnedTable";
 import ClaimsIncurredTable from "@/components/ClaimsIncurredTable";
+import ClaimsUndiscountedTable from "@/components/ClaimsUndiscountedTable";
 
 const sectionSheetsMapping = {
   "Financial Statements": {
@@ -189,6 +190,11 @@ const Dashboard: React.FC = () => {
   const shouldShowClaimsIncurredTable = () => {
     return section === "Provincial Stats" && 
            sheet === availableSheets.find(s => s.code === "6730")?.label;
+  };
+
+  const shouldShowClaimsUndiscountedTable = () => {
+    return section === "Provincial Stats" && 
+           sheet === availableSheets.find(s => s.code === "6731")?.label;
   };
 
   return (
@@ -393,6 +399,17 @@ const Dashboard: React.FC = () => {
               <CardContent className="p-3">
                 <h2 className="text-lg font-semibold mb-3">Claims Incurred including Adjustment Expenses by Province</h2>
                 <ClaimsIncurredTable />
+              </CardContent>
+            </Card>
+          </section>
+        )}
+
+        {shouldShowClaimsUndiscountedTable() && (
+          <section className="mb-4 w-full mx-auto">
+            <Card className="shadow-lg glass w-full">
+              <CardContent className="p-3">
+                <h2 className="text-lg font-semibold mb-3">Claims Incurred including Adjustment Expenses - Undiscounted by Province</h2>
+                <ClaimsUndiscountedTable />
               </CardContent>
             </Card>
           </section>
