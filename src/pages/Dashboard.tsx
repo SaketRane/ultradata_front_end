@@ -84,7 +84,6 @@ const Dashboard: React.FC = () => {
       
       <main className="flex-1 container mx-auto py-8 px-6 page-transition">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Welcome back, John</h1>
           <p className="text-gray-600">Access your property and casualty data below</p>
         </div>
         
