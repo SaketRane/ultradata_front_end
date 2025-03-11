@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
+import { insurers } from "@/data/insurers";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -36,7 +37,6 @@ const Dashboard: React.FC = () => {
 
   // Mock data for dropdowns - updated years to only include 2022-2013
   const years = ["2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013"];
-  const insurers = ["Allianz", "AXA", "Zurich", "Liberty Mutual", "Travelers", "Chubb"];
   const sections = ["Claims", "Premiums", "Policies", "Exposure", "Losses"];
   const sheets = ["Summary", "Detailed", "YoY Comparison", "Quarterly", "Regional"];
   
@@ -49,6 +49,14 @@ const Dashboard: React.FC = () => {
     setTimeout(() => {
       navigate('/');
     }, 1000);
+  };
+
+  // When an insurer is selected, we'll get both the name (displayed) and the code (stored)
+  const handleInsurerChange = (value: string) => {
+    setInsurer(value);
+    // The code is stored in the background, but we don't need to display it
+    const selectedInsurer = insurers.find(ins => ins.name === value);
+    console.log("Selected insurer code:", selectedInsurer?.code);
   };
 
   return (
@@ -128,16 +136,16 @@ const Dashboard: React.FC = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Insurer</label>
-                  <Select value={insurer} onValueChange={setInsurer}>
+                  <Select value={insurer} onValueChange={handleInsurerChange}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select Insurer" />
                     </SelectTrigger>
-                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
+                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border max-h-[250px]" position="popper">
                       <SelectGroup>
                         <SelectLabel>Insurers</SelectLabel>
                         {insurers.map((ins) => (
-                          <SelectItem key={ins} value={ins}>
-                            {ins}
+                          <SelectItem key={ins.code} value={ins.name}>
+                            {ins.name}
                           </SelectItem>
                         ))}
                       </SelectGroup>
