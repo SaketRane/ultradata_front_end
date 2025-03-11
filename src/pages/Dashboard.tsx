@@ -34,8 +34,8 @@ const Dashboard: React.FC = () => {
   const [section, setSection] = useState<string>("");
   const [sheet, setSheet] = useState<string>("");
 
-  // Mock data for dropdowns
-  const years = ["2024", "2023", "2022", "2021", "2020"];
+  // Mock data for dropdowns - updated years to only include 2022-2013
+  const years = ["2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013"];
   const insurers = ["Allianz", "AXA", "Zurich", "Liberty Mutual", "Travelers", "Chubb"];
   const sections = ["Claims", "Premiums", "Policies", "Exposure", "Losses"];
   const sheets = ["Summary", "Detailed", "YoY Comparison", "Quarterly", "Regional"];
