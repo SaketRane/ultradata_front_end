@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -105,10 +105,7 @@ const Dashboard: React.FC = () => {
       <main className="flex-1 container mx-auto py-8 px-6 page-transition">
         <section className="mb-8">
           <Card className="shadow-lg glass w-full">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-xl font-semibold">Data Filters</CardTitle>
-            </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Year</label>
