@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
-import { Bell, ChevronDown, LogOut, Settings, User } from "lucide-react";
+import { Bell, ChevronDown, LogOut, Search, Settings, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { insurers } from "@/data/insurers";
+import { Input } from "@/components/ui/input";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -34,11 +35,18 @@ const Dashboard: React.FC = () => {
   const [insurer, setInsurer] = useState<string>("");
   const [section, setSection] = useState<string>("");
   const [sheet, setSheet] = useState<string>("");
+  const [insurerSearchTerm, setInsurerSearchTerm] = useState<string>("");
 
   // Mock data for dropdowns - updated years to only include 2022-2013
   const years = ["2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013"];
   const sections = ["Claims", "Premiums", "Policies", "Exposure", "Losses"];
   const sheets = ["Summary", "Detailed", "YoY Comparison", "Quarterly", "Regional"];
+  
+  // Filter insurers based on search term
+  const filteredInsurers = insurerSearchTerm.length > 0
+    ? insurers.filter(ins => 
+        ins.name.toLowerCase().startsWith(insurerSearchTerm.toLowerCase()))
+    : insurers;
   
   useEffect(() => {
     document.title = "UltraData | Dashboard";
@@ -57,6 +65,13 @@ const Dashboard: React.FC = () => {
     // The code is stored in the background, but we don't need to display it
     const selectedInsurer = insurers.find(ins => ins.name === value);
     console.log("Selected insurer code:", selectedInsurer?.code);
+  };
+
+  // Reset search when closing the dropdown
+  const handleInsurerOpenChange = (open: boolean) => {
+    if (!open) {
+      setInsurerSearchTerm("");
+    }
   };
 
   return (
@@ -136,18 +151,42 @@ const Dashboard: React.FC = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Insurer</label>
-                  <Select value={insurer} onValueChange={handleInsurerChange}>
+                  <Select 
+                    value={insurer} 
+                    onValueChange={handleInsurerChange}
+                    onOpenChange={handleInsurerOpenChange}
+                  >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select Insurer" />
                     </SelectTrigger>
-                    <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border max-h-[250px]" position="popper">
+                    <SelectContent 
+                      className="z-50 bg-white/95 backdrop-blur-sm border-border max-h-[300px]" 
+                      position="popper"
+                    >
+                      <div className="px-3 py-2 sticky top-0 bg-white z-10 border-b">
+                        <div className="relative">
+                          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            placeholder="Search insurers..."
+                            value={insurerSearchTerm}
+                            onChange={(e) => setInsurerSearchTerm(e.target.value)}
+                            className="pl-8 h-9"
+                          />
+                        </div>
+                      </div>
                       <SelectGroup>
-                        <SelectLabel>Insurers</SelectLabel>
-                        {insurers.map((ins) => (
-                          <SelectItem key={ins.code} value={ins.name}>
-                            {ins.name}
-                          </SelectItem>
-                        ))}
+                        <SelectLabel className="px-3 pt-2">Insurers</SelectLabel>
+                        {filteredInsurers.length > 0 ? (
+                          filteredInsurers.map((ins) => (
+                            <SelectItem key={ins.code} value={ins.name}>
+                              {ins.name}
+                            </SelectItem>
+                          ))
+                        ) : (
+                          <div className="px-3 py-2 text-sm text-muted-foreground">
+                            No insurers found
+                          </div>
+                        )}
                       </SelectGroup>
                     </SelectContent>
                   </Select>
