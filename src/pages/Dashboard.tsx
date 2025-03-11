@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -183,7 +182,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
-        <div className="container mx-auto py-3 px-1">
+        <div className="container mx-auto py-2 px-1">
           <div className="flex items-center justify-between">
             <Logo size="md" />
             
@@ -232,14 +231,14 @@ const Dashboard: React.FC = () => {
       </header>
       
       <main className="flex-1 container mx-auto py-4 px-0.5 page-transition data-container">
-        <section className="mb-4 w-full mx-auto">
+        <section className="mb-3 w-full mx-auto">
           <Card className="shadow-lg glass w-full">
-            <CardContent className="p-3">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 dropdown-data">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Year</label>
+            <CardContent className="p-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 dropdown-data compact-dropdown">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium">Year</label>
                   <Select value={year} onValueChange={setYear}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full h-8 text-xs">
                       <SelectValue placeholder="Select Year" />
                     </SelectTrigger>
                     <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
@@ -259,33 +258,33 @@ const Dashboard: React.FC = () => {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Insurer</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium">Insurer</label>
                   <Select 
                     value={insurer} 
                     onValueChange={handleInsurerChange}
                     onOpenChange={handleInsurerOpenChange}
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full h-8 text-xs">
                       <SelectValue placeholder="Select Insurer" />
                     </SelectTrigger>
                     <SelectContent 
                       className="z-50 bg-white/95 backdrop-blur-sm border-border max-h-[300px] dropdown-data" 
                       position="popper"
                     >
-                      <div className="px-3 py-2 sticky top-0 bg-white z-10 border-b">
+                      <div className="px-3 py-1 sticky top-0 bg-white z-10 border-b">
                         <div className="relative">
-                          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                          <Search className="absolute left-2 top-1.5 h-3 w-3 text-muted-foreground" />
                           <Input
                             placeholder="Search insurers..."
                             value={insurerSearchTerm}
                             onChange={(e) => setInsurerSearchTerm(e.target.value)}
-                            className="pl-8 h-9"
+                            className="pl-7 h-7 text-xs"
                           />
                         </div>
                       </div>
                       <SelectGroup>
-                        <SelectLabel className="px-3 pt-2">Insurers</SelectLabel>
+                        <SelectLabel className="px-3 pt-1">Insurers</SelectLabel>
                         {filteredInsurers.length > 0 ? (
                           filteredInsurers.map((ins) => (
                             <SelectItem key={ins.code} value={ins.name}>
@@ -293,7 +292,7 @@ const Dashboard: React.FC = () => {
                             </SelectItem>
                           ))
                         ) : (
-                          <div className="px-3 py-2 text-sm text-muted-foreground">
+                          <div className="px-3 py-1 text-xs text-muted-foreground">
                             No insurers found
                           </div>
                         )}
@@ -302,10 +301,10 @@ const Dashboard: React.FC = () => {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Section</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium">Section</label>
                   <Select value={section} onValueChange={handleSectionChange}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full h-8 text-xs">
                       <SelectValue placeholder="Select Section" />
                     </SelectTrigger>
                     <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
@@ -321,14 +320,14 @@ const Dashboard: React.FC = () => {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Sheet</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium">Sheet</label>
                   <Select 
                     value={sheet} 
                     onValueChange={handleSheetChange}
                     disabled={!section}
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full h-8 text-xs">
                       <SelectValue placeholder={!section ? "Select Section First" : "Select Sheet"} />
                     </SelectTrigger>
                     <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
@@ -341,7 +340,7 @@ const Dashboard: React.FC = () => {
                             </SelectItem>
                           ))
                         ) : (
-                          <div className="px-3 py-2 text-sm text-muted-foreground">
+                          <div className="px-3 py-1 text-xs text-muted-foreground">
                             Please select a section first
                           </div>
                         )}
@@ -366,8 +365,8 @@ const Dashboard: React.FC = () => {
         )}
       </main>
       
-      <footer className="bg-white border-t border-gray-200 py-3">
-        <div className="container mx-auto px-1 text-center text-sm text-gray-500">
+      <footer className="bg-white border-t border-gray-200 py-2">
+        <div className="container mx-auto px-1 text-center text-xs text-gray-500">
           <p>© {new Date().getFullYear()} UltraData. All rights reserved.</p>
         </div>
       </footer>

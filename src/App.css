@@ -67,3 +67,17 @@
   line-height: 0.9rem;
 }
 
+/* Compact dropdowns */
+.compact-dropdown .select-trigger {
+  height: 2rem; /* Reduce height of trigger */
+}
+
+.compact-dropdown label {
+  font-size: 0.7rem;
+  margin-bottom: 0.2rem;
+}
+
+.compact-dropdown .space-y-2 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
