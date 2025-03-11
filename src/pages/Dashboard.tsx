@@ -27,6 +27,74 @@ import { Card, CardContent } from "@/components/ui/card";
 import { insurers } from "@/data/insurers";
 import { Input } from "@/components/ui/input";
 
+// Define section-to-sheets mapping with internal codes
+const sectionSheetsMapping = {
+  "Financial Statements": {
+    code: "FS",
+    sheets: [
+      { code: "BAL", label: "Balance Sheet" },
+      { code: "INC", label: "Income Statement" },
+      { code: "CF", label: "Cash Flow" },
+      { code: "EQ", label: "Equity" },
+      { code: "YOY", label: "YoY Comparison" },
+    ]
+  },
+  "Investments": {
+    code: "INV",
+    sheets: [
+      { code: "SUM", label: "Summary" },
+      { code: "DET", label: "Detailed" },
+      { code: "ALL", label: "Allocation" },
+      { code: "PERF", label: "Performance" },
+    ]
+  },
+  "Premiums, Claims, & LAE": {
+    code: "PCL",
+    sheets: [
+      { code: "SUM", label: "Summary" },
+      { code: "LOB", label: "By Line of Business" },
+      { code: "QTR", label: "Quarterly" },
+      { code: "RATIO", label: "Loss Ratios" },
+    ]
+  },
+  "Provincial Stats": {
+    code: "PROV",
+    sheets: [
+      { code: "SUM", label: "Summary" },
+      { code: "DET", label: "Detailed" },
+      { code: "MAP", label: "Map View" },
+      { code: "TREND", label: "Trends" },
+    ]
+  },
+  "Commissions & Expenses": {
+    code: "CE",
+    sheets: [
+      { code: "SUM", label: "Summary" },
+      { code: "RATIO", label: "Expense Ratios" },
+      { code: "TREND", label: "Trends" },
+      { code: "COMP", label: "Competitive Analysis" },
+    ]
+  },
+  "Reinsurance": {
+    code: "REIN",
+    sheets: [
+      { code: "SUM", label: "Summary" },
+      { code: "PROG", label: "Programs" },
+      { code: "REC", label: "Recoveries" },
+      { code: "PERF", label: "Performance" },
+    ]
+  },
+  "MCT/BAAT": {
+    code: "MCT",
+    sheets: [
+      { code: "CURR", label: "Current Ratio" },
+      { code: "HIST", label: "Historical" },
+      { code: "PROJ", label: "Projection" },
+      { code: "PEER", label: "Peer Comparison" },
+    ]
+  }
+};
+
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   
@@ -36,6 +104,7 @@ const Dashboard: React.FC = () => {
   const [section, setSection] = useState<string>("");
   const [sheet, setSheet] = useState<string>("");
   const [insurerSearchTerm, setInsurerSearchTerm] = useState<string>("");
+  const [availableSheets, setAvailableSheets] = useState<Array<{code: string, label: string}>>([]);
 
   // Mock data for dropdowns - updated years to include 2024-2014 with "Coming Soon" label for 2024
   const years = [
@@ -53,22 +122,24 @@ const Dashboard: React.FC = () => {
   ];
   
   // Updated sections list based on user request
-  const sections = [
-    "Financial Statements", 
-    "Investments", 
-    "Premiums, Claims, & LAE", 
-    "Provincial Stats", 
-    "Commissions & Expenses", 
-    "Reinsurance", 
-    "MCT/BAAT"
-  ];
-  const sheets = ["Summary", "Detailed", "YoY Comparison", "Quarterly", "Regional"];
+  const sections = Object.keys(sectionSheetsMapping);
   
   // Filter insurers based on search term
   const filteredInsurers = insurerSearchTerm.length > 0
     ? insurers.filter(ins => 
         ins.name.toLowerCase().startsWith(insurerSearchTerm.toLowerCase()))
     : insurers;
+  
+  // Update available sheets when section changes
+  useEffect(() => {
+    if (section) {
+      setAvailableSheets(sectionSheetsMapping[section].sheets);
+      // Reset sheet selection when section changes
+      setSheet("");
+    } else {
+      setAvailableSheets([]);
+    }
+  }, [section]);
   
   useEffect(() => {
     document.title = "UltraData | Dashboard";
@@ -87,6 +158,20 @@ const Dashboard: React.FC = () => {
     // The code is stored in the background, but we don't need to display it
     const selectedInsurer = insurers.find(ins => ins.name === value);
     console.log("Selected insurer code:", selectedInsurer?.code);
+  };
+
+  // When a section is selected, we'll get both the name (displayed) and the code (stored)
+  const handleSectionChange = (value: string) => {
+    setSection(value);
+    const selectedSection = sectionSheetsMapping[value];
+    console.log("Selected section code:", selectedSection.code);
+  };
+
+  // When a sheet is selected, we'll get both the name (displayed) and the code (stored)
+  const handleSheetChange = (value: string) => {
+    setSheet(value);
+    const selectedSheet = availableSheets.find(s => s.label === value);
+    console.log("Selected sheet code:", selectedSheet?.code);
   };
 
   // Reset search when closing the dropdown
@@ -220,7 +305,7 @@ const Dashboard: React.FC = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Section</label>
-                  <Select value={section} onValueChange={setSection}>
+                  <Select value={section} onValueChange={handleSectionChange}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select Section" />
                     </SelectTrigger>
@@ -239,18 +324,28 @@ const Dashboard: React.FC = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Sheet</label>
-                  <Select value={sheet} onValueChange={setSheet}>
+                  <Select 
+                    value={sheet} 
+                    onValueChange={handleSheetChange}
+                    disabled={!section}
+                  >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select Sheet" />
+                      <SelectValue placeholder={!section ? "Select Section First" : "Select Sheet"} />
                     </SelectTrigger>
                     <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
                       <SelectGroup>
                         <SelectLabel>Sheets</SelectLabel>
-                        {sheets.map((s) => (
-                          <SelectItem key={s} value={s}>
-                            {s}
-                          </SelectItem>
-                        ))}
+                        {availableSheets.length > 0 ? (
+                          availableSheets.map((s) => (
+                            <SelectItem key={s.code} value={s.label}>
+                              {s.label}
+                            </SelectItem>
+                          ))
+                        ) : (
+                          <div className="px-3 py-2 text-sm text-muted-foreground">
+                            Please select a section first
+                          </div>
+                        )}
                       </SelectGroup>
                     </SelectContent>
                   </Select>
