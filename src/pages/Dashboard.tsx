@@ -39,7 +39,16 @@ const Dashboard: React.FC = () => {
 
   // Mock data for dropdowns - updated years to only include 2022-2013
   const years = ["2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013"];
-  const sections = ["Claims", "Premiums", "Policies", "Exposure", "Losses"];
+  // Updated sections list based on user request
+  const sections = [
+    "Financial Statements", 
+    "Investments", 
+    "Premiums, Claims, & LAE", 
+    "Provincial Stats", 
+    "Commissions & Expenses", 
+    "Reinsurance", 
+    "MCT/BAAT"
+  ];
   const sheets = ["Summary", "Detailed", "YoY Comparison", "Quarterly", "Regional"];
   
   // Filter insurers based on search term
