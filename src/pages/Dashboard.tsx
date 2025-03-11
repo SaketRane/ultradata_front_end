@@ -12,7 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import {
@@ -104,10 +103,6 @@ const Dashboard: React.FC = () => {
       </header>
       
       <main className="flex-1 container mx-auto py-8 px-6 page-transition">
-        <div className="mb-8">
-          {/* Removed the "Access your property and casualty data below" text */}
-        </div>
-        
         <section className="mb-8">
           <Card className="shadow-lg glass w-full">
             <CardHeader className="pb-3">
@@ -193,26 +188,6 @@ const Dashboard: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-        </section>
-        
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="glass p-6 rounded-lg shadow-md animate-fade-up" style={{animationDelay: '100ms'}}>
-            <h3 className="text-lg font-semibold mb-2">Recent Reports</h3>
-            <Separator className="my-3" />
-            <p className="text-gray-500 text-sm">Select a data configuration to view reports</p>
-          </div>
-          
-          <div className="glass p-6 rounded-lg shadow-md animate-fade-up" style={{animationDelay: '200ms'}}>
-            <h3 className="text-lg font-semibold mb-2">Saved Filters</h3>
-            <Separator className="my-3" />
-            <p className="text-gray-500 text-sm">No saved filters yet</p>
-          </div>
-          
-          <div className="glass p-6 rounded-lg shadow-md animate-fade-up" style={{animationDelay: '300ms'}}>
-            <h3 className="text-lg font-semibold mb-2">Quick Stats</h3>
-            <Separator className="my-3" />
-            <p className="text-gray-500 text-sm">Select data to view statistics</p>
-          </div>
         </section>
       </main>
       
