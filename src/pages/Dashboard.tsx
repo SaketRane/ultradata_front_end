@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -111,7 +112,7 @@ const Dashboard: React.FC = () => {
 
   const years = [
     { value: "2024", label: "2024 (Coming Soon)", disabled: true },
-    { value: "2023", label: "2023" },
+    { value: "2023", label: "2023 (Coming Soon)", disabled: true },
     { value: "2022", label: "2022" },
     { value: "2021", label: "2021" },
     { value: "2020", label: "2020" },
