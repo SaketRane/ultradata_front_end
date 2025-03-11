@@ -84,7 +84,7 @@ const Dashboard: React.FC = () => {
       
       <main className="flex-1 container mx-auto py-8 px-6 page-transition">
         <div className="mb-8">
-          <p className="text-gray-600">Access your property and casualty data below</p>
+          {/* Removed the "Access your property and casualty data below" text */}
         </div>
         
         <section className="mb-8">
