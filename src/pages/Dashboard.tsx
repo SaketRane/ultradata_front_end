@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -357,7 +358,7 @@ const Dashboard: React.FC = () => {
           <section className="mb-4 w-full mx-auto">
             <Card className="shadow-lg glass w-full">
               <CardContent className="p-3">
-                <h2 className="text-xl font-semibold mb-3">Premiums Written by Province</h2>
+                <h2 className="text-lg font-semibold mb-3">Premiums Written by Province</h2>
                 <PremiumsTable />
               </CardContent>
             </Card>
