@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
@@ -6,7 +5,7 @@ import { cn } from "@/lib/utils";
 const PremiumsTable: React.FC = () => {
   return (
     <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
-      <Table className="min-w-[1200px]">
+      <Table className="min-w-[1200px] text-sm">
         <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
           <TableRow>
             <TableHead className="w-[250px] font-semibold text-left">Class of Insurance</TableHead>
@@ -27,7 +26,7 @@ const PremiumsTable: React.FC = () => {
             <TableHead className="font-semibold text-center">Total</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="text-xs">
           {/* Property */}
           <TableRow>
             <TableCell className="font-medium">Property</TableCell>
