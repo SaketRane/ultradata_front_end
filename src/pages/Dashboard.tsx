@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -183,7 +182,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
-        <div className="container mx-auto py-4 px-2">
+        <div className="container mx-auto py-3 px-1">
           <div className="flex items-center justify-between">
             <Logo size="md" />
             
@@ -231,11 +230,11 @@ const Dashboard: React.FC = () => {
         </div>
       </header>
       
-      <main className="flex-1 container mx-auto py-6 px-1 page-transition data-container">
-        <section className="mb-6 w-full mx-auto">
+      <main className="flex-1 container mx-auto py-4 px-0.5 page-transition data-container">
+        <section className="mb-4 w-full mx-auto">
           <Card className="shadow-lg glass w-full">
-            <CardContent className="p-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <CardContent className="p-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Year</label>
                   <Select value={year} onValueChange={setYear}>
@@ -355,10 +354,10 @@ const Dashboard: React.FC = () => {
         </section>
         
         {shouldShowPremiumsTable() && (
-          <section className="mb-6 w-full mx-auto">
+          <section className="mb-4 w-full mx-auto">
             <Card className="shadow-lg glass w-full">
-              <CardContent className="p-4">
-                <h2 className="text-xl font-semibold mb-4">Premiums Written by Province</h2>
+              <CardContent className="p-3">
+                <h2 className="text-xl font-semibold mb-3">Premiums Written by Province</h2>
                 <PremiumsTable />
               </CardContent>
             </Card>
@@ -366,8 +365,8 @@ const Dashboard: React.FC = () => {
         )}
       </main>
       
-      <footer className="bg-white border-t border-gray-200 py-4">
-        <div className="container mx-auto px-2 text-center text-sm text-gray-500">
+      <footer className="bg-white border-t border-gray-200 py-3">
+        <div className="container mx-auto px-1 text-center text-sm text-gray-500">
           <p>© {new Date().getFullYear()} UltraData. All rights reserved.</p>
         </div>
       </footer>

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,7 +19,7 @@ export default {
         'md': '768px',
         'lg': '1024px',
         'xl': '1536px',
-        '2xl': '1800px'
+        '2xl': '1800px'  // Increased from default
       }
     },
     extend: {

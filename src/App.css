@@ -1,9 +1,9 @@
-
 #root {
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1rem; /* Reduced padding */
   text-align: center;
   width: 100%; /* Use full width */
+  max-width: 100%; /* Ensure no max-width restriction */
 }
 
 .logo {
@@ -52,4 +52,5 @@
 .data-container {
   max-width: 100%;
   width: 100%;
+  padding: 0 0.5rem; /* Minimal padding */
 }
