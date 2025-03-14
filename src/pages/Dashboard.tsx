@@ -65,7 +65,7 @@ const sectionSheetsMapping = {
     sheets: [
       { code: "6710", label: "Premiums Written" },
       { code: "6720", label: "Premiums Earned" },
-      { code: "6730", label: "Claims Inc (incl Adj Exp)" },
+      { code: "6730", label: "Claims Inc (incl Adj Exp Disc)" },
       { code: "6731", label: "Claims Incurred including Adjustment Expenses - Undiscounted" },
     ]
   },
@@ -397,7 +397,7 @@ const Dashboard: React.FC = () => {
           <section className="mb-4 w-full mx-auto">
             <Card className="shadow-lg glass w-full">
               <CardContent className="p-3">
-                <h2 className="text-lg font-semibold mb-3">Claims Inc (incl Adj Exp) by Province</h2>
+                <h2 className="text-lg font-semibold mb-3">Claims Inc (incl Adj Exp Disc) by Province</h2>
                 <ClaimsIncurredTable />
               </CardContent>
             </Card>
