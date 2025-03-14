@@ -1,397 +1,187 @@
+
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
+// Define province/territory codes
+const provinceCodes = {
+  "NL": "01",
+  "PE": "02",
+  "NS": "03", 
+  "NB": "04",
+  "QC": "05",
+  "ON": "06",
+  "MB": "07",
+  "SK": "08",
+  "AB": "09",
+  "BC": "10",
+  "YK": "11",
+  "NW": "12",
+  "NU": "14",
+  "OUT": "18",
+  "Total": "19"
+};
+
+// Define row data with codes
+const tableRows = [
+  // Property
+  { name: "Property", indent: 0, rowCode: "", isSubtotal: false, isTotal: false },
+  { name: "- Personal excluding Home and Product Warranty", indent: 1, rowCode: "03", isSubtotal: false, isTotal: false },
+  { name: "- Home Warranty", indent: 2, rowCode: "04", isSubtotal: false, isTotal: false },
+  { name: "- Product Warranty", indent: 2, rowCode: "05", isSubtotal: false, isTotal: false },
+  { name: "Subtotal - Personal", indent: 1, rowCode: "06", isSubtotal: true, isTotal: false },
+  { name: "- Commercial", indent: 1, rowCode: "07", isSubtotal: false, isTotal: false },
+  { name: "Property - total", indent: 0, rowCode: "09", isSubtotal: false, isTotal: true },
+  
+  // Aircraft
+  { name: "Aircraft", indent: 0, rowCode: "10", isSubtotal: false, isTotal: false },
+  
+  // Automobile
+  { name: "Automobile:", indent: 0, rowCode: "", isSubtotal: false, isTotal: false },
+  { name: "Private Passenger", indent: 1, rowCode: "", isSubtotal: false, isTotal: false },
+  { name: "- Liability", indent: 2, rowCode: "11", isSubtotal: false, isTotal: false },
+  { name: "- Personal Accident", indent: 2, rowCode: "12", isSubtotal: false, isTotal: false },
+  { name: "- Other", indent: 2, rowCode: "13", isSubtotal: false, isTotal: false },
+  { name: "Subtotal - Private Passenger", indent: 1, rowCode: "14", isSubtotal: true, isTotal: false },
+  
+  { name: "Other than Private Passenger", indent: 1, rowCode: "", isSubtotal: false, isTotal: false },
+  { name: "- Liability", indent: 2, rowCode: "15", isSubtotal: false, isTotal: false },
+  { name: "- Personal Accident", indent: 2, rowCode: "16", isSubtotal: false, isTotal: false },
+  { name: "- Other", indent: 2, rowCode: "17", isSubtotal: false, isTotal: false },
+  { name: "Subtotal - Other than Private Passenger", indent: 1, rowCode: "18", isSubtotal: true, isTotal: false },
+  
+  { name: "Facility Assoc. Residual Market", indent: 1, rowCode: "", isSubtotal: false, isTotal: false },
+  { name: "- Liability", indent: 2, rowCode: "22", isSubtotal: false, isTotal: false },
+  { name: "- Personal Accident", indent: 2, rowCode: "23", isSubtotal: false, isTotal: false },
+  { name: "- Other", indent: 2, rowCode: "24", isSubtotal: false, isTotal: false },
+  { name: "Subtotal - Facility Assoc. Residual Market", indent: 1, rowCode: "25", isSubtotal: true, isTotal: false },
+  
+  { name: "Automobile - Subtotal", indent: 1, rowCode: "", isSubtotal: false, isTotal: false },
+  { name: "- Liability", indent: 2, rowCode: "19", isSubtotal: false, isTotal: false },
+  { name: "- Personal Accident", indent: 2, rowCode: "20", isSubtotal: false, isTotal: false },
+  { name: "- Other", indent: 2, rowCode: "21", isSubtotal: false, isTotal: false },
+  { name: "Automobile - total", indent: 0, rowCode: "29", isSubtotal: false, isTotal: true },
+  
+  // Boiler and Machinery
+  { name: "Boiler and Machinery excluding Equipment Warranty", indent: 0, rowCode: "32", isSubtotal: false, isTotal: false },
+  { name: "- Equipment Warranty", indent: 1, rowCode: "33", isSubtotal: false, isTotal: false },
+  
+  // Credit and others
+  { name: "Credit", indent: 0, rowCode: "34", isSubtotal: false, isTotal: false },
+  { name: "Credit Protection", indent: 0, rowCode: "35", isSubtotal: false, isTotal: false },
+  { name: "Fidelity", indent: 0, rowCode: "36", isSubtotal: false, isTotal: false },
+  { name: "Hail", indent: 0, rowCode: "38", isSubtotal: false, isTotal: false },
+  { name: "Legal Expense", indent: 0, rowCode: "40", isSubtotal: false, isTotal: false },
+  
+  // Liability
+  { name: "Liability:", indent: 0, rowCode: "", isSubtotal: false, isTotal: false },
+  { name: "- Comprehensive General Liability (with products)", indent: 1, rowCode: "50", isSubtotal: false, isTotal: false },
+  { name: "- Comprehensive General Liability (without products)", indent: 1, rowCode: "51", isSubtotal: false, isTotal: false },
+  { name: "- Cyber Liability", indent: 1, rowCode: "52", isSubtotal: false, isTotal: false },
+  { name: "- Directors and Officers Liability", indent: 1, rowCode: "53", isSubtotal: false, isTotal: false },
+  { name: "- Excess Liability", indent: 1, rowCode: "54", isSubtotal: false, isTotal: false },
+  { name: "- Professional Liability", indent: 1, rowCode: "55", isSubtotal: false, isTotal: false },
+  { name: "- Umbrella Liability", indent: 1, rowCode: "56", isSubtotal: false, isTotal: false },
+  { name: "- Pollution Liability", indent: 1, rowCode: "57", isSubtotal: false, isTotal: false },
+  { name: "- All other", indent: 1, rowCode: "58", isSubtotal: false, isTotal: false },
+  { name: "Liability - total", indent: 0, rowCode: "59", isSubtotal: false, isTotal: true },
+  
+  // Mortgage and others
+  { name: "Mortgage", indent: 0, rowCode: "62", isSubtotal: false, isTotal: false },
+  { name: "Other Approved Products", indent: 0, rowCode: "63", isSubtotal: false, isTotal: false },
+  
+  // Surety
+  { name: "Surety:", indent: 0, rowCode: "", isSubtotal: false, isTotal: false },
+  { name: "- Contract Surety", indent: 1, rowCode: "60", isSubtotal: false, isTotal: false },
+  { name: "- All Other Surety", indent: 1, rowCode: "61", isSubtotal: false, isTotal: false },
+  { name: "Surety - total", indent: 0, rowCode: "64", isSubtotal: false, isTotal: true },
+  
+  // Remaining categories
+  { name: "Title", indent: 0, rowCode: "66", isSubtotal: false, isTotal: false },
+  { name: "Marine", indent: 0, rowCode: "68", isSubtotal: false, isTotal: false },
+  { name: "Accident and Sickness", indent: 0, rowCode: "70", isSubtotal: false, isTotal: false },
+  
+  // Totals
+  { name: "Total - direct", indent: 0, rowCode: "79", isSubtotal: false, isTotal: true },
+  { name: "Reinsurance assumed", indent: 1, rowCode: "87", isSubtotal: false, isTotal: false },
+  { name: "Reinsurance ceded", indent: 1, rowCode: "88", isSubtotal: false, isTotal: false },
+  { name: "TOTAL - NET", indent: 0, rowCode: "89", isSubtotal: false, isTotal: true },
+  { name: "Dividends - direct", indent: 0, rowCode: "99", isSubtotal: false, isTotal: false }
+];
+
 const PremiumsEarnedTable: React.FC = () => {
+  // Function to generate data cell code - using 672 prefix for Premiums Earned
+  const generateDataCode = (rowCode: string, provinceCode: string) => {
+    if (!rowCode) return "";
+    return `6720${rowCode}${provinceCode}`;
+  };
+
   return (
     <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
       <Table className="min-w-[1200px] text-xs dropdown-data">
         <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
           <TableRow>
-            <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4">Class of Insurance</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">NL</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">PE</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">NS</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">NB</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">QC</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">ON</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">MB</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">SK</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">AB</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">BC</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">YK</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">NW</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">NU</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">OUT</TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 px-4">Total</TableHead>
+            <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4">
+              Class of Insurance
+            </TableHead>
+            {Object.entries(provinceCodes).map(([province, code]) => (
+              <TableHead 
+                key={province} 
+                className="text-xs font-semibold text-center py-2 px-4"
+                data-province-code={code}
+              >
+                {province}
+              </TableHead>
+            ))}
           </TableRow>
         </TableHeader>
         <TableBody className="text-[10px]">
-          {/* Property */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Property</TableCell>
-            <TableCell colSpan={14} className="py-1 px-4"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Personal excluding Home and Product Warranty</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Home Warranty</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Product Warranty</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 font-medium py-1 px-4">Subtotal - Personal</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Commercial</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow className="bg-gray-50">
-            <TableCell className="font-medium py-1 px-4">Property - total</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center font-medium py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-
-          {/* Aircraft */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Aircraft</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-
-          {/* Automobile */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Automobile:</TableCell>
-            <TableCell colSpan={14} className="py-1 px-4"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">Private Passenger</TableCell>
-            <TableCell colSpan={14} className="py-1 px-4"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Personal Accident</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Other</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 font-medium py-1 px-4">Subtotal - Private Passenger</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">Other than Private Passenger</TableCell>
-            <TableCell colSpan={14} className="py-1 px-4"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Personal Accident</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Other</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 font-medium py-1 px-4">Subtotal - Other than Private Passenger</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">Facility Assoc. Residual Market</TableCell>
-            <TableCell colSpan={14} className="py-1 px-4"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Personal Accident</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Other</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 font-medium py-1 px-4">Subtotal - Facility Assoc. Residual Market</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">Automobile - Subtotal</TableCell>
-            <TableCell colSpan={14} className="py-1 px-4"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Personal Accident</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-16 py-1 px-4 text-[9px]">- Other</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow className="bg-gray-50">
-            <TableCell className="font-medium py-1 px-4">Automobile - total</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center font-medium py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          {/* Boiler and Machinery */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Boiler and Machinery excluding Equipment Warranty</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Equipment Warranty</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          
-          {/* Credit and others */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Credit</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Credit Protection</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Fidelity</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Hail</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Legal Expense</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          {/* Liability */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Liability:</TableCell>
-            <TableCell colSpan={14} className="py-1 px-4"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Comprehensive General Liability (with products)</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Comprehensive General Liability (without products)</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Cyber Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Directors and Officers Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Excess Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Professional Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Umbrella Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Pollution Liability</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- All other</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow className="bg-gray-50">
-            <TableCell className="font-medium py-1 px-4">Liability - total</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center font-medium py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          {/* Mortgage and others */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Mortgage</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Other Approved Products</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          {/* Surety */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Surety:</TableCell>
-            <TableCell colSpan={14} className="py-1 px-4"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- Contract Surety</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-8 py-1 px-4 text-[9px]">- All Other Surety</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow className="bg-gray-50">
-            <TableCell className="font-medium py-1 px-4">Surety - total</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center font-medium py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          {/* Remaining categories */}
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Title</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Marine</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium py-1 px-4">Accident and Sickness</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          
-          {/* Totals */}
-          <TableRow className="bg-gray-100">
-            <TableCell className="font-semibold py-1 px-4">Total - direct</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center font-semibold py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-4 py-1 px-4 text-[9px]">Reinsurance assumed</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell className="pl-4 py-1 px-4 text-[9px]">Reinsurance ceded</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center py-1 px-4 text-[9px]"></TableCell>
-            ))}
-          </TableRow>
-          <TableRow className="bg-primary-50">
-            <TableCell className="font-bold py-1 px-4">TOTAL - NET</TableCell>
-            {Array(15).fill(0).map((_, i) => (
-              <TableCell key={i} className="text-center font-bold py-1 px-4"></TableCell>
-            ))}
-          </TableRow>
+          {tableRows.map((row, index) => {
+            // Calculate left padding based on indentation level
+            const paddingClass = row.indent === 0 
+              ? "" 
+              : row.indent === 1 
+                ? "pl-8" 
+                : "pl-16";
+            
+            // Determine background color for row
+            const bgClass = row.isTotal 
+              ? "bg-gray-50" 
+              : row.isSubtotal 
+                ? "" 
+                : "";
+                
+            // Determine text weight
+            const fontClass = row.isTotal || row.isSubtotal
+              ? "font-medium" 
+              : row.indent === 0 
+                ? "font-medium" 
+                : "";
+                
+            // Determine font size
+            const sizeClass = row.indent > 0 && !row.isSubtotal ? "text-[9px]" : "";
+            
+            return (
+              <TableRow key={index} className={bgClass} data-row-code={row.rowCode}>
+                <TableCell className={`${paddingClass} ${fontClass} py-1 px-4 ${sizeClass}`}>
+                  {row.name}
+                  {row.rowCode && <span className="text-orange-500 ml-2 opacity-50 text-[8px]">{row.rowCode}</span>}
+                </TableCell>
+                
+                {Object.entries(provinceCodes).map(([province, provinceCode]) => {
+                  const dataCode = generateDataCode(row.rowCode, provinceCode);
+                  return (
+                    <TableCell 
+                      key={`${index}-${province}`} 
+                      className={`text-center py-1 px-4 ${sizeClass} ${fontClass}`}
+                      data-code={dataCode}
+                    >
+                      {dataCode && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{dataCode}</span>}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>
