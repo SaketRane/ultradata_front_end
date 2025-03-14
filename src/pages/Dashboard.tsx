@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -66,7 +67,7 @@ const sectionSheetsMapping = {
       { code: "6710", label: "Premiums Written" },
       { code: "6720", label: "Premiums Earned" },
       { code: "6730", label: "Claims Inc (incl Adj Exp)" },
-      { code: "6731", label: "Claims Incurred including Adjustment Expenses - Undiscounted" },
+      { code: "6731", label: "Claims Inc (incl Adj Exp Undisc)" },
     ]
   },
   "Commissions & Expenses": {
@@ -408,7 +409,7 @@ const Dashboard: React.FC = () => {
           <section className="mb-4 w-full mx-auto">
             <Card className="shadow-lg glass w-full">
               <CardContent className="p-3">
-                <h2 className="text-lg font-semibold mb-3">Claims Incurred including Adjustment Expenses - Undiscounted by Province</h2>
+                <h2 className="text-lg font-semibold mb-3">Claims Inc (incl Adj Exp Undisc) by Province</h2>
                 <ClaimsUndiscountedTable />
               </CardContent>
             </Card>
