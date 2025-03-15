@@ -85,10 +85,10 @@ const tableRows = [
   { name: "TOTAL", indent: 0, rowCode: "89", isSubtotal: false, isTotal: true }
 ];
 
-// Definition of column indices for claim types
+// Definition of column indices for claim types - updated per specification
 const columnCodes = {
-  "direct": "8",
-  "reinsuranceAssumed": "9",
+  "direct": "08",
+  "reinsuranceAssumed": "09",
   "reinsuranceCeded": "10", 
   "netIncurred": "11"
 };
@@ -116,16 +116,16 @@ const UndiscountedClaimsTable: React.FC = () => {
             </TableHead>
           </TableRow>
           <TableRow>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code={columnCodes.direct}>
               Direct
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code={columnCodes.reinsuranceAssumed}>
               Reinsurance assumed
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code={columnCodes.reinsuranceCeded}>
               Reinsurance ceded
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code={columnCodes.netIncurred}>
               Net incurred
             </TableHead>
           </TableRow>
