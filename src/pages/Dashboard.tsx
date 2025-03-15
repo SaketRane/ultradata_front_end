@@ -461,7 +461,7 @@ const Dashboard: React.FC = () => {
           <section className="mb-4 w-full mx-auto">
             <Card className="shadow-lg glass w-full">
               <CardContent className="p-3">
-                <h2 className="text-lg font-semibold mb-3">Discounted Amounts & FOREX</h2>
+                <h2 className="text-lg font-semibold mb-3">Disc Amounts & FOREX</h2>
                 <DiscountedAmountsForexTable />
               </CardContent>
             </Card>
