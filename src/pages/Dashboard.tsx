@@ -57,7 +57,7 @@ const sectionSheetsMapping = {
     sheets: [
       { code: "6020", label: "Premiums and Claims" },
       { code: "6021", label: "Undiscounted Claims Incurred" },
-      { code: "6021", label: "Discounted Amounts and Foreign Exchange" },
+      { code: "6021", label: "Disc Amounts & FOREX" },
       { code: "6021", label: "Gains and Losses on Investments" },
       { code: "6030", label: "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year" },
     ]
