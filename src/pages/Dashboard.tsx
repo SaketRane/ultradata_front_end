@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -56,7 +57,7 @@ const sectionSheetsMapping = {
     code: "PCL",
     sheets: [
       { code: "6020", label: "Premiums and Claims" },
-      { code: "6021", label: "Undiscounted Claims Incurred" },
+      { code: "6021", label: "Undisc Claims Inc" },
       { code: "6021", label: "Disc Amounts & FOREX" },
       { code: "6021", label: "Gains and Losses on Investments" },
       { code: "6030", label: "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year" },
