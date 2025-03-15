@@ -149,35 +149,27 @@ const PremiumsAndClaimsTable: React.FC = () => {
           <TableRow>
             <TableHead className="text-xs font-semibold text-center py-2">
               Direct
-              <div className="text-orange-500 text-[8px] opacity-50">1</div>
             </TableHead>
             <TableHead className="text-xs font-semibold text-center py-2">
               Reinsurance assumed
-              <div className="text-orange-500 text-[8px] opacity-50">2</div>
             </TableHead>
             <TableHead className="text-xs font-semibold text-center py-2">
               Reinsurance ceded
-              <div className="text-orange-500 text-[8px] opacity-50">3</div>
             </TableHead>
             <TableHead className="text-xs font-semibold text-center py-2 border-r">
               Net WP
-              <div className="text-orange-500 text-[8px] opacity-50">4</div>
             </TableHead>
             <TableHead className="text-xs font-semibold text-center py-2">
               Direct
-              <div className="text-orange-500 text-[8px] opacity-50">8</div>
             </TableHead>
             <TableHead className="text-xs font-semibold text-center py-2">
               Reinsurance assumed
-              <div className="text-orange-500 text-[8px] opacity-50">9</div>
             </TableHead>
             <TableHead className="text-xs font-semibold text-center py-2">
               Reinsurance ceded
-              <div className="text-orange-500 text-[8px] opacity-50">10</div>
             </TableHead>
             <TableHead className="text-xs font-semibold text-center py-2 border-r">
               Net incurred
-              <div className="text-orange-500 text-[8px] opacity-50">11</div>
             </TableHead>
           </TableRow>
         </TableHeader>
