@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { EyeIcon, EyeOffIcon, Mail, Lock, User } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { EyeIcon, EyeOffIcon, Mail, Lock, User, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -19,7 +20,8 @@ const SuperAdminSetup: React.FC = () => {
   const [superadminExists, setSuperadminExists] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  
   // Check if a superadmin already exists
   useEffect(() => {
     const checkSuperadmin = async () => {
@@ -36,6 +38,7 @@ const SuperAdminSetup: React.FC = () => {
       } catch (error) {
         console.error("Error checking for superadmin:", error);
         toast.error("Error checking for superadmin status");
+        setErrorMessage("Failed to check if a superadmin already exists. Please refresh the page.");
       } finally {
         setIsChecking(false);
       }
@@ -44,40 +47,80 @@ const SuperAdminSetup: React.FC = () => {
     checkSuperadmin();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const validateForm = () => {
+    setErrorMessage(null);
     
     if (!email || !password || !confirmPassword) {
-      toast.error("Please fill in all fields");
-      return;
+      setErrorMessage("Please fill in all fields");
+      return false;
     }
     
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
+      setErrorMessage("Passwords do not match");
+      return false;
     }
     
     if (password.length < 8) {
-      toast.error("Password must be at least 8 characters long");
+      setErrorMessage("Password must be at least 8 characters long");
+      return false;
+    }
+    
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage("Please enter a valid email address");
+      return false;
+    }
+    
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
       return;
     }
     
     setIsLoading(true);
+    setErrorMessage(null);
     
     try {
+      console.log("Calling create-superadmin function with email:", email);
+      
       // Call the Supabase Edge Function using the supabase client
       const { data, error } = await supabase.functions.invoke("create-superadmin", {
         body: { email, password }
       });
       
+      console.log("Response from create-superadmin function:", data);
+      
       if (error) {
+        console.error("Edge function error:", error);
         throw new Error(error.message || "Failed to create superadmin");
+      }
+      
+      if (data && data.error) {
+        console.error("Function returned error:", data.error);
+        throw new Error(data.error);
       }
       
       setShowSuccessDialog(true);
     } catch (error: any) {
-      toast.error(error.message || "Failed to create superadmin");
       console.error("Error creating superadmin:", error);
+      
+      let message = "Failed to create superadmin";
+      
+      if (error.message) {
+        message = error.message;
+      } else if (typeof error === 'string') {
+        message = error;
+      } else if (error.error) {
+        message = error.error;
+      }
+      
+      setErrorMessage(message);
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -133,6 +176,14 @@ const SuperAdminSetup: React.FC = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {errorMessage && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
+          )}
+          
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
