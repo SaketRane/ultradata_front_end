@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -5,16 +6,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 const columnHeaders = [
   { label: "Policies in force", code: "21" },
   { label: "Direct Claims", code: "23" },
-  { label: "Direct", code: "1", group: "WP (less return prems)" },
-  { label: "Reinsurance assumed", code: "2", group: "WP (less return prems)" },
-  { label: "Reinsurance ceded", code: "3", group: "WP (less return prems)" },
-  { label: "Net WP", code: "4", group: "WP (less return prems)" },
-  { label: "Net UEP (BoY)", code: "5" },
+  { label: "Direct", code: "01", group: "WP (less return prems)" },
+  { label: "Reinsurance assumed", code: "02", group: "WP (less return prems)" },
+  { label: "Reinsurance ceded", code: "03", group: "WP (less return prems)" },
+  { label: "Net WP", code: "04", group: "WP (less return prems)" },
+  { label: "Net UEP (BoY)", code: "05" },
   { label: "Net UEP (portf. acq/disp)", code: "25" },
-  { label: "Net UEP (EoY)", code: "6" },
-  { label: "Net EP", code: "7" },
-  { label: "Direct", code: "8", group: "Claims inc. (incl adj exp)" },
-  { label: "Reinsurance assumed", code: "9", group: "Claims inc. (incl adj exp)" },
+  { label: "Net UEP (EoY)", code: "06" },
+  { label: "Net EP", code: "07" },
+  { label: "Direct", code: "08", group: "Claims inc. (incl adj exp)" },
+  { label: "Reinsurance assumed", code: "09", group: "Claims inc. (incl adj exp)" },
   { label: "Reinsurance ceded", code: "10", group: "Claims inc. (incl adj exp)" },
   { label: "Net incurred", code: "11", group: "Claims inc. (incl adj exp)" },
   { label: "Claims ratio (%)", code: "12" }
@@ -118,57 +119,57 @@ const PremiumsAndClaimsTable: React.FC = () => {
             <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4 border-r" rowSpan={2}>
               Class of Insurance
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2}>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="21">
               Policies in force
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2}>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="23">
               Direct Claims
             </TableHead>
             <TableHead colSpan={4} className="text-xs font-semibold text-center py-2 border-r">
               WP (less return prems)
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2}>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="05">
               Net UEP (BoY)
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2}>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="25">
               Net UEP (portf. acq/disp)
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2}>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="06">
               Net UEP (EoY)
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2}>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="07">
               Net EP
             </TableHead>
             <TableHead colSpan={4} className="text-xs font-semibold text-center py-2 border-r">
               Claims inc. (incl adj exp)
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2}>
+            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2} data-column-code="12">
               Claims ratio (%)
             </TableHead>
           </TableRow>
           <TableRow>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="01">
               Direct
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="02">
               Reinsurance assumed
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="03">
               Reinsurance ceded
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-r">
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" data-column-code="04">
               Net WP
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="08">
               Direct
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="09">
               Reinsurance assumed
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2">
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="10">
               Reinsurance ceded
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-r">
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" data-column-code="11">
               Net incurred
             </TableHead>
           </TableRow>
@@ -209,7 +210,7 @@ const PremiumsAndClaimsTable: React.FC = () => {
                 {/* Generate cells for each column */}
                 {columnHeaders.map((column) => {
                   const dataCode = generateDataCode(row.rowCode, column.code);
-                  const borderClass = ['4', '7', '11'].includes(column.code) ? 'border-r' : '';
+                  const borderClass = ['04', '07', '11'].includes(column.code) ? 'border-r' : '';
                   
                   return (
                     <TableCell 
