@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -10,7 +11,7 @@ const columnHeaders = [
   { label: "Reinsurance ceded", code: "3" },
   { label: "Net WP", code: "4" },
   { label: "Net UEP (BoY)", code: "5" },
-  { label: "Net UEP (portf. acq/disp)", code: "25" },
+  { label: "Net UEP (portfolio acq/disp)", code: "25" },
   { label: "Net UEP (EoY)", code: "6" },
   { label: "Net EP", code: "7" },
   { label: "Direct", code: "8" },
@@ -115,120 +116,33 @@ const PremiumsAndClaimsTable: React.FC = () => {
       <Table className="min-w-[1500px] text-xs dropdown-data">
         <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
           <TableRow>
-            <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4" rowSpan={2}>
+            <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4">
               Class of Insurance
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2}>
-              Policies in force
+            <TableHead colSpan={2} className="text-xs font-semibold text-center py-2 border-l">
+              &nbsp;
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2}>
-              Direct Claims
-            </TableHead>
-            <TableHead colSpan={4} className="text-xs font-semibold text-center py-2 border-l">
+            <TableHead colSpan={7} className="text-xs font-semibold text-center py-2 border-l">
               Premiums written less return premiums
             </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2}>
-              Net UEP (BoY)
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2}>
-              Net UEP (portf. acq/disp)
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2}>
-              Net UEP (EoY)
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2}>
-              Net EP
-            </TableHead>
-            <TableHead colSpan={4} className="text-xs font-semibold text-center py-2 border-l">
+            <TableHead colSpan={5} className="text-xs font-semibold text-center py-2 border-l">
               Claims incurred including adjustment expenses
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-2 border-l" rowSpan={2}>
-              Claims ratio (%)
             </TableHead>
           </TableRow>
           <TableRow>
-            <TableHead className="text-xs font-semibold text-center py-1">
-              Direct
-              <div className="text-orange-500 text-[8px] opacity-50">1</div>
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-1">
-              Reinsurance assumed
-              <div className="text-orange-500 text-[8px] opacity-50">2</div>
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-1">
-              Reinsurance ceded
-              <div className="text-orange-500 text-[8px] opacity-50">3</div>
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-1">
-              Net WP
-              <div className="text-orange-500 text-[8px] opacity-50">4</div>
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-1">
-              Direct
-              <div className="text-orange-500 text-[8px] opacity-50">8</div>
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-1">
-              Reinsurance assumed
-              <div className="text-orange-500 text-[8px] opacity-50">9</div>
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-1">
-              Reinsurance ceded
-              <div className="text-orange-500 text-[8px] opacity-50">10</div>
-            </TableHead>
-            <TableHead className="text-xs font-semibold text-center py-1">
-              Net incurred
-              <div className="text-orange-500 text-[8px] opacity-50">11</div>
-            </TableHead>
-          </TableRow>
-          <TableRow className="text-[9px] bg-gray-50">
-            <TableHead className="text-left py-1 px-4">
+            <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4">
               &nbsp;
             </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              21
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              23
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              1
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              2
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              3
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              4
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              5
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              25
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              6
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              7
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              8
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              9
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              10
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              11
-            </TableHead>
-            <TableHead className="text-center py-1 px-1 font-normal">
-              12
-            </TableHead>
+            {columnHeaders.map((header) => (
+              <TableHead 
+                key={header.code} 
+                className="text-xs font-semibold text-center py-2 px-3 whitespace-nowrap"
+                data-column-code={header.code}
+              >
+                {header.label}
+                <div className="text-orange-500 text-[8px] opacity-50">{header.code}</div>
+              </TableHead>
+            ))}
           </TableRow>
         </TableHeader>
         <TableBody className="text-[10px]">
