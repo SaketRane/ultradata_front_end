@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -31,6 +30,7 @@ import PremiumsEarnedTable from "@/components/PremiumsEarnedTable";
 import ClaimsIncurredTable from "@/components/ClaimsIncurredTable";
 import ClaimsUndiscountedTable from "@/components/ClaimsUndiscountedTable";
 import PremiumsAndClaimsTable from "@/components/PremiumsAndClaimsTable";
+import UndiscountedClaimsTable from "@/components/UndiscountedClaimsTable";
 
 const sectionSheetsMapping = {
   "Financial Statements": {
@@ -202,6 +202,12 @@ const Dashboard: React.FC = () => {
   const shouldShowPremiumsAndClaimsTable = () => {
     return section === "Premiums, Claims, & LAE" && 
            sheet === availableSheets.find(s => s.code === "6020")?.label;
+  };
+
+  const shouldShowUndiscountedClaimsTable = () => {
+    return section === "Premiums, Claims, & LAE" && 
+           sheet === availableSheets.find(s => s.code === "6021")?.label &&
+           availableSheets.findIndex(s => s.label === sheet) === 1;
   };
 
   return (
@@ -428,6 +434,17 @@ const Dashboard: React.FC = () => {
               <CardContent className="p-3">
                 <h2 className="text-lg font-semibold mb-3">Premiums and Claims</h2>
                 <PremiumsAndClaimsTable />
+              </CardContent>
+            </Card>
+          </section>
+        )}
+
+        {shouldShowUndiscountedClaimsTable() && (
+          <section className="mb-4 w-full mx-auto">
+            <Card className="shadow-lg glass w-full">
+              <CardContent className="p-3">
+                <h2 className="text-lg font-semibold mb-3">Undiscounted Claims Incurred</h2>
+                <UndiscountedClaimsTable />
               </CardContent>
             </Card>
           </section>
