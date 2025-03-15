@@ -32,14 +32,30 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Development mock user - remove in production
+const DEV_MODE = true; // Set to false to use real authentication
+const mockUser = DEV_MODE ? {
+  id: "dev-user-id",
+  email: "dev@example.com",
+} : null;
+
+const mockProfile = DEV_MODE ? {
+  id: "dev-user-id",
+  email: "dev@example.com",
+  role: "superadmin" as UserRole,
+  company_id: null
+} : null;
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<any | null>(null);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any | null>(mockUser);
+  const [profile, setProfile] = useState<UserProfile | null>(mockProfile);
+  const [loading, setLoading] = useState(!DEV_MODE);
   const navigate = useNavigate();
 
-  // Check if user is authenticated and fetch profile
+  // Check if user is authenticated and fetch profile only if not in dev mode
   useEffect(() => {
+    if (DEV_MODE) return;
+
     // Get current session
     const checkSession = async () => {
       try {
@@ -103,6 +119,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Sign in with email and password
   const signIn = async (email: string, password: string) => {
+    if (DEV_MODE) {
+      // Mock successful login in dev mode
+      return { error: null, needsTwoFactor: false };
+    }
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -125,6 +146,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Sign up with email and password
   const signUp = async (email: string, password: string) => {
+    if (DEV_MODE) {
+      // Mock successful signup in dev mode
+      return { error: null };
+    }
+
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -143,6 +169,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Sign out
   const signOut = async () => {
+    if (DEV_MODE) {
+      // In development mode, just redirect to home
+      navigate("/");
+      return;
+    }
+
     try {
       await supabase.auth.signOut();
       setUser(null);
@@ -162,6 +194,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Reset password
   const resetPassword = async (email: string) => {
+    if (DEV_MODE) {
+      // Mock successful password reset in dev mode
+      toast.success("In development mode, password reset is simulated");
+      return { error: null };
+    }
+
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/reset-password`,
@@ -179,6 +217,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Update password
   const updatePassword = async (password: string) => {
+    if (DEV_MODE) {
+      // Mock successful password update in dev mode
+      toast.success("In development mode, password update is simulated");
+      return { error: null };
+    }
+
     try {
       const { error } = await supabase.auth.updateUser({
         password,
@@ -195,8 +239,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // Check if user is an admin or superadmin
-  const isAdmin = profile?.role === "admin" || profile?.role === "superadmin";
-  const isSuperAdmin = profile?.role === "superadmin";
+  const isAdmin = DEV_MODE ? true : (profile?.role === "admin" || profile?.role === "superadmin");
+  const isSuperAdmin = DEV_MODE ? true : (profile?.role === "superadmin");
 
   const value = {
     user,
