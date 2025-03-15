@@ -88,7 +88,7 @@ const SuperAdminSetup: React.FC = () => {
     try {
       console.log("Calling create-superadmin function with email:", email);
       
-      // Call the Supabase Edge Function using the supabase client
+      // Call the Supabase Edge Function
       const { data, error } = await supabase.functions.invoke("create-superadmin", {
         body: { email, password }
       });

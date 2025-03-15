@@ -2,6 +2,7 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.43.3";
 
+// Set up CORS headers
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -13,6 +14,14 @@ serve(async (req: Request) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  if (req.method !== "POST") {
+    console.error("Method not allowed:", req.method);
+    return new Response(
+      JSON.stringify({ error: "Method not allowed" }),
+      { status: 405, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
   }
 
   try {
@@ -27,7 +36,7 @@ serve(async (req: Request) => {
     });
     
     if (!supabaseUrl || !supabaseServiceKey) {
-      console.error("Missing environment variables: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
+      console.error("Missing environment variables");
       return new Response(
         JSON.stringify({ error: "Server configuration error. Missing required environment variables." }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -36,15 +45,7 @@ serve(async (req: Request) => {
 
     // Create a Supabase client with the Admin key
     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
-
-    // Only proceed if this is a POST request
-    if (req.method !== "POST") {
-      console.error("Method not allowed:", req.method);
-      return new Response(
-        JSON.stringify({ error: "Method not allowed" }),
-        { status: 405, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    console.log("Supabase admin client created");
 
     // Parse request body
     let requestData;
@@ -62,10 +63,7 @@ serve(async (req: Request) => {
     const { email, password } = requestData;
 
     if (!email || !password) {
-      console.error("Missing required fields:", { 
-        email: email ? "provided" : "missing", 
-        password: password ? "provided" : "missing" 
-      });
+      console.error("Missing required fields");
       return new Response(
         JSON.stringify({ error: "Email and password are required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -106,7 +104,7 @@ serve(async (req: Request) => {
     }
 
     // Create the user account
-    console.log("Creating user account");
+    console.log("Creating user account with email:", email);
     let userData;
     try {
       const { data, error } = await supabaseAdmin.auth.admin.createUser({
@@ -121,7 +119,7 @@ serve(async (req: Request) => {
       }
       
       userData = data;
-      console.log("User created:", { userId: userData.user?.id });
+      console.log("User created successfully with ID:", userData.user?.id);
     } catch (error) {
       console.error("Error creating user:", error);
       return new Response(
@@ -139,7 +137,7 @@ serve(async (req: Request) => {
     }
 
     // Set the user role to superadmin
-    console.log("Setting user role to superadmin");
+    console.log("Setting user role to superadmin for user ID:", userData.user.id);
     try {
       const { error } = await supabaseAdmin
         .from("profiles")
@@ -161,7 +159,7 @@ serve(async (req: Request) => {
     }
 
     // Return success response
-    console.log("Superadmin created successfully");
+    console.log("Superadmin created successfully with email:", userData.user.email);
     return new Response(
       JSON.stringify({ 
         message: "Superadmin created successfully", 
