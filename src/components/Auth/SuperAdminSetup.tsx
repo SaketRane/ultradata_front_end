@@ -65,24 +65,18 @@ const SuperAdminSetup: React.FC = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-superadmin`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify({ email, password }),
+      // Call the Supabase Edge Function using the supabase client
+      const { data, error } = await supabase.functions.invoke("create-superadmin", {
+        body: { email, password }
       });
       
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to create superadmin");
+      if (error) {
+        throw new Error(error.message || "Failed to create superadmin");
       }
       
       setShowSuccessDialog(true);
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.message || "Failed to create superadmin");
       console.error("Error creating superadmin:", error);
     } finally {
       setIsLoading(false);
