@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -31,7 +32,6 @@ import ClaimsIncurredTable from "@/components/ClaimsIncurredTable";
 import ClaimsUndiscountedTable from "@/components/ClaimsUndiscountedTable";
 import PremiumsAndClaimsTable from "@/components/PremiumsAndClaimsTable";
 import UndiscountedClaimsTable from "@/components/UndiscountedClaimsTable";
-import CommissionsTable from "@/components/CommissionsTable";
 
 const sectionSheetsMapping = {
   "Financial Statements": {
@@ -209,11 +209,6 @@ const Dashboard: React.FC = () => {
     return section === "Premiums, Claims, & LAE" && 
            sheet === availableSheets.find(s => s.code === "6021")?.label &&
            availableSheets.findIndex(s => s.label === sheet) === 1;
-  };
-
-  const shouldShowCommissionsTable = () => {
-    return section === "Commissions" && 
-           sheet === availableSheets.find(s => s.code === "8010")?.label;
   };
 
   return (
@@ -451,17 +446,6 @@ const Dashboard: React.FC = () => {
               <CardContent className="p-3">
                 <h2 className="text-lg font-semibold mb-3">Undiscounted Claims Incurred</h2>
                 <UndiscountedClaimsTable />
-              </CardContent>
-            </Card>
-          </section>
-        )}
-
-        {shouldShowCommissionsTable() && (
-          <section className="mb-4 w-full mx-auto">
-            <Card className="shadow-lg glass w-full">
-              <CardContent className="p-3">
-                <h2 className="text-lg font-semibold mb-3">Commissions</h2>
-                <CommissionsTable />
               </CardContent>
             </Card>
           </section>
