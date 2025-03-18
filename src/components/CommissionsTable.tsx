@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Table,
@@ -199,84 +198,72 @@ const CommissionsTable = () => {
         </TableBody>
       </Table>
 
-      {/* Summary Tables */}
-      <div className="grid grid-cols-2 mt-8 text-xs">
-        {/* Left empty space */}
-        <div></div>
-        
-        {/* Right side with two tables */}
-        <div className="grid grid-cols-2">
+      {/* Summary Tables - Redesigned with borders and better styling */}
+      <div className="grid grid-cols-1 mt-8 text-xs border border-gray-300 mx-4 mb-4">
+        <div className="grid grid-cols-2 w-full border-collapse">
           {/* Summary of Commissions */}
-          <Table className="min-w-[200px] text-xs dropdown-data">
-            <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-              <TableRow>
-                <TableHead className="text-xs font-semibold text-left py-2 px-4">
-                  Summary of Commissions
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className="text-[10px]">
+          <div className="border-r border-gray-300">
+            <div className="bg-white font-semibold text-center py-2 px-4 border-b border-gray-300">
+              Summary of Commissions
+            </div>
+            
+            <div className="divide-y divide-gray-300">
               {summaryData.map((row, index) => {
-                // Calculate left padding based on indentation level
-                const paddingClass = row.indent === 0 ? "" : "pl-8";
+                // Determine styling based on row type
+                const isHeader = row.indent === 0 && !row.isTotal;
+                const isIndented = row.indent === 1;
+                const isTotal = row.isTotal || row.isSubtotal;
                 
-                // Determine background color for row
-                const bgClass = row.isTotal ? "bg-gray-50" : row.isSubtotal ? "" : "";
-                
-                // Determine text weight
-                const fontClass = row.isTotal || row.isSubtotal
-                  ? "font-medium"
-                  : row.indent === 0
-                    ? "font-medium"
-                    : "";
+                // Different styling for different row types
+                const cellClasses = `
+                  ${isIndented ? 'pl-8 border-b border-dotted border-gray-300' : 'pl-4'} 
+                  ${isTotal ? 'font-medium' : ''}
+                  ${row.isTotal ? 'font-bold' : ''}
+                  py-1 pr-4 flex justify-between items-center
+                `;
                 
                 return (
-                  <TableRow key={index} className={bgClass} data-row-code={row.rowCode}>
-                    <TableCell className={`${paddingClass} ${fontClass} py-1 px-4`}>
-                      {row.label}
-                      {row.rowCode && <span className="text-orange-500 ml-2 opacity-50 text-[8px]">{row.rowCode}</span>}
-                    </TableCell>
-                  </TableRow>
+                  <div 
+                    key={index} 
+                    className={`${isTotal && !row.isSubtotal ? 'border-t border-gray-300 bg-gray-50' : ''}`}
+                  >
+                    <div className={cellClasses}>
+                      <span>{row.label}</span>
+                      {row.rowCode && (
+                        <span className="text-orange-500 ml-2">{row.rowCode}</span>
+                      )}
+                    </div>
+                  </div>
                 );
               })}
-            </TableBody>
-          </Table>
+            </div>
+          </div>
 
           {/* Net Commissions */}
-          <Table className="min-w-[100px] text-xs dropdown-data">
-            <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-              <TableRow>
-                <TableHead className="text-xs font-semibold text-center py-2 px-4">
-                  Net Commissions
-                </TableHead>
-              </TableRow>
-              <TableRow>
-                <TableHead className="text-xs font-semibold text-center py-1 px-4 text-orange-500">
-                  10
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className="text-[10px]">
+          <div>
+            <div className="bg-white font-semibold text-center py-2 px-4 border-b border-gray-300">
+              Net Commissions
+            </div>
+            <div className="text-center py-1 px-4 border-b border-gray-300 text-orange-500 font-semibold">
+              10
+            </div>
+            
+            <div className="divide-y divide-gray-300">
               {summaryData.filter(row => row.code).map((row, index) => {
-                // Determine background color for row
-                const bgClass = row.isTotal ? "bg-gray-50" : row.isSubtotal ? "" : "";
-                
-                // Determine text weight
-                const fontClass = row.isTotal || row.isSubtotal ? "font-medium" : "";
+                // Styling for different row types
+                const isTotal = row.isTotal || row.isSubtotal;
                 
                 return (
-                  <TableRow key={index} className={bgClass}>
-                    <TableCell 
-                      className={`text-center py-1 px-4 ${fontClass}`}
-                      data-code={row.code}
-                    >
-                      {row.code && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{row.code}</span>}
-                    </TableCell>
-                  </TableRow>
+                  <div 
+                    key={index} 
+                    className={`${isTotal && !row.isSubtotal ? 'bg-gray-50' : ''} text-center py-1 px-4`}
+                  >
+                    <span className="text-green-600">{row.code}</span>
+                  </div>
                 );
               })}
-            </TableBody>
-          </Table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
