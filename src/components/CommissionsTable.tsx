@@ -15,6 +15,8 @@ const CommissionsTable = () => {
     {
       code: "09",
       name: "Property - total",
+      indent: 0,
+      isTotal: true,
       cells: [
         { code: "80100902", value: "0" },
         { code: "80100903", value: "0" },
@@ -30,6 +32,8 @@ const CommissionsTable = () => {
     {
       code: "29",
       name: "Automobile - total",
+      indent: 0,
+      isTotal: true,
       cells: [
         { code: "80102902", value: "0" },
         { code: "80102903", value: "0" },
@@ -45,6 +49,8 @@ const CommissionsTable = () => {
     {
       code: "59",
       name: "Liability",
+      indent: 0,
+      isTotal: true,
       cells: [
         { code: "80105902", value: "0" },
         { code: "80105903", value: "0" },
@@ -60,6 +66,8 @@ const CommissionsTable = () => {
     {
       code: "68",
       name: "Marine",
+      indent: 0,
+      isTotal: true,
       cells: [
         { code: "80106802", value: "0" },
         { code: "80106803", value: "0" },
@@ -75,6 +83,8 @@ const CommissionsTable = () => {
     {
       code: "75",
       name: "Other",
+      indent: 0,
+      isTotal: true,
       cells: [
         { code: "80107502", value: "0" },
         { code: "80107503", value: "0" },
@@ -90,6 +100,8 @@ const CommissionsTable = () => {
     {
       code: "79",
       name: "TOTAL",
+      indent: 0,
+      isTotal: true,
       cells: [
         { code: "80107902", value: "0" },
         { code: "80107903", value: "0" },
@@ -106,85 +118,84 @@ const CommissionsTable = () => {
 
   // Summary table data
   const summaryData = [
-    { label: "Gross:", code: "", value: "" },
-    { label: "Commission Expense", code: "80103010", value: "0", rowCode: "30" },
-    { label: "Contingent Commissions", code: "80103310", value: "0", rowCode: "33" },
-    { label: "Other Non-Deferrable Commissions", code: "80103510", value: "0", rowCode: "35" },
-    { label: "Total Gross", code: "80103910", value: "0", rowCode: "39" },
-    { label: "Ceded:", code: "", value: "" },
-    { label: "Commission Income", code: "80104010", value: "0", rowCode: "40" },
-    { label: "Contingent Commissions", code: "80104310", value: "0", rowCode: "43" },
-    { label: "Other Non-Deferrable Commissions", code: "80104510", value: "0", rowCode: "45" },
-    { label: "Total Ceded", code: "80104910", value: "0", rowCode: "49" },
-    { label: "TOTAL NET COMMISSIONS", code: "80108910", value: "0", rowCode: "89" },
+    { label: "Gross:", code: "", value: "", rowCode: "", indent: 0, isSubtotal: false, isTotal: false },
+    { label: "Commission Expense", code: "80103010", value: "0", rowCode: "30", indent: 1, isSubtotal: false, isTotal: false },
+    { label: "Contingent Commissions", code: "80103310", value: "0", rowCode: "33", indent: 1, isSubtotal: false, isTotal: false },
+    { label: "Other Non-Deferrable Commissions", code: "80103510", value: "0", rowCode: "35", indent: 1, isSubtotal: false, isTotal: false },
+    { label: "Total Gross", code: "80103910", value: "0", rowCode: "39", indent: 1, isSubtotal: true, isTotal: false },
+    { label: "Ceded:", code: "", value: "", rowCode: "", indent: 0, isSubtotal: false, isTotal: false },
+    { label: "Commission Income", code: "80104010", value: "0", rowCode: "40", indent: 1, isSubtotal: false, isTotal: false },
+    { label: "Contingent Commissions", code: "80104310", value: "0", rowCode: "43", indent: 1, isSubtotal: false, isTotal: false },
+    { label: "Other Non-Deferrable Commissions", code: "80104510", value: "0", rowCode: "45", indent: 1, isSubtotal: false, isTotal: false },
+    { label: "Total Ceded", code: "80104910", value: "0", rowCode: "49", indent: 1, isSubtotal: true, isTotal: false },
+    { label: "TOTAL NET COMMISSIONS", code: "80108910", value: "0", rowCode: "89", indent: 0, isSubtotal: false, isTotal: true },
   ];
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
       {/* Main Commissions Table */}
-      <Table className="w-full border-collapse text-xs compact-table">
-        <TableHeader>
-          <TableRow className="bg-muted/50">
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle">Class of Insurance</TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">
+      <Table className="min-w-[1200px] text-xs dropdown-data">
+        <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
+          <TableRow>
+            <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4" rowSpan={2}>
+              Class of Insurance
+            </TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="02">
               Deferred Comm.<br/>(BoY)
             </TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="03">
               Unearned Comm<br/>(BoY)
             </TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="04">
               Direct Comm<br/>(WP)
             </TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="05">
               Reinsurance assumed<br/>Comm (WP)
             </TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="06">
               Reinsurance ceded<br/>Comm (WP)
             </TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">Net</TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="07">
+              Net
+            </TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="08">
               Deferred Comm<br/>(EoY)
             </TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="09">
               Unearned Comm<br/>(EoY)
             </TableHead>
-            <TableHead rowSpan={2} className="border text-center font-medium align-middle w-24">Net Commissions</TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code="10">
+              Net Commissions
+            </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          <TableRow className="bg-muted/30">
-            <TableCell className="border text-center"></TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">02</TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">03</TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">04</TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">05</TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">06</TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">07</TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">08</TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">09</TableCell>
-            <TableCell className="border text-center text-amber-500 font-medium">10</TableCell>
-          </TableRow>
-          {commissionsData.map((row, rowIndex) => (
-            <TableRow key={rowIndex} className={rowIndex % 2 === 0 ? "bg-white" : "bg-muted/10"}>
-              <TableCell className="border p-1 relative flex flex-row items-center">
-                <span className={`absolute left-0 top-0 bottom-0 w-1 ${row.name === "TOTAL" ? "bg-green-500" : "bg-blue-500"}`}></span>
-                <span className="text-[9px] ml-2 font-medium text-gray-500">{row.code}</span>
-                <span className="ml-2 truncate">{row.name}</span>
-              </TableCell>
-              {row.cells.map((cell, cellIndex) => (
-                <TableCell 
-                  key={cellIndex} 
-                  className="border text-right p-1"
-                  data-code={cell.code}
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[7px] text-gray-400">{cell.code}</span>
-                    <span className="text-[9px]">{cell.value}</span>
-                  </div>
+        <TableBody className="text-[10px]">
+          {commissionsData.map((row, index) => {
+            // Determine background color for row
+            const bgClass = row.isTotal ? "bg-gray-50" : "";
+                
+            // Determine text weight
+            const fontClass = row.isTotal ? "font-medium" : "";
+            
+            return (
+              <TableRow key={index} className={bgClass} data-row-code={row.code}>
+                <TableCell className={`${fontClass} py-1 px-4`}>
+                  {row.name}
+                  {row.code && <span className="text-orange-500 ml-2 opacity-50 text-[8px]">{row.code}</span>}
                 </TableCell>
-              ))}
-            </TableRow>
-          ))}
+                
+                {row.cells.map((cell, cellIndex) => (
+                  <TableCell 
+                    key={cellIndex} 
+                    className={`text-center py-1 px-4 ${fontClass}`}
+                    data-code={cell.code}
+                  >
+                    {cell.code && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{cell.code}</span>}
+                  </TableCell>
+                ))}
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
 
@@ -196,62 +207,74 @@ const CommissionsTable = () => {
         {/* Right side with two tables */}
         <div className="grid grid-cols-2">
           {/* Summary of Commissions */}
-          <Table className="w-full border-collapse compact-table">
-            <TableHeader>
+          <Table className="min-w-[200px] text-xs dropdown-data">
+            <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
               <TableRow>
-                <TableHead colSpan={2} className="border text-center font-medium">
+                <TableHead className="text-xs font-semibold text-left py-2 px-4">
                   Summary of Commissions
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {summaryData.map((row, index) => (
-                <TableRow key={index} className={index % 2 === 0 ? "bg-white" : "bg-muted/10"}>
-                  <TableCell 
-                    className={`border p-1 ${row.label === "Gross:" || row.label === "Ceded:" 
-                      ? "font-medium bg-muted/20" 
-                      : row.label === "Total Gross" || row.label === "Total Ceded" || row.label === "TOTAL NET COMMISSIONS"
-                        ? "font-medium"
-                        : "pl-4"}`}
-                  >
-                    {row.rowCode && (
-                      <span className="text-[9px] mr-2 text-amber-500 font-medium">{row.rowCode}</span>
-                    )}
-                    {row.label}
-                  </TableCell>
-                </TableRow>
-              ))}
+            <TableBody className="text-[10px]">
+              {summaryData.map((row, index) => {
+                // Calculate left padding based on indentation level
+                const paddingClass = row.indent === 0 ? "" : "pl-8";
+                
+                // Determine background color for row
+                const bgClass = row.isTotal ? "bg-gray-50" : row.isSubtotal ? "" : "";
+                
+                // Determine text weight
+                const fontClass = row.isTotal || row.isSubtotal
+                  ? "font-medium"
+                  : row.indent === 0
+                    ? "font-medium"
+                    : "";
+                
+                return (
+                  <TableRow key={index} className={bgClass} data-row-code={row.rowCode}>
+                    <TableCell className={`${paddingClass} ${fontClass} py-1 px-4`}>
+                      {row.label}
+                      {row.rowCode && <span className="text-orange-500 ml-2 opacity-50 text-[8px]">{row.rowCode}</span>}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
 
           {/* Net Commissions */}
-          <Table className="w-full border-collapse compact-table">
-            <TableHeader>
+          <Table className="min-w-[100px] text-xs dropdown-data">
+            <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
               <TableRow>
-                <TableHead className="border text-center font-medium">
+                <TableHead className="text-xs font-semibold text-center py-2 px-4">
                   Net Commissions
                 </TableHead>
               </TableRow>
               <TableRow>
-                <TableHead className="border text-center text-amber-500 font-medium">
+                <TableHead className="text-xs font-semibold text-center py-1 px-4 text-orange-500">
                   10
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {summaryData.filter(row => row.code).map((row, index) => (
-                <TableRow key={index} className={index % 2 === 0 ? "bg-white" : "bg-muted/10"}>
-                  <TableCell 
-                    className="border text-right p-1"
-                    data-code={row.code}
-                  >
-                    <div className="flex flex-col">
-                      <span className="text-[7px] text-gray-400">{row.code}</span>
-                      <span className="text-[9px]">{row.value}</span>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+            <TableBody className="text-[10px]">
+              {summaryData.filter(row => row.code).map((row, index) => {
+                // Determine background color for row
+                const bgClass = row.isTotal ? "bg-gray-50" : row.isSubtotal ? "" : "";
+                
+                // Determine text weight
+                const fontClass = row.isTotal || row.isSubtotal ? "font-medium" : "";
+                
+                return (
+                  <TableRow key={index} className={bgClass}>
+                    <TableCell 
+                      className={`text-center py-1 px-4 ${fontClass}`}
+                      data-code={row.code}
+                    >
+                      {row.code && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{row.code}</span>}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </div>
