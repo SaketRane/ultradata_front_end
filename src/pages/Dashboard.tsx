@@ -72,7 +72,7 @@ const sectionSheetsMapping = {
       { code: "6731", label: "Claims Inc (incl Adj Exp Undisc)" },
     ]
   },
-  "Commissions & Expenses": {
+  "Commissions": {
     code: "CE",
     sheets: [
       { code: "8010", label: "Commissions" },
