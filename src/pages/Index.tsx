@@ -7,19 +7,13 @@ import SuperAdminSetup from "@/components/Auth/SuperAdminSetup";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 
-// Development mode flag - remove in production
-const DEV_MODE = true;
-
 const Index: React.FC = () => {
   const { user, loading } = useAuth();
   const [isSuperadminRequired, setIsSuperadminRequired] = useState(false);
-  const [isChecking, setIsChecking] = useState(!DEV_MODE);
+  const [isChecking, setIsChecking] = useState(true);
   
   useEffect(() => {
     document.title = "UltraData | Sign In";
-    
-    // Skip superadmin check in dev mode
-    if (DEV_MODE) return;
     
     // Check if a superadmin exists
     const checkSuperadmin = async () => {
@@ -42,11 +36,6 @@ const Index: React.FC = () => {
 
     checkSuperadmin();
   }, []);
-
-  // In dev mode, always redirect to dashboard
-  if (DEV_MODE) {
-    return <Navigate to="/dashboard" replace />;
-  }
 
   // Redirect to dashboard if already logged in
   if (!loading && user) {
