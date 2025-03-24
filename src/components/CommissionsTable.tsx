@@ -91,17 +91,6 @@ const CommissionsTable: React.FC = () => {
                 Net Commissions
               </TableHead>
             </TableRow>
-            <TableRow className="h-5">
-              {Object.values(mainTableColumnCodes).map((code) => (
-                <TableHead 
-                  key={code} 
-                  className="text-[10px] font-medium text-center py-0 px-2"
-                  data-column-code={code}
-                >
-                  {/* Column code is now hidden */}
-                </TableHead>
-              ))}
-            </TableRow>
           </TableHeader>
           <TableBody className="text-[10px]">
             {mainTableRows.map((row, index) => {
@@ -146,12 +135,6 @@ const CommissionsTable: React.FC = () => {
               </TableHead>
               <TableHead className="text-xs font-semibold text-center py-1 px-2 w-[120px]">
                 Net Commissions
-              </TableHead>
-            </TableRow>
-            <TableRow className="h-4">
-              <TableHead></TableHead>
-              <TableHead className="text-[10px] font-medium text-center py-0 px-2">
-                {/* Column code is now hidden */}
               </TableHead>
             </TableRow>
           </TableHeader>
