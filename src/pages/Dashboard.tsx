@@ -31,6 +31,7 @@ import ClaimsIncurredTable from "@/components/ClaimsIncurredTable";
 import ClaimsUndiscountedTable from "@/components/ClaimsUndiscountedTable";
 import PremiumsAndClaimsTable from "@/components/PremiumsAndClaimsTable";
 import UndiscountedClaimsTable from "@/components/UndiscountedClaimsTable";
+import ClaimsAndAdjustmentExpensesTable from "@/components/ClaimsAndAdjustmentExpensesTable";
 
 const sectionSheetsMapping = {
   "Financial Statements": {
@@ -206,6 +207,11 @@ const Dashboard: React.FC = () => {
     return section === "Premiums, Claims, & LAE" && 
            sheet === availableSheets.find(s => s.code === "6021")?.label &&
            availableSheets.findIndex(s => s.label === sheet) === 1;
+  };
+
+  const shouldShowClaimsAndAdjustmentExpensesTable = () => {
+    return section === "Premiums, Claims, & LAE" && 
+           sheet === availableSheets.find(s => s.code === "6030")?.label;
   };
 
   return (
@@ -443,6 +449,17 @@ const Dashboard: React.FC = () => {
               <CardContent className="p-3">
                 <h2 className="text-lg font-semibold mb-3">Undiscounted Claims Incurred</h2>
                 <UndiscountedClaimsTable />
+              </CardContent>
+            </Card>
+          </section>
+        )}
+
+        {shouldShowClaimsAndAdjustmentExpensesTable() && (
+          <section className="mb-4 w-full mx-auto">
+            <Card className="shadow-lg glass w-full">
+              <CardContent className="p-3">
+                <h2 className="text-lg font-semibold mb-3">Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year</h2>
+                <ClaimsAndAdjustmentExpensesTable />
               </CardContent>
             </Card>
           </section>
