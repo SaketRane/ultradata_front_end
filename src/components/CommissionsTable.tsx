@@ -63,38 +63,42 @@ const CommissionsTable: React.FC = () => {
               <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4" rowSpan={2}>
                 Class of Insurance
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.deferredCommBoY}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Deferred Comm. (BoY)
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.unearnedCommBoY}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Unearned Comm (BoY)
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.directCommWP}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Direct Comm (WP)
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.reinsuranceAssumedCommWP}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Reinsurance assumed Comm (WP)
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.reinsuranceCededCommWP}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Reinsurance ceded Comm (WP)
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.net}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Net
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.deferredCommEoY}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Deferred Comm (EoY)
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.unearnedCommEoY}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Unearned Comm (EoY)
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4" data-column-code={mainTableColumnCodes.netCommissions}>
+              <TableHead className="text-xs font-semibold text-center py-2 px-4">
                 Net Commissions
               </TableHead>
             </TableRow>
             <TableRow>
               {Object.values(mainTableColumnCodes).map((code) => (
-                <TableHead key={code} className="text-[10px] font-medium text-center py-1 px-4 text-orange-500">
-                  {code}
+                <TableHead 
+                  key={code} 
+                  className="text-[10px] font-medium text-center py-1 px-4"
+                  data-column-code={code}
+                >
+                  <span className="text-orange-500">{code}</span>
                 </TableHead>
               ))}
             </TableRow>
@@ -108,18 +112,18 @@ const CommissionsTable: React.FC = () => {
                 <TableRow key={index} className={bgClass} data-row-code={row.rowCode}>
                   <TableCell className="font-medium py-1 px-4">
                     {row.name}
-                    {row.rowCode && <span className="text-orange-500 ml-2 opacity-80 text-[9px]">{row.rowCode}</span>}
+                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
                   </TableCell>
                   
                   {Object.values(mainTableColumnCodes).map((columnCode) => {
                     const dataCode = generateMainTableDataCode(row.rowCode, columnCode);
                     return (
                       <TableCell 
-                        key={`${row.rowCode}-${columnCode}`} 
-                        className="text-center py-1 px-4"
+                        key={`${row.rowCode}-${columnCode}`}
+                        className="text-center py-1 px-4 group"
                         data-code={dataCode}
                       >
-                        <span className="text-green-600 opacity-50 hover:opacity-100 text-[9px]">
+                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
                           {dataCode}
                         </span>
                       </TableCell>
@@ -134,20 +138,20 @@ const CommissionsTable: React.FC = () => {
 
       {/* Summary Table */}
       <div className="mt-8 overflow-auto rounded-md border bg-white/80 backdrop-blur-sm">
-        <Table className="min-w-[600px] text-xs dropdown-data">
+        <Table className="text-xs dropdown-data" style={{ maxWidth: "450px" }}>
           <TableHeader className="bg-white/95 backdrop-blur-sm z-10">
             <TableRow>
-              <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4">
+              <TableHead className="w-[300px] text-xs font-semibold text-left py-2 px-4">
                 Summary of Commissions
               </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-2 px-4">
+              <TableHead className="text-xs font-semibold text-center py-2 px-4 w-[150px]">
                 Net Commissions
               </TableHead>
             </TableRow>
             <TableRow>
               <TableHead></TableHead>
-              <TableHead className="text-[10px] font-medium text-center py-1 px-4 text-orange-500">
-                10
+              <TableHead className="text-[10px] font-medium text-center py-1 px-4">
+                <span className="text-orange-500">10</span>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -161,17 +165,17 @@ const CommissionsTable: React.FC = () => {
               
               return (
                 <TableRow key={index} data-row-code={row.rowCode}>
-                  <TableCell className={`${paddingClass} ${fontClass} py-1 px-4`}>
+                  <TableCell className={`${paddingClass} ${fontClass} py-1 px-4 border-b`}>
                     {row.name}
-                    {row.rowCode && <span className="text-orange-500 ml-2 opacity-80 text-[9px]">{row.rowCode}</span>}
+                    {row.rowCode && <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>}
                   </TableCell>
                   
                   <TableCell 
-                    className="text-center py-1 px-4"
+                    className="text-center py-1 px-4 border-b group"
                     data-code={generateSummaryTableDataCode(row.rowCode)}
                   >
                     {row.rowCode && (
-                      <span className="text-green-600 opacity-50 hover:opacity-100 text-[9px]">
+                      <span className="invisible group-hover:visible text-green-600 text-[9px]">
                         {generateSummaryTableDataCode(row.rowCode)}
                       </span>
                     )}
