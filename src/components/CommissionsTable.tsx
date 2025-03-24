@@ -98,7 +98,7 @@ const CommissionsTable: React.FC = () => {
                   className="text-[10px] font-medium text-center py-1 px-4"
                   data-column-code={code}
                 >
-                  <span className="text-orange-500">{code}</span>
+                  {/* Column code is now hidden */}
                 </TableHead>
               ))}
             </TableRow>
@@ -109,7 +109,7 @@ const CommissionsTable: React.FC = () => {
               const bgClass = row.isTotal ? "bg-gray-50" : "";
               
               return (
-                <TableRow key={index} className={bgClass} data-row-code={row.rowCode}>
+                <TableRow key={index} className={`${bgClass} h-6`} data-row-code={row.rowCode}>
                   <TableCell className="font-medium py-1 px-4">
                     {row.name}
                     <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
@@ -151,7 +151,7 @@ const CommissionsTable: React.FC = () => {
             <TableRow>
               <TableHead></TableHead>
               <TableHead className="text-[10px] font-medium text-center py-1 px-4">
-                <span className="text-orange-500">10</span>
+                {/* Column code is now hidden */}
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -164,14 +164,14 @@ const CommissionsTable: React.FC = () => {
               const fontClass = row.isHeader ? "font-medium italic" : "font-normal";
               
               return (
-                <TableRow key={index} data-row-code={row.rowCode}>
-                  <TableCell className={`${paddingClass} ${fontClass} py-1 px-4 border-b`}>
+                <TableRow key={index} className="h-6" data-row-code={row.rowCode}>
+                  <TableCell className={`${paddingClass} ${fontClass} py-0 px-4 border-b`}>
                     {row.name}
                     {row.rowCode && <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>}
                   </TableCell>
                   
                   <TableCell 
-                    className="text-center py-1 px-4 border-b group"
+                    className="text-center py-0 px-4 border-b group"
                     data-code={generateSummaryTableDataCode(row.rowCode)}
                   >
                     {row.rowCode && (
