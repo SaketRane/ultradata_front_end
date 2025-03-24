@@ -8,6 +8,7 @@ import ClaimsUndiscountedTable from "@/components/ClaimsUndiscountedTable";
 import PremiumsAndClaimsTable from "@/components/PremiumsAndClaimsTable";
 import UndiscountedClaimsTable from "@/components/UndiscountedClaimsTable";
 import ClaimsAndAdjustmentExpensesTable from "@/components/ClaimsAndAdjustmentExpensesTable";
+import CommissionsTable from "@/components/CommissionsTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -56,6 +57,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "6030")?.label;
   };
 
+  const shouldShowCommissionsTable = () => {
+    return section === "Commissions" && 
+           sheet === availableSheets.find(s => s.code === "8010")?.label;
+  };
+
   // Only render the component if one of the conditions is true
   if (
     !shouldShowPremiumsTable() &&
@@ -64,7 +70,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowClaimsUndiscountedTable() &&
     !shouldShowPremiumsAndClaimsTable() &&
     !shouldShowUndiscountedClaimsTable() &&
-    !shouldShowClaimsAndAdjustmentExpensesTable()
+    !shouldShowClaimsAndAdjustmentExpensesTable() &&
+    !shouldShowCommissionsTable()
   ) {
     return null;
   }
@@ -85,6 +92,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Undiscounted Claims Incurred";
   } else if (shouldShowClaimsAndAdjustmentExpensesTable()) {
     title = "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year";
+  } else if (shouldShowCommissionsTable()) {
+    title = "Commissions";
   }
 
   return (
@@ -100,6 +109,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           {shouldShowPremiumsAndClaimsTable() && <PremiumsAndClaimsTable />}
           {shouldShowUndiscountedClaimsTable() && <UndiscountedClaimsTable />}
           {shouldShowClaimsAndAdjustmentExpensesTable() && <ClaimsAndAdjustmentExpensesTable />}
+          {shouldShowCommissionsTable() && <CommissionsTable />}
         </CardContent>
       </Card>
     </section>
