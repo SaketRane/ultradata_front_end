@@ -9,6 +9,7 @@ import PremiumsAndClaimsTable from "@/components/PremiumsAndClaimsTable";
 import UndiscountedClaimsTable from "@/components/UndiscountedClaimsTable";
 import ClaimsAndAdjustmentExpensesTable from "@/components/ClaimsAndAdjustmentExpensesTable";
 import CommissionsTable from "@/components/CommissionsTable";
+import AssetsTable from "@/components/AssetsTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -62,6 +63,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "8010")?.label;
   };
 
+  const shouldShowAssetsTable = () => {
+    return section === "Financial Statements" && 
+           sheet === availableSheets.find(s => s.code === "2010")?.label;
+  };
+
   // Only render the component if one of the conditions is true
   if (
     !shouldShowPremiumsTable() &&
@@ -71,7 +77,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowPremiumsAndClaimsTable() &&
     !shouldShowUndiscountedClaimsTable() &&
     !shouldShowClaimsAndAdjustmentExpensesTable() &&
-    !shouldShowCommissionsTable()
+    !shouldShowCommissionsTable() &&
+    !shouldShowAssetsTable()
   ) {
     return null;
   }
@@ -94,6 +101,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year";
   } else if (shouldShowCommissionsTable()) {
     title = "Commissions";
+  } else if (shouldShowAssetsTable()) {
+    title = "Assets";
   }
 
   return (
@@ -110,6 +119,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           {shouldShowUndiscountedClaimsTable() && <UndiscountedClaimsTable />}
           {shouldShowClaimsAndAdjustmentExpensesTable() && <ClaimsAndAdjustmentExpensesTable />}
           {shouldShowCommissionsTable() && <CommissionsTable />}
+          {shouldShowAssetsTable() && <AssetsTable />}
         </CardContent>
       </Card>
     </section>
