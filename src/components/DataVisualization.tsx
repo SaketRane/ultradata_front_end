@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import PremiumsTable from "@/components/PremiumsTable";
@@ -10,6 +9,7 @@ import UndiscountedClaimsTable from "@/components/UndiscountedClaimsTable";
 import ClaimsAndAdjustmentExpensesTable from "@/components/ClaimsAndAdjustmentExpensesTable";
 import CommissionsTable from "@/components/CommissionsTable";
 import AssetsTable from "@/components/AssetsTable";
+import LiabilitiesEquityTable from "@/components/LiabilitiesEquityTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -68,7 +68,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "2010")?.label;
   };
 
-  // Only render the component if one of the conditions is true
+  const shouldShowLiabilitiesEquityTable = () => {
+    return section === "Financial Statements" && 
+           sheet === availableSheets.find(s => s.code === "2020")?.label;
+  };
+
   if (
     !shouldShowPremiumsTable() &&
     !shouldShowPremiumsEarnedTable() &&
@@ -78,12 +82,12 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowUndiscountedClaimsTable() &&
     !shouldShowClaimsAndAdjustmentExpensesTable() &&
     !shouldShowCommissionsTable() &&
-    !shouldShowAssetsTable()
+    !shouldShowAssetsTable() &&
+    !shouldShowLiabilitiesEquityTable()
   ) {
     return null;
   }
 
-  // Determine the title based on which table is shown
   let title = "";
   if (shouldShowPremiumsTable()) {
     title = "Premiums Written by Province";
@@ -103,6 +107,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Commissions";
   } else if (shouldShowAssetsTable()) {
     title = "Assets";
+  } else if (shouldShowLiabilitiesEquityTable()) {
+    title = "Liabilities, Equity, Head Office Account, Reserves & AOCI";
   }
 
   return (
@@ -120,6 +126,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           {shouldShowClaimsAndAdjustmentExpensesTable() && <ClaimsAndAdjustmentExpensesTable />}
           {shouldShowCommissionsTable() && <CommissionsTable />}
           {shouldShowAssetsTable() && <AssetsTable />}
+          {shouldShowLiabilitiesEquityTable() && <LiabilitiesEquityTable />}
         </CardContent>
       </Card>
     </section>
