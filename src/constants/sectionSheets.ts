@@ -15,7 +15,6 @@ export const sectionSheetsMapping = {
     code: "INV",
     sheets: [
       { code: "4007", label: "Summary of Investments" },
-      { code: "4080", label: "Other Loans and Invested Assets" },
     ]
   },
   "Premiums, Claims, & LAE": {
