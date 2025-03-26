@@ -19,11 +19,11 @@ const tableColumns = [
     subColumns: [
       { name: "Reinsurance Receivable", code: "24" },
       { name: "Reinsurance Payable", code: "26" },
-      { name: "Net Receivable", code: "28" }
+      { name: "Net Receivable", code: "28" },
+      { name: "Aging of Reinsurance Asset", code: "30" }
     ],
-    width: "3fr"
-  },
-  { name: "Aging of Reinsurance Asset", code: "30", width: "1fr" }
+    width: "4fr"
+  }
 ];
 
 const RegisteredReinsuranceTable: React.FC = () => {
