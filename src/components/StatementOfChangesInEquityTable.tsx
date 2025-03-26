@@ -51,16 +51,22 @@ const StatementOfChangesInEquityTable: React.FC = () => {
     return `2054${rowCode}${colCode}`;
   };
 
+  // Count how many columns are before AOCI
+  const aociStartIndex = columns.findIndex(col => col.isAOCI);
+  // Count how many AOCI columns
+  const aociColumnsCount = columns.filter(col => col.isAOCI).length;
+
   return (
     <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
       <Table className="min-w-[800px] text-xs">
         <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
           <TableRow className="h-6">
             <TableHead className="w-[260px] text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
-            <TableHead colSpan={12} className="text-xs font-semibold text-center py-0 px-1 border-r">
+            <TableHead colSpan={aociStartIndex} className="text-xs font-semibold text-center py-0 px-1"></TableHead>
+            <TableHead colSpan={aociColumnsCount} className="text-xs font-semibold text-center py-0 px-1 border-r bg-blue-50/60">
               Accumulated Other Comprehensive Income (Loss)
             </TableHead>
-            <TableHead colSpan={3} className="text-xs font-semibold text-center py-0 px-1"></TableHead>
+            <TableHead colSpan={columns.length - aociStartIndex - aociColumnsCount} className="text-xs font-semibold text-center py-0 px-1"></TableHead>
           </TableRow>
           <TableRow className="h-6">
             <TableHead className="w-[260px] text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
@@ -77,7 +83,6 @@ const StatementOfChangesInEquityTable: React.FC = () => {
                 }}
               >
                 {col.label}
-                <span className="block text-orange-500 text-[9px]">{col.colCode}</span>
               </TableHead>
             ))}
           </TableRow>
@@ -155,3 +160,4 @@ const StatementOfChangesInEquityTable: React.FC = () => {
 };
 
 export default StatementOfChangesInEquityTable;
+
