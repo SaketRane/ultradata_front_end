@@ -44,7 +44,7 @@ const RegisteredReinsuranceTable: React.FC = () => {
                 return (
                   <TableHead 
                     key={index} 
-                    className="text-xs font-semibold text-center py-2 border-r" 
+                    className="text-xs font-semibold text-center py-2 border-r border-b" 
                     colSpan={column.subColumns.length}
                   >
                     {column.name}
@@ -58,7 +58,12 @@ const RegisteredReinsuranceTable: React.FC = () => {
                     rowSpan={2}
                     data-column-code={column.code}
                   >
-                    {column.name}
+                    <div className="flex flex-col items-center">
+                      {column.name}
+                      {column.code && (
+                        <span className="text-orange-500 text-[9px] mt-1">{column.code}</span>
+                      )}
+                    </div>
                   </TableHead>
                 );
               }
@@ -73,7 +78,12 @@ const RegisteredReinsuranceTable: React.FC = () => {
                     className="text-xs font-semibold text-center py-2 border-r"
                     data-column-code={subColumn.code}
                   >
-                    {subColumn.name}
+                    <div className="flex flex-col items-center">
+                      {subColumn.name}
+                      {subColumn.code && (
+                        <span className="text-orange-500 text-[9px] mt-1">{subColumn.code}</span>
+                      )}
+                    </div>
                   </TableHead>
                 ));
               }
@@ -115,11 +125,9 @@ const RegisteredReinsuranceTable: React.FC = () => {
                           className="text-center py-1 px-2 border-r group"
                           data-code={dataCode}
                         >
-                          {row.rowCode && (
-                            <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                              {dataCode}
-                            </span>
-                          )}
+                          <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                            {dataCode}
+                          </span>
                         </TableCell>
                       );
                     });
@@ -131,11 +139,9 @@ const RegisteredReinsuranceTable: React.FC = () => {
                         className="text-center py-1 px-2 border-r group"
                         data-code={dataCode}
                       >
-                        {row.rowCode && (
-                          <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                            {dataCode}
-                          </span>
-                        )}
+                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                          {dataCode}
+                        </span>
                       </TableCell>
                     ];
                   }
