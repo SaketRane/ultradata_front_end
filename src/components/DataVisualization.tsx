@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import PremiumsTable from "@/components/PremiumsTable";
@@ -14,7 +15,6 @@ import StatementOfIncomeTable from "@/components/StatementOfIncomeTable";
 import ComprehensiveIncomeTable from "@/components/ComprehensiveIncomeTable";
 import StatementOfChangesInEquityTable from "@/components/StatementOfChangesInEquityTable";
 import HeadOfficeAccountAndReservesTable from "@/components/HeadOfficeAccountAndReservesTable";
-import SummaryOfInvestmentsTable from "@/components/SummaryOfInvestmentsTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -98,11 +98,6 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "2045")?.label;
   };
 
-  const shouldShowSummaryOfInvestmentsTable = () => {
-    return section === "Investments" && 
-           sheet === availableSheets.find(s => s.code === "4007")?.label;
-  };
-
   if (
     !shouldShowPremiumsTable() &&
     !shouldShowPremiumsEarnedTable() &&
@@ -117,8 +112,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowStatementOfIncomeTable() &&
     !shouldShowComprehensiveIncomeTable() &&
     !shouldShowStatementOfChangesInEquityTable() &&
-    !shouldShowHeadOfficeAccountAndReservesTable() &&
-    !shouldShowSummaryOfInvestmentsTable()
+    !shouldShowHeadOfficeAccountAndReservesTable()
   ) {
     return null;
   }
@@ -152,8 +146,6 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Statement of Changes in Equity";
   } else if (shouldShowHeadOfficeAccountAndReservesTable()) {
     title = "Head Office Account & Reserves";
-  } else if (shouldShowSummaryOfInvestmentsTable()) {
-    title = "Summary of Investments";
   }
 
   return (
@@ -176,7 +168,6 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           {shouldShowComprehensiveIncomeTable() && <ComprehensiveIncomeTable />}
           {shouldShowStatementOfChangesInEquityTable() && <StatementOfChangesInEquityTable />}
           {shouldShowHeadOfficeAccountAndReservesTable() && <HeadOfficeAccountAndReservesTable />}
-          {shouldShowSummaryOfInvestmentsTable() && <SummaryOfInvestmentsTable />}
         </CardContent>
       </Card>
     </section>
