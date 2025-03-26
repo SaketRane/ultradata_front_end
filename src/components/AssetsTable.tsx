@@ -17,7 +17,7 @@ const assetsTableRows = [
   { name: "Other Loans and Invested Assets", rowCode: "10", indent: 1, isTotal: false, hasVested: true },
   { name: "Total Investments (lines 04 to 10)", rowCode: "19", indent: 0, isTotal: true, hasVested: true },
   { name: "Receivables:", rowCode: "", indent: 0, isHeader: true, hasVested: false },
-  { name: "Unaffiliated Agents and Brokers", rowCode: "20", indent: A_HREF_LOVABLE_UPLOADS_44CB2A13_DF8D_4EE4_B545_B0BF117B2BEF_PNG1, isTotal: false, hasVested: false },
+  { name: "Unaffiliated Agents and Brokers", rowCode: "20", indent: 1, isTotal: false, hasVested: false },
   { name: "Policyholders", rowCode: "21", indent: 1, isTotal: false, hasVested: false },
   { name: "Instalment Premiums", rowCode: "22", indent: 1, isTotal: false, hasVested: false },
   { name: "Other Insurers", rowCode: "23", indent: 1, isTotal: false, hasVested: false },
