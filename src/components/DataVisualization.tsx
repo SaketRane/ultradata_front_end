@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import PremiumsTable from "@/components/PremiumsTable";
@@ -16,6 +17,7 @@ import StatementOfChangesInEquityTable from "@/components/StatementOfChangesInEq
 import HeadOfficeAccountAndReservesTable from "@/components/HeadOfficeAccountAndReservesTable";
 import SummaryOfInvestmentsTable from "@/components/SummaryOfInvestmentsTable";
 import RegisteredReinsuranceTable from "@/components/RegisteredReinsuranceTable";
+import UnregisteredReinsuranceTable from "@/components/UnregisteredReinsuranceTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -109,6 +111,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "7050")?.label;
   };
 
+  const shouldShowUnregisteredReinsuranceTable = () => {
+    return section === "Reinsurance" && 
+           sheet === availableSheets.find(s => s.code === "7060")?.label;
+  };
+
   if (
     !shouldShowPremiumsTable() &&
     !shouldShowPremiumsEarnedTable() &&
@@ -125,7 +132,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowStatementOfChangesInEquityTable() &&
     !shouldShowHeadOfficeAccountAndReservesTable() &&
     !shouldShowSummaryOfInvestmentsTable() &&
-    !shouldShowRegisteredReinsuranceTable()
+    !shouldShowRegisteredReinsuranceTable() &&
+    !shouldShowUnregisteredReinsuranceTable()
   ) {
     return null;
   }
@@ -163,6 +171,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Summary of Investments";
   } else if (shouldShowRegisteredReinsuranceTable()) {
     title = "Registered Reinsurance";
+  } else if (shouldShowUnregisteredReinsuranceTable()) {
+    title = "Unregistered Reinsurance (Canadian)";
   }
 
   return (
@@ -173,6 +183,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           
           {shouldShowSummaryOfInvestmentsTable() && <SummaryOfInvestmentsTable />}
           {shouldShowRegisteredReinsuranceTable() && <RegisteredReinsuranceTable />}
+          {shouldShowUnregisteredReinsuranceTable() && <UnregisteredReinsuranceTable />}
         </CardContent>
       </Card>
     </section>
