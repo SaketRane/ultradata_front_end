@@ -15,6 +15,7 @@ import ComprehensiveIncomeTable from "@/components/ComprehensiveIncomeTable";
 import StatementOfChangesInEquityTable from "@/components/StatementOfChangesInEquityTable";
 import HeadOfficeAccountAndReservesTable from "@/components/HeadOfficeAccountAndReservesTable";
 import SummaryOfInvestmentsTable from "@/components/SummaryOfInvestmentsTable";
+import RegisteredReinsuranceTable from "@/components/RegisteredReinsuranceTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -103,6 +104,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "4007")?.label;
   };
 
+  const shouldShowRegisteredReinsuranceTable = () => {
+    return section === "Reinsurance" && 
+           sheet === availableSheets.find(s => s.code === "7050")?.label;
+  };
+
   if (
     !shouldShowPremiumsTable() &&
     !shouldShowPremiumsEarnedTable() &&
@@ -118,7 +124,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowComprehensiveIncomeTable() &&
     !shouldShowStatementOfChangesInEquityTable() &&
     !shouldShowHeadOfficeAccountAndReservesTable() &&
-    !shouldShowSummaryOfInvestmentsTable()
+    !shouldShowSummaryOfInvestmentsTable() &&
+    !shouldShowRegisteredReinsuranceTable()
   ) {
     return null;
   }
@@ -154,6 +161,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Head Office Account & Reserves";
   } else if (shouldShowSummaryOfInvestmentsTable()) {
     title = "Summary of Investments";
+  } else if (shouldShowRegisteredReinsuranceTable()) {
+    title = "Registered Reinsurance";
   }
 
   return (
@@ -162,21 +171,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
         <CardContent className="p-3">
           <h2 className="text-lg font-semibold mb-3">{title}</h2>
           
-          {shouldShowPremiumsTable() && <PremiumsTable />}
-          {shouldShowPremiumsEarnedTable() && <PremiumsEarnedTable />}
-          {shouldShowClaimsIncurredTable() && <ClaimsIncurredTable />}
-          {shouldShowClaimsUndiscountedTable() && <ClaimsUndiscountedTable />}
-          {shouldShowPremiumsAndClaimsTable() && <PremiumsAndClaimsTable />}
-          {shouldShowUndiscountedClaimsTable() && <UndiscountedClaimsTable />}
-          {shouldShowClaimsAndAdjustmentExpensesTable() && <ClaimsAndAdjustmentExpensesTable />}
-          {shouldShowCommissionsTable() && <CommissionsTable />}
-          {shouldShowAssetsTable() && <AssetsTable />}
-          {shouldShowLiabilitiesEquityTable() && <LiabilitiesEquityTable />}
-          {shouldShowStatementOfIncomeTable() && <StatementOfIncomeTable />}
-          {shouldShowComprehensiveIncomeTable() && <ComprehensiveIncomeTable />}
-          {shouldShowStatementOfChangesInEquityTable() && <StatementOfChangesInEquityTable />}
-          {shouldShowHeadOfficeAccountAndReservesTable() && <HeadOfficeAccountAndReservesTable />}
           {shouldShowSummaryOfInvestmentsTable() && <SummaryOfInvestmentsTable />}
+          {shouldShowRegisteredReinsuranceTable() && <RegisteredReinsuranceTable />}
         </CardContent>
       </Card>
     </section>
