@@ -1,205 +1,188 @@
 
-import React from 'react';
-import { Table, TableHeader, TableHead, TableBody, TableRow, TableCell } from '@/components/ui/table';
-import { Skeleton } from '@/components/ui/skeleton';
+import React from "react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-const SummaryOfInvestmentsTable = () => {
-  const loading = false;
+// Define investment table rows with their codes and indentation levels
+const investmentTableRows = [
+  // Aggregate Holdings section
+  { name: "Aggregate Holdings:", rowCode: "", indent: 0, isHeader: true, isBold: true },
+  { name: "Short Term Investments (1 year or less)", rowCode: "01", indent: 1, isTotal: false },
+  { name: "Bonds and Debentures (1 year or less)", rowCode: "06", indent: 1, isTotal: false },
+  { name: "Bonds and Debentures > 1 year and ≤ 5 years", rowCode: "02", indent: 1, isTotal: false },
+  { name: "Bonds and Debentures > 5 years", rowCode: "05", indent: 1, isTotal: false },
+  { name: "Mortgage Loans", rowCode: "", indent: 1, isHeader: true },
+  { name: "- ≤ 80% Loan to Value Ratio", rowCode: "03", indent: 2, isTotal: false },
+  { name: "- Other", rowCode: "04", indent: 2, isTotal: false },
+  { name: "Preferred Shares", rowCode: "", indent: 1, isHeader: true },
+  { name: "- Debt", rowCode: "10", indent: 2, isTotal: false },
+  { name: "- Equity", rowCode: "11", indent: 2, isTotal: false },
+  { name: "Common Shares", rowCode: "15", indent: 1, isTotal: false },
+  { name: "Investment Properties", rowCode: "20", indent: 1, isTotal: false, hasLimitedColumns: true },
+  { name: "Other Loans and Invested Assets", rowCode: "30", indent: 1, isTotal: false },
+  { name: "Pooled Funds - items not captured in above rows", rowCode: "32", indent: 1, isTotal: false },
+  { name: "Deduct: Pooled Funds accounted using the Equity Method", rowCode: "34", indent: 1, isTotal: false },
+  { name: "Total Investments", rowCode: "39", indent: 1, isTotal: true, isBold: true },
+  
+  // Additional information section
+  { name: "Out of Canada", rowCode: "40", indent: 1, isTotal: false, hasLimitedColumns: true, balanceSheetOnly: true },
+  { name: "Foreign Pay Securities", rowCode: "41", indent: 1, isTotal: false, hasLimitedColumns: true, balanceSheetOnly: true },
+  
+  // Individual Holdings section
+  { name: "Individual Holdings:", rowCode: "", indent: 0, isHeader: true, isBold: true },
+  { name: "Largest Exposure to an Entity or Connected Group", rowCode: "50", indent: 1, isTotal: false, hasLimitedColumns: true, balanceSheetOnly: true },
+  { name: "2nd Largest Exposure to an Entity or Connected Group", rowCode: "51", indent: 2, isTotal: false, hasLimitedColumns: true, balanceSheetOnly: true },
+  { name: "Largest Pooled Holding", rowCode: "60", indent: 1, isTotal: false, hasLimitedColumns: true, balanceSheetOnly: true },
+  { name: "2nd Largest Pooled Holding", rowCode: "61", indent: 2, isTotal: false, hasLimitedColumns: true, balanceSheetOnly: true }
+];
 
-  // Define the row structure
-  const rows = [
-    // Header section
-    { name: "Aggregate Holdings:", rowCode: "", indent: 0, isTotal: false },
-    { name: "Short Term Investments (1 year or less)", rowCode: "01", indent: 1, isTotal: false },
-    { name: "Bonds and Debentures (1 year or less)", rowCode: "06", indent: 1, isTotal: false },
-    { name: "Bonds and Debentures > 1 year and ≤ 5 years", rowCode: "02", indent: 1, isTotal: false },
-    { name: "Bonds and Debentures > 5 years", rowCode: "05", indent: 1, isTotal: false },
-    { name: "Mortgage Loans", rowCode: "03", indent: 1, isTotal: false, subRows: [
-      { name: "- ≤ 80% Loan to Value Ratio", rowCode: "03", indent: 2, isTotal: false },
-      { name: "- Other", rowCode: "04", indent: 2, isTotal: false }
-    ]},
-    { name: "Preferred Shares", rowCode: "10", indent: 1, isTotal: false, subRows: [
-      { name: "- Debt", rowCode: "10", indent: 2, isTotal: false },
-      { name: "- Equity", rowCode: "11", indent: 2, isTotal: false }
-    ]},
-    { name: "Common Shares", rowCode: "15", indent: 1, isTotal: false },
-    { name: "Investment Properties", rowCode: "20", indent: 1, isTotal: false },
-    { name: "Other Loans and Invested Assets", rowCode: "30", indent: 1, isTotal: false },
-    { name: "Pooled Funds - items not captured in above rows", rowCode: "32", indent: 1, isTotal: false },
-    { name: "Deduct: Pooled Funds accounted using the Equity Method", rowCode: "34", indent: 1, isTotal: false },
-    { name: "Total Investments", rowCode: "39", indent: 1, isTotal: true },
-    { name: "Out of Canada", rowCode: "40", indent: 1, isTotal: false },
-    { name: "Foreign Pay Securities", rowCode: "41", indent: 1, isTotal: false },
-    // Individual Holdings section
-    { name: "Individual Holdings:", rowCode: "", indent: 0, isTotal: false },
-    { name: "Largest Exposure to an Entity or Connected Group", rowCode: "50", indent: 1, isTotal: false },
-    { name: "2nd Largest Exposure to an Entity or Connected Group", rowCode: "51", indent: 2, isTotal: false },
-    { name: "Largest Pooled Holding", rowCode: "60", indent: 1, isTotal: false },
-    { name: "2nd Largest Pooled Holding", rowCode: "61", indent: 2, isTotal: false },
-  ];
+// Define main columns structure
+const mainColumns = [
+  { 
+    name: "Fair Value", 
+    subColumns: [
+      { name: "Fair Value Through Profit or Loss (FVTPL)", code: "01" },
+      { name: "Fair Value Through Other Comprehensive Income (FVOCI)", code: "03" },
+      { name: "Hedges", code: "05" },
+      { name: "FV Option/ Investment Properties Fair Value", code: "07" }
+    ]
+  },
+  { name: "Amortized Cost", code: "09" },
+  { name: "Balance Sheet", code: "12" },
+  { name: "Pooled Funds", code: "13" },
+  { name: "Realized Gains(Losses)", code: "15" },
+  { name: "Income", code: "16" },
+  { name: "Gain/(Loss) from FV Option", code: "19" }
+];
 
-  // Define columns
-  const columns = [
-    { name: "Fair Value Through Profit or Loss (FVTPL)", code: "01" },
-    { name: "Fair Value Through Other Comprehensive Income (FVOCI)", code: "03" },
-    { name: "Hedges", code: "05" },
-    { name: "FV Option/ Investment Properties Fair Value", code: "07" },
-    { name: "Amortized Cost", code: "09" },
-    { name: "Balance Sheet", code: "12" },
-    { name: "Pooled Funds", code: "13" },
-    { name: "Realized Gains(Losses)", code: "15" },
-    { name: "Income", code: "16" },
-    { name: "Gain/(Loss) from FV Option", code: "19" },
-  ];
-
-  const groupedColumns = [
-    { name: "Fair Value", columns: columns.slice(0, 4) },
-    ...columns.slice(4).map(col => ({ name: col.name, columns: [col] }))
-  ];
-
-  const renderSkeletonRows = () => {
-    return Array(15).fill(0).map((_, index) => (
-      <TableRow key={index}>
-        <TableCell className="py-1">
-          <Skeleton className="h-4 w-full" />
-        </TableCell>
-        {Array(10).fill(0).map((_, colIndex) => (
-          <TableCell key={colIndex} className="py-1">
-            <Skeleton className="h-4 w-full" />
-          </TableCell>
-        ))}
-      </TableRow>
-    ));
+const SummaryOfInvestmentsTable: React.FC = () => {
+  // Function to generate data cell code
+  const generateDataCode = (rowCode: string, columnCode: string) => {
+    if (!rowCode) return "";
+    return `4007${rowCode}${columnCode}`;
   };
 
-  const getCodeForCell = (rowCode: string, colCode: string) => {
-    if (!rowCode || !colCode) return "";
-    
-    // Special case for Investment Properties row which doesn't have cells for first 3 columns
-    if (rowCode === "20" && ["01", "03", "05"].includes(colCode)) {
-      return "";
+  // Function to check if a row should have a specific column
+  const shouldShowColumn = (row: typeof investmentTableRows[0], columnCode: string) => {
+    // Investment Properties only has specific columns
+    if (row.rowCode === "20" && !["07", "09", "12", "13", "15", "16", "19"].includes(columnCode)) {
+      return false;
     }
     
-    return `4007${rowCode}${colCode}`;
-  };
-
-  const renderRows = (rows: any[], parentDepth = 0) => {
-    return rows.map((row, index) => {
-      const indentClass = `pl-${row.indent * 4}`;
-      const isBold = row.isTotal || row.indent === 0;
-      const fontClass = isBold ? 'font-semibold' : 'font-normal';
-      
-      return (
-        <React.Fragment key={index}>
-          <TableRow className={`h-8 border-b text-xs ${row.isTotal ? 'bg-gray-50' : ''}`}>
-            <TableCell 
-              className={`${indentClass} whitespace-normal ${fontClass} py-1.5 pl-${(parentDepth + row.indent) * 4}`}
-              data-testid={`row-${row.rowCode}`}
-            >
-              {row.name}
-            </TableCell>
-            
-            {/* Row code column - visible */}
-            {row.rowCode && (
-              <TableCell className="text-xs text-orange-500 font-normal py-1.5 w-12">
-                {row.rowCode}
-              </TableCell>
-            )}
-            {!row.rowCode && <TableCell className="w-12"></TableCell>}
-            
-            {/* Data columns */}
-            {columns.map((col, colIdx) => {
-              const code = getCodeForCell(row.rowCode, col.code);
-              // Special handling for Investment Properties row
-              const shouldShowCell = !(row.rowCode === "20" && ["01", "03", "05"].includes(col.code));
-              
-              // Special handling for Out of Canada, Foreign Pay Securities which only have Balance Sheet and Pooled Funds columns
-              const showForOutOfCanada = !(row.rowCode === "40" || row.rowCode === "41") || 
-                                         (col.code === "12" || col.code === "13");
-              
-              // Special handling for Individual Holdings which only have Balance Sheet and Pooled Funds columns
-              const showForIndividualHoldings = !(row.rowCode === "50" || row.rowCode === "51" || 
-                                                 row.rowCode === "60" || row.rowCode === "61") ||
-                                                (col.code === "12" || col.code === "13");
-              
-              if (!shouldShowCell || !showForOutOfCanada || !showForIndividualHoldings) {
-                return <TableCell key={colIdx} className="text-xs py-1.5"></TableCell>;
-              }
-              
-              return (
-                <TableCell 
-                  key={colIdx} 
-                  className="text-xs py-1.5 text-right"
-                  data-code={code}
-                >
-                  {/* Cell data would be displayed here */}
-                  {code && <span className="opacity-0 hover:opacity-100 absolute text-[9px] text-green-600 bottom-0 right-0">{code}</span>}
-                </TableCell>
-              );
-            })}
-          </TableRow>
-          
-          {/* Render sub-rows if they exist */}
-          {row.subRows && renderRows(row.subRows, parentDepth + 1)}
-        </React.Fragment>
-      );
-    });
+    // Balance sheet only rows (specific rows that only show balance sheet and pooled funds columns)
+    if (row.balanceSheetOnly && !["12", "13"].includes(columnCode)) {
+      return false;
+    }
+    
+    return true;
   };
 
   return (
-    <div className="overflow-x-auto">
-      <Table className="compact-table w-full text-xs border-collapse">
-        <TableHeader className="bg-white sticky top-0 z-10">
-          {/* Main header - Fair Value grouping */}
-          <TableRow className="border-b">
-            <TableHead className="text-left bg-white whitespace-nowrap py-1 h-8">
-              {/* Empty cell for row names */}
+    <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
+      <Table className="min-w-[1200px] text-xs">
+        <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
+          <TableRow>
+            <TableHead className="w-[300px] text-xs font-semibold text-left py-2 px-4 border-r" rowSpan={2}></TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" colSpan={4}>
+              Fair Value
             </TableHead>
-            <TableHead className="bg-white whitespace-nowrap text-xs py-1 w-12">
-              {/* Empty cell for row codes */}
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="09">
+              Amortized Cost
             </TableHead>
-            
-            {/* Group headers */}
-            {groupedColumns.map((group, index) => (
-              <TableHead
-                key={index}
-                colSpan={group.columns.length}
-                className={`text-center bg-white whitespace-nowrap text-xs py-1 h-8 ${index === 0 ? 'text-sm font-medium' : ''}`}
-              >
-                {group.name}
-              </TableHead>
-            ))}
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="12">
+              Balance Sheet
+            </TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="13">
+              Pooled Funds
+            </TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="15">
+              Realized Gains(Losses)
+            </TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" rowSpan={2} data-column-code="16">
+              Income
+            </TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2" rowSpan={2} data-column-code="19">
+              Gain/(Loss) from FV Option
+            </TableHead>
           </TableRow>
-          
-          {/* Sub-header for column names */}
-          <TableRow className="border-b">
-            <TableHead className="text-left bg-white whitespace-nowrap py-1 h-8">
-              {/* Empty cell for row names */}
+          <TableRow>
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="01">
+              Fair Value Through Profit or Loss (FVTPL)
             </TableHead>
-            <TableHead className="bg-white whitespace-nowrap text-xs py-1 w-12">
-              {/* Empty cell for row codes */}
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="03">
+              Fair Value Through Other Comprehensive Income (FVOCI)
             </TableHead>
-            
-            {/* Column headers */}
-            {columns.map((col, index) => (
-              <TableHead
-                key={index}
-                className="text-center bg-white whitespace-normal text-xs py-1 h-8"
-                data-column-code={col.code}
-              >
-                {col.name}
-                <span className="hidden text-[9px] text-orange-500">{col.code}</span>
-              </TableHead>
-            ))}
+            <TableHead className="text-xs font-semibold text-center py-2" data-column-code="05">
+              Hedges
+            </TableHead>
+            <TableHead className="text-xs font-semibold text-center py-2 border-r" data-column-code="07">
+              FV Option/ Investment Properties Fair Value
+            </TableHead>
           </TableRow>
         </TableHeader>
-        
-        <TableBody>
-          {loading ? (
-            renderSkeletonRows()
-          ) : (
-            renderRows(rows)
-          )}
+        <TableBody className="text-[10px]">
+          {investmentTableRows.map((row, index) => {
+            // Calculate left padding based on indentation level
+            const paddingClass = row.indent === 0 
+              ? "pl-2" 
+              : row.indent === 1 
+                ? "pl-6" 
+                : "pl-10";
+            
+            // Determine background color for row
+            const bgClass = row.isTotal ? "bg-gray-50" : "";
+            
+            // Determine text weight
+            const fontClass = row.isBold || row.isTotal 
+              ? "font-medium" 
+              : row.isHeader
+                ? "font-medium italic"
+                : "font-normal";
+            
+            // Add border for visual separation
+            const borderClass = row.isHeader ? "" : "border-dotted border-b border-gray-300";
+            
+            return (
+              <TableRow 
+                key={index} 
+                className={`${bgClass} ${borderClass} h-5`} 
+                data-row-code={row.rowCode}
+              >
+                <TableCell 
+                  className={`${paddingClass} ${fontClass} py-0 px-2 border-r text-left`}
+                >
+                  {row.name}
+                  {row.rowCode && (
+                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
+                  )}
+                </TableCell>
+                
+                {/* Generate columns for each data point */}
+                {[...mainColumns[0].subColumns, ...mainColumns.slice(1)].map((column) => {
+                  const columnCode = "code" in column ? column.code : column.subColumns[0].code;
+                  const dataCode = generateDataCode(row.rowCode, columnCode);
+                  const showColumn = shouldShowColumn(row, columnCode);
+                  const cellClass = !showColumn ? "bg-gray-200" : "";
+                  
+                  // Add border for the last fair value column
+                  const borderRightClass = columnCode === "07" ? "border-r" : "";
+                  
+                  return (
+                    <TableCell 
+                      key={`${row.rowCode || index}-${columnCode}`}
+                      className={`text-center py-0 px-1 ${borderRightClass} group ${cellClass}`}
+                      data-code={showColumn ? dataCode : ""}
+                    >
+                      {showColumn && row.rowCode && dataCode && (
+                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                          {dataCode}
+                        </span>
+                      )}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>
