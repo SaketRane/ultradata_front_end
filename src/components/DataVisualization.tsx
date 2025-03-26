@@ -12,6 +12,7 @@ import CommissionsTable from "@/components/CommissionsTable";
 import AssetsTable from "@/components/AssetsTable";
 import LiabilitiesEquityTable from "@/components/LiabilitiesEquityTable";
 import StatementOfIncomeTable from "@/components/StatementOfIncomeTable";
+import ComprehensiveIncomeTable from "@/components/ComprehensiveIncomeTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -80,6 +81,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "2030")?.label;
   };
 
+  const shouldShowComprehensiveIncomeTable = () => {
+    return section === "Financial Statements" && 
+           sheet === availableSheets.find(s => s.code === "2042")?.label;
+  };
+
   if (
     !shouldShowPremiumsTable() &&
     !shouldShowPremiumsEarnedTable() &&
@@ -91,7 +97,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowCommissionsTable() &&
     !shouldShowAssetsTable() &&
     !shouldShowLiabilitiesEquityTable() &&
-    !shouldShowStatementOfIncomeTable()
+    !shouldShowStatementOfIncomeTable() &&
+    !shouldShowComprehensiveIncomeTable()
   ) {
     return null;
   }
@@ -119,6 +126,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Liabilities, Equity, Head Office Account, Reserves & AOCI";
   } else if (shouldShowStatementOfIncomeTable()) {
     title = "Statement of Income";
+  } else if (shouldShowComprehensiveIncomeTable()) {
+    title = "Comprehensive Income(Loss) & Accumulated Other Comprehensive Income(Loss)";
   }
 
   return (
@@ -138,6 +147,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           {shouldShowAssetsTable() && <AssetsTable />}
           {shouldShowLiabilitiesEquityTable() && <LiabilitiesEquityTable />}
           {shouldShowStatementOfIncomeTable() && <StatementOfIncomeTable />}
+          {shouldShowComprehensiveIncomeTable() && <ComprehensiveIncomeTable />}
         </CardContent>
       </Card>
     </section>
