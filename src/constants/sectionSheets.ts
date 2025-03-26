@@ -1,4 +1,3 @@
-
 export const sectionSheetsMapping = {
   "Financial Statements": {
     code: "FS",
@@ -7,9 +6,9 @@ export const sectionSheetsMapping = {
       { code: "2020", label: "Liabilities, Equity, Head Office Account, Reserves & AOCI" },
       { code: "2030", label: "Statement of Income" },
       { code: "2042", label: "Comprehensive Income(Loss) & Accumulated Other Comprehensive Income(Loss)" },
+      { code: "2054", label: "Statement of Changes in Equity" },
       { code: "2045", label: "Reserves" },
       { code: "2045", label: "Head Office Account" },
-      { code: "2054", label: "Statement of Changes in Equity" },
     ]
   },
   "Investments": {

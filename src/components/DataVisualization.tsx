@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import PremiumsTable from "@/components/PremiumsTable";
@@ -13,6 +12,7 @@ import AssetsTable from "@/components/AssetsTable";
 import LiabilitiesEquityTable from "@/components/LiabilitiesEquityTable";
 import StatementOfIncomeTable from "@/components/StatementOfIncomeTable";
 import ComprehensiveIncomeTable from "@/components/ComprehensiveIncomeTable";
+import StatementOfChangesInEquityTable from "@/components/StatementOfChangesInEquityTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -86,6 +86,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "2042")?.label;
   };
 
+  const shouldShowStatementOfChangesInEquityTable = () => {
+    return section === "Financial Statements" && 
+           sheet === availableSheets.find(s => s.code === "2054")?.label;
+  };
+
   if (
     !shouldShowPremiumsTable() &&
     !shouldShowPremiumsEarnedTable() &&
@@ -98,7 +103,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowAssetsTable() &&
     !shouldShowLiabilitiesEquityTable() &&
     !shouldShowStatementOfIncomeTable() &&
-    !shouldShowComprehensiveIncomeTable()
+    !shouldShowComprehensiveIncomeTable() &&
+    !shouldShowStatementOfChangesInEquityTable()
   ) {
     return null;
   }
@@ -128,6 +134,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Statement of Income";
   } else if (shouldShowComprehensiveIncomeTable()) {
     title = "Comprehensive Income(Loss) & Accumulated Other Comprehensive Income(Loss)";
+  } else if (shouldShowStatementOfChangesInEquityTable()) {
+    title = "Statement of Changes in Equity";
   }
 
   return (
@@ -148,6 +156,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           {shouldShowLiabilitiesEquityTable() && <LiabilitiesEquityTable />}
           {shouldShowStatementOfIncomeTable() && <StatementOfIncomeTable />}
           {shouldShowComprehensiveIncomeTable() && <ComprehensiveIncomeTable />}
+          {shouldShowStatementOfChangesInEquityTable() && <StatementOfChangesInEquityTable />}
         </CardContent>
       </Card>
     </section>
