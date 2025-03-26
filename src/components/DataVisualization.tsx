@@ -18,6 +18,7 @@ import HeadOfficeAccountAndReservesTable from "@/components/HeadOfficeAccountAnd
 import SummaryOfInvestmentsTable from "@/components/SummaryOfInvestmentsTable";
 import RegisteredReinsuranceTable from "@/components/RegisteredReinsuranceTable";
 import UnregisteredReinsuranceTable from "@/components/UnregisteredReinsuranceTable";
+import UnregisteredReinsuranceForeignTable from "@/components/UnregisteredReinsuranceForeignTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -116,6 +117,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "7060")?.label;
   };
 
+  const shouldShowUnregisteredReinsuranceForeignTable = () => {
+    return section === "Reinsurance" && 
+           sheet === availableSheets.find(s => s.code === "7061")?.label;
+  };
+
   if (
     !shouldShowPremiumsTable() &&
     !shouldShowPremiumsEarnedTable() &&
@@ -133,7 +139,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowHeadOfficeAccountAndReservesTable() &&
     !shouldShowSummaryOfInvestmentsTable() &&
     !shouldShowRegisteredReinsuranceTable() &&
-    !shouldShowUnregisteredReinsuranceTable()
+    !shouldShowUnregisteredReinsuranceTable() &&
+    !shouldShowUnregisteredReinsuranceForeignTable()
   ) {
     return null;
   }
@@ -173,6 +180,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Registered Reinsurance";
   } else if (shouldShowUnregisteredReinsuranceTable()) {
     title = "Unregistered Reinsurance (Canadian)";
+  } else if (shouldShowUnregisteredReinsuranceForeignTable()) {
+    title = "Unregistered Reinsurance (Foreign)";
   }
 
   return (
@@ -184,6 +193,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           {shouldShowSummaryOfInvestmentsTable() && <SummaryOfInvestmentsTable />}
           {shouldShowRegisteredReinsuranceTable() && <RegisteredReinsuranceTable />}
           {shouldShowUnregisteredReinsuranceTable() && <UnregisteredReinsuranceTable />}
+          {shouldShowUnregisteredReinsuranceForeignTable() && <UnregisteredReinsuranceForeignTable />}
         </CardContent>
       </Card>
     </section>
