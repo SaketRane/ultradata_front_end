@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import PremiumsTable from "@/components/PremiumsTable";
@@ -10,6 +11,7 @@ import ClaimsAndAdjustmentExpensesTable from "@/components/ClaimsAndAdjustmentEx
 import CommissionsTable from "@/components/CommissionsTable";
 import AssetsTable from "@/components/AssetsTable";
 import LiabilitiesEquityTable from "@/components/LiabilitiesEquityTable";
+import StatementOfIncomeTable from "@/components/StatementOfIncomeTable";
 
 interface DataVisualizationProps {
   section: string;
@@ -73,6 +75,11 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
            sheet === availableSheets.find(s => s.code === "2020")?.label;
   };
 
+  const shouldShowStatementOfIncomeTable = () => {
+    return section === "Financial Statements" && 
+           sheet === availableSheets.find(s => s.code === "2030")?.label;
+  };
+
   if (
     !shouldShowPremiumsTable() &&
     !shouldShowPremiumsEarnedTable() &&
@@ -83,7 +90,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     !shouldShowClaimsAndAdjustmentExpensesTable() &&
     !shouldShowCommissionsTable() &&
     !shouldShowAssetsTable() &&
-    !shouldShowLiabilitiesEquityTable()
+    !shouldShowLiabilitiesEquityTable() &&
+    !shouldShowStatementOfIncomeTable()
   ) {
     return null;
   }
@@ -109,6 +117,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
     title = "Assets";
   } else if (shouldShowLiabilitiesEquityTable()) {
     title = "Liabilities, Equity, Head Office Account, Reserves & AOCI";
+  } else if (shouldShowStatementOfIncomeTable()) {
+    title = "Statement of Income";
   }
 
   return (
@@ -127,6 +137,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           {shouldShowCommissionsTable() && <CommissionsTable />}
           {shouldShowAssetsTable() && <AssetsTable />}
           {shouldShowLiabilitiesEquityTable() && <LiabilitiesEquityTable />}
+          {shouldShowStatementOfIncomeTable() && <StatementOfIncomeTable />}
         </CardContent>
       </Card>
     </section>
