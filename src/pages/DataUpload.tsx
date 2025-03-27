@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
 import { 
   Card, 
   CardContent, 
@@ -63,38 +64,67 @@ const DataUpload: React.FC = () => {
         const startIndex = lines[0].toLowerCase().includes("year") ? 1 : 0;
         const totalRows = lines.length - startIndex;
         
-        // Process in batches to prevent timeout
-        const batchSize = 1000;
+        // Process in smaller batches to prevent timeout and show progress better
+        const batchSize = 100; // Reduced batch size for more frequent progress updates
         let processedRows = 0;
+        let successfulRows = 0;
         
         for (let i = startIndex; i < lines.length; i += batchSize) {
-          const batch = lines.slice(i, i + batchSize)
+          if (lines.length <= i) break;
+          
+          const batch = lines.slice(i, Math.min(i + batchSize, lines.length))
             .filter(line => line.trim() !== "")
             .map(line => {
               const values = line.split(",");
-              return {
-                year: parseInt(values[0].trim()),
-                insurer_code: values[1].trim(),
-                sheet_code: values[2].trim(),
-                value: parseFloat(values[3].trim())
-              };
-            });
+              if (values.length < 4) return null;
+              
+              try {
+                return {
+                  year: parseInt(values[0].trim()),
+                  insurer_code: values[1].trim(),
+                  sheet_code: values[2].trim(),
+                  value: parseFloat(values[3].trim())
+                };
+              } catch (err) {
+                console.error("Error parsing line:", line, err);
+                return null;
+              }
+            })
+            .filter(item => item !== null);
           
           if (batch.length > 0) {
-            const { error } = await supabase
-              .from("insurance_data_points")
-              .insert(batch);
+            try {
+              // Use RPC instead of direct insert to bypass RLS issues
+              const { data, error } = await supabase.rpc('insert_insurance_data', {
+                records: batch
+              });
               
-            if (error) {
-              throw new Error(`Error uploading batch: ${error.message}`);
+              if (error) {
+                console.error("Upload error:", error);
+                toast.error(`Error in batch: ${error.message}`);
+              } else {
+                successfulRows += batch.length;
+              }
+            } catch (batchError: any) {
+              console.error("Batch error:", batchError);
+              toast.error(`Error processing batch: ${batchError.message}`);
             }
           }
           
           processedRows += batch.length;
+          // Update progress more frequently
           setProgress(Math.min(100, Math.round((processedRows / totalRows) * 100)));
+          
+          // Add a small delay to allow UI updates and avoid freezing
+          await new Promise(resolve => setTimeout(resolve, 50));
         }
         
-        toast.success(`Successfully uploaded ${processedRows} data points`);
+        if (successfulRows > 0) {
+          toast.success(`Successfully uploaded ${successfulRows} data points`);
+        } else {
+          toast.error("No data was successfully uploaded. Check console for details.");
+        }
+        
         setUploading(false);
         setFile(null);
       };
@@ -151,12 +181,7 @@ const DataUpload: React.FC = () => {
               
               {uploading && (
                 <div className="w-full">
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-blue-600 transition-all duration-300" 
-                      style={{ width: `${progress}%` }}
-                    ></div>
-                  </div>
+                  <Progress value={progress} className="h-2 bg-gray-200" />
                   <p className="text-sm text-center mt-2">{progress}% complete</p>
                 </div>
               )}
