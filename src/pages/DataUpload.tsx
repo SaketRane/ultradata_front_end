@@ -94,7 +94,7 @@ const DataUpload: React.FC = () => {
           
           if (batch.length > 0) {
             try {
-              // Use RPC instead of direct insert to bypass RLS issues
+              // Use RPC to bypass RLS - note the records parameter is passed correctly
               const { data, error } = await supabase.rpc('insert_insurance_data', {
                 records: batch
               });

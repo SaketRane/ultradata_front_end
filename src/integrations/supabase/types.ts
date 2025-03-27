@@ -145,6 +145,12 @@ export type Database = {
         }
         Returns: boolean
       }
+      insert_insurance_data: {
+        Args: {
+          records: Json[]
+        }
+        Returns: number
+      }
       is_admin_or_superadmin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
