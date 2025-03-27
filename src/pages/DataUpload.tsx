@@ -45,6 +45,11 @@ const DataUpload: React.FC = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
+      
+      // Log file size for debugging
+      if (DEV_MODE) {
+        console.log(`Selected file: ${e.target.files[0].name}, Size: ${(e.target.files[0].size / 1024 / 1024).toFixed(2)} MB`);
+      }
     }
   };
 
@@ -57,6 +62,11 @@ const DataUpload: React.FC = () => {
     if (!file.name.endsWith(".csv")) {
       toast.error("Please upload a valid CSV file");
       return;
+    }
+
+    // Show a warning for large files
+    if (file.size > 10 * 1024 * 1024) {
+      toast.warning("Uploading a large file. This may take some time.");
     }
 
     setUploading(true);
@@ -80,8 +90,20 @@ const DataUpload: React.FC = () => {
       console.error("Upload error:", error);
       toast.error(`Error uploading data: ${error.message}`);
     } finally {
+      // Small delay before resetting upload state to ensure UI updates correctly
+      setTimeout(() => {
+        setUploading(false);
+        setFile(null);
+        setProgress(0);
+      }, 500);
+    }
+  };
+
+  const handleCancelUpload = () => {
+    if (uploading) {
       setUploading(false);
-      setFile(null);
+      setProgress(0);
+      toast.info("Upload cancelled");
     }
   };
 
@@ -120,6 +142,16 @@ const DataUpload: React.FC = () => {
                 progress={progress} 
                 visible={uploading}
               />
+              
+              {uploading && (
+                <Button
+                  onClick={handleCancelUpload}
+                  variant="destructive"
+                  className="w-full mt-2"
+                >
+                  Cancel Upload
+                </Button>
+              )}
             </div>
           </CardContent>
           
