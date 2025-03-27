@@ -1,5 +1,7 @@
+
 import React from "react";
-import FinancialTable, { RowDefinition, ColumnDefinition } from "@/components/ui/financial-table";
+import FinancialTable from "@/components/ui/financial-table";
+import { RowDefinition, ColumnDefinition } from "@/types/financial";
 
 // Define table rows with their codes
 const liabilitiesTableRows: RowDefinition[] = [
