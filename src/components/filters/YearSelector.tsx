@@ -13,33 +13,47 @@ import {
 interface YearSelectorProps {
   year: string;
   setYear: (year: string) => void;
+  availableYears: string[];
+  isLoading: boolean;
 }
 
-const YearSelector: React.FC<YearSelectorProps> = ({ year, setYear }) => {
-  const years = [
+const YearSelector: React.FC<YearSelectorProps> = ({ 
+  year, 
+  setYear, 
+  availableYears,
+  isLoading 
+}) => {
+  // Future years that may be added
+  const upcomingYears = [
     { value: "2024", label: "2024 (Coming Soon)", disabled: true },
     { value: "2023", label: "2023 (Coming Soon)", disabled: true },
-    { value: "2022", label: "2022" },
-    { value: "2021", label: "2021" },
-    { value: "2020", label: "2020" },
-    { value: "2019", label: "2019" },
-    { value: "2018", label: "2018" },
-    { value: "2017", label: "2017" },
-    { value: "2016", label: "2016" },
-    { value: "2015", label: "2015" }
   ];
+
+  // Filter out upcoming years that are already in available years
+  const filteredUpcomingYears = upcomingYears.filter(
+    upcoming => !availableYears.includes(upcoming.value)
+  );
+
+  // Combine available years with upcoming years
+  const allYears = [
+    ...availableYears.map(y => ({ value: y, label: y, disabled: false })),
+    ...filteredUpcomingYears
+  ];
+
+  // Sort years in descending order
+  allYears.sort((a, b) => parseInt(b.value) - parseInt(a.value));
 
   return (
     <div className="space-y-1">
       <label className="text-xs font-medium">Year</label>
-      <Select value={year} onValueChange={setYear}>
+      <Select value={year} onValueChange={setYear} disabled={isLoading}>
         <SelectTrigger className="w-full h-8 text-xs">
-          <SelectValue placeholder="Select Year" />
+          <SelectValue placeholder={isLoading ? "Loading..." : "Select Year"} />
         </SelectTrigger>
         <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
           <SelectGroup>
             <SelectLabel>Years</SelectLabel>
-            {years.map((y) => (
+            {allYears.map((y) => (
               <SelectItem 
                 key={y.value} 
                 value={y.value}
