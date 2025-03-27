@@ -5,32 +5,22 @@ import YearSelector from "./filters/YearSelector";
 import InsurerSelector from "./filters/InsurerSelector";
 import SectionSelector from "./filters/SectionSelector";
 import SheetSelector from "./filters/SheetSelector";
+import { useFilters } from "@/contexts/FilterContext";
 
-interface DataFilterSelectorProps {
-  year: string;
-  setYear: (year: string) => void;
-  insurer: string;
-  setInsurer: (insurer: string) => void;
-  section: string;
-  setSection: (section: string) => void;
-  sheet: string;
-  setSheet: (sheet: string) => void;
-  availableSheets: Array<{code: string, label: string}>;
-  sectionSheetsMapping: Record<string, { code: string, sheets: Array<{code: string, label: string}> }>;
-}
+const DataFilterSelector: React.FC = () => {
+  const {
+    year,
+    setYear,
+    insurer,
+    setInsurer,
+    section,
+    setSection,
+    sheet,
+    setSheet,
+    availableSheets,
+    sectionSheetsMapping
+  } = useFilters();
 
-const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
-  year,
-  setYear,
-  insurer,
-  setInsurer,
-  section,
-  setSection,
-  sheet,
-  setSheet,
-  availableSheets,
-  sectionSheetsMapping
-}) => {
   return (
     <Card className="shadow-lg glass w-full">
       <CardContent className="p-2">
@@ -40,7 +30,6 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
           <SectionSelector 
             section={section} 
             setSection={setSection} 
-            sectionSheetsMapping={sectionSheetsMapping} 
           />
           <SheetSelector 
             sheet={sheet} 

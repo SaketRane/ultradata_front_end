@@ -1,28 +1,15 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { getVisualizationTitle, getSheetCode } from "@/utils/visualization-utils";
+import { getVisualizationTitle } from "@/utils/visualization-utils";
 import VisualizationMapper from "./visualizations/VisualizationMapper";
+import { useFilters } from "@/contexts/FilterContext";
 
-interface DataVisualizationProps {
-  section: string;
-  sheet: string;
-  availableSheets: Array<{code: string, label: string}>;
-}
+const DataVisualization: React.FC = () => {
+  const { section, sheet, sheetCode } = useFilters();
 
-const DataVisualization: React.FC<DataVisualizationProps> = ({
-  section,
-  sheet,
-  availableSheets
-}) => {
   // If no section or sheet is selected, don't render anything
-  if (!section || !sheet) {
-    return null;
-  }
-
-  // Get the sheet code from the selected sheet
-  const sheetCode = getSheetCode(sheet, availableSheets);
-  if (!sheetCode) {
+  if (!section || !sheet || !sheetCode) {
     return null;
   }
 

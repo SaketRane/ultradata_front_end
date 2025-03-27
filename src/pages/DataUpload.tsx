@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/auth";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ const DataUpload: React.FC = () => {
     }
   }, [isAdmin, isSuperAdmin]);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
       
@@ -51,9 +51,9 @@ const DataUpload: React.FC = () => {
         console.log(`Selected file: ${e.target.files[0].name}, Size: ${(e.target.files[0].size / 1024 / 1024).toFixed(2)} MB`);
       }
     }
-  };
+  }, []);
 
-  const handleUpload = async () => {
+  const handleUpload = useCallback(async () => {
     if (!file) {
       toast.error("Please select a CSV file to upload");
       return;
@@ -79,7 +79,15 @@ const DataUpload: React.FC = () => {
         toast.info("Dev mode is active - upload will be simulated");
       }
       
-      const successfulRows = await processAndUploadCsv(file, setProgress);
+      const successfulRows = await processAndUploadCsv(
+        file, 
+        setProgress,
+        // Provide cancellation handler
+        () => {
+          setUploading(false);
+          setProgress(0);
+        }
+      );
       
       if (successfulRows > 0) {
         toast.success(`Successfully uploaded ${successfulRows} data points`);
@@ -97,15 +105,15 @@ const DataUpload: React.FC = () => {
         setProgress(0);
       }, 500);
     }
-  };
+  }, [file]);
 
-  const handleCancelUpload = () => {
+  const handleCancelUpload = useCallback(() => {
     if (uploading) {
       setUploading(false);
       setProgress(0);
       toast.info("Upload cancelled");
     }
-  };
+  }, [uploading]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
