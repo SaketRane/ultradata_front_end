@@ -10,6 +10,10 @@ interface DataVisualizationProps {
   availableSheets: Array<{code: string, label: string}>;
 }
 
+/**
+ * Renders the appropriate data visualization based on selected section and sheet.
+ * Uses memoization to prevent unnecessary re-renders.
+ */
 const DataVisualization: React.FC<DataVisualizationProps> = ({
   section,
   sheet,

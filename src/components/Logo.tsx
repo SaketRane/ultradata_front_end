@@ -7,12 +7,17 @@ interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-type SizeClasses = {
-  [key in LogoProps['size']]: string;
+type SizeMapping = {
+  [key in Required<LogoProps>['size']]: string;
 };
 
+/**
+ * Logo component with configurable size
+ * Uses TypeScript for better type safety and autocompletion
+ */
 const Logo: React.FC<LogoProps> = ({ className, size = 'md' }) => {
-  const sizeClasses: SizeClasses = {
+  // Map sizes to corresponding Tailwind classes
+  const sizeClasses: SizeMapping = {
     sm: 'text-xl',
     md: 'text-2xl',
     lg: 'text-3xl',

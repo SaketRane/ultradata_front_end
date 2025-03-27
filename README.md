@@ -1,69 +1,79 @@
-# Welcome to your Lovable project
 
-## Project info
+# UltraData Financial Dashboard
 
-**URL**: https://lovable.dev/projects/82c03949-3716-4590-88e0-afa0b4d78ee4
+A comprehensive dashboard for visualizing and interacting with financial data in the insurance industry.
 
-## How can I edit this code?
+## Project Structure
 
-There are several ways of editing your application.
+This project is built with:
 
-**Use Lovable**
+- **React**: UI components and state management
+- **TypeScript**: Type safety throughout the codebase
+- **Tailwind CSS**: Utility-first styling approach
+- **Shadcn UI**: Reusable UI components
+- **Vite**: Fast development and build tool
+- **React Router**: Navigation and routing
+- **Tanstack Query**: Data fetching and state management
+- **Recharts**: Data visualization components
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/82c03949-3716-4590-88e0-afa0b4d78ee4) and start prompting.
+## Key Folders and Files
 
-Changes made via Lovable will be committed automatically to this repo.
+- `/src/components`: React components organized by feature
+  - `/src/components/ui`: Reusable UI components from shadcn
+  - `/src/components/visualizations`: Data visualization components
+  - `/src/components/Auth`: Authentication-related components
+  - `/src/components/filters`: Filter selection components
+- `/src/contexts`: React context providers for global state
+- `/src/pages`: Top-level page components
+- `/src/utils`: Utility functions and helpers
+- `/src/hooks`: Custom React hooks
+- `/src/types`: TypeScript type definitions
+- `/src/constants`: Constant values and configurations
+- `/src/integrations`: External service integrations (Supabase)
 
-**Use your preferred IDE**
+## Code Patterns
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Component Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Components follow a consistent pattern:
+- Clear TypeScript interfaces for props
+- Memoization for performance optimization
+- Separation of concerns for better maintainability
 
-Follow these steps:
+### Data Flow
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+The application uses a unidirectional data flow:
+1. User selects filters in the DataFilterSelector
+2. Selection state is managed in the Dashboard component
+3. Selected data is passed to the DataVisualization component
+4. The VisualizationMapper routes to the correct visualization
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Financial Tables
 
-# Step 3: Install the necessary dependencies.
-npm i
+Financial tables use a common FinancialTable component with:
+- Consistent styling and behavior
+- Type-safe row and column definitions
+- Code-based data referencing
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## Development Practices
 
-**Edit a file directly in GitHub**
+- Use React.memo for components that don't need frequent re-renders
+- Leverage useCallback and useMemo for performance optimization
+- Follow TypeScript best practices for type safety
+- Keep components small and focused on a single responsibility
+- Use environment variables for configuration
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Extending the Application
 
-**Use GitHub Codespaces**
+### Adding New Visualizations
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Create a new mapper component in `/src/components/visualizations/mappers/`
+2. Add the component to the visualizationMappers registry in VisualizationMapper.tsx
+3. Update the sectionSheetsMapping in `/src/constants/sectionSheets.ts`
 
-## What technologies are used for this project?
+### Adding New Table Types
 
-This project is built with .
+1. Define row and column definitions following the RowDefinition and ColumnDefinition interfaces
+2. Create a new table component extending the FinancialTable
+3. Add the component to the appropriate mapper
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/82c03949-3716-4590-88e0-afa0b4d78ee4) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
