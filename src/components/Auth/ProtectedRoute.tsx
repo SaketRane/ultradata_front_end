@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -7,21 +8,22 @@ interface ProtectedRouteProps {
   requireSuperAdmin?: boolean;
 }
 
-// Imported from AuthContext to keep in sync - remove in production
-const DEV_MODE = true;
+// Get development mode from environment - defaults to false in production
+const isDevelopment = import.meta.env.DEV;
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
   requireAdmin = false,
   requireSuperAdmin = false
 }) => {
-  const { user, loading, profile, isAdmin, isSuperAdmin } = useAuth();
+  const { user, loading, isAdmin, isSuperAdmin } = useAuth();
 
   if (loading) {
     return <div className="h-screen flex items-center justify-center">Loading...</div>;
   }
 
-  // In development mode, skip all auth checks
-  if (DEV_MODE) {
+  // In development mode, skip auth checks if enabled in the environment
+  if (isDevelopment && import.meta.env.VITE_SKIP_AUTH === "true") {
+    console.warn("Development mode: Authentication checks bypassed!");
     return <Outlet />;
   }
 

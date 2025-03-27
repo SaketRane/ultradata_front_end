@@ -68,6 +68,33 @@ export type Database = {
           },
         ]
       }
+      insurance_data_points: {
+        Row: {
+          created_at: string
+          id: string
+          insurer_code: string
+          sheet_code: string
+          value: number
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          insurer_code: string
+          sheet_code: string
+          value: number
+          year: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          insurer_code?: string
+          sheet_code?: string
+          value?: number
+          year?: number
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           company_id: string | null
@@ -117,6 +144,12 @@ export type Database = {
           requested_role: Database["public"]["Enums"]["app_role"]
         }
         Returns: boolean
+      }
+      insert_insurance_data: {
+        Args: {
+          records: Json[]
+        }
+        Returns: number
       }
       is_admin_or_superadmin: {
         Args: Record<PropertyKey, never>

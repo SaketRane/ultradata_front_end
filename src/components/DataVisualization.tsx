@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { getVisualizationTitle, getSheetCode } from "@/utils/visualization-utils";
 import VisualizationMapper from "./visualizations/VisualizationMapper";
@@ -21,13 +21,21 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
   }
 
   // Get the sheet code from the selected sheet
-  const sheetCode = getSheetCode(sheet, availableSheets);
+  const sheetCode = useMemo(() => 
+    getSheetCode(sheet, availableSheets),
+    [sheet, availableSheets]
+  );
+  
   if (!sheetCode) {
     return null;
   }
 
   // Get the title for the visualization
-  const title = getVisualizationTitle(section, sheetCode);
+  const title = useMemo(() => 
+    getVisualizationTitle(section, sheetCode),
+    [section, sheetCode]
+  );
+  
   if (!title) {
     return null;
   }
@@ -48,4 +56,4 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
   );
 };
 
-export default DataVisualization;
+export default React.memo(DataVisualization);

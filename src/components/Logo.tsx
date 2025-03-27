@@ -7,8 +7,12 @@ interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
+type SizeClasses = {
+  [key in LogoProps['size']]: string;
+};
+
 const Logo: React.FC<LogoProps> = ({ className, size = 'md' }) => {
-  const sizeClasses = {
+  const sizeClasses: SizeClasses = {
     sm: 'text-xl',
     md: 'text-2xl',
     lg: 'text-3xl',
@@ -27,4 +31,4 @@ const Logo: React.FC<LogoProps> = ({ className, size = 'md' }) => {
   );
 };
 
-export default Logo;
+export default React.memo(Logo);

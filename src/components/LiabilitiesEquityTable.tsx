@@ -1,9 +1,8 @@
-
 import React from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import FinancialTable, { RowDefinition, ColumnDefinition } from "@/components/ui/financial-table";
 
 // Define table rows with their codes
-const liabilitiesTableRows = [
+const liabilitiesTableRows: RowDefinition[] = [
   { name: "LIABILITIES", rowCode: "", indent: 0, isHeader: true, isSection: true, hasVested: false },
   { name: "Overdrafts", rowCode: "01", indent: 1, isTotal: false, hasVested: false },
   { name: "Borrowed Money and Accrued Interest", rowCode: "02", indent: 1, isTotal: false, hasVested: false },
@@ -57,99 +56,19 @@ const liabilitiesTableRows = [
 ];
 
 // Define column data
-const columns = [
+const columns: ColumnDefinition[] = [
   { id: "currentTotal", label: "Current Period", colCode: "01" },
   { id: "priorTotal", label: "Prior Period", colCode: "03" },
   { id: "openingTotal", label: "Opening Prior Period Restated", colCode: "05" }
 ];
 
 const LiabilitiesEquityTable: React.FC = () => {
-  const generateCellCode = (rowCode: string, colCode: string) => {
-    if (!rowCode) return "";
-    return `2020${rowCode}${colCode}`;
-  };
-
   return (
-    <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
-      <Table className="min-w-[800px] text-xs">
-        <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-          <TableRow className="h-6">
-            <TableHead className="w-[400px] text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
-            {columns.map((col) => (
-              <TableHead 
-                key={col.id} 
-                className="text-xs font-semibold text-center py-0 px-1 border-r last:border-r-0"
-              >
-                {col.label}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody className="text-[10px]">
-          {liabilitiesTableRows.map((row, index) => {
-            // Determine background color for total rows
-            const bgClass = row.isTotal ? "bg-gray-50" : "";
-            
-            // Determine font styling
-            const fontClass = row.isSection 
-              ? "font-semibold uppercase" 
-              : row.isHeader 
-                ? "font-medium italic" 
-                : row.isFinalTotal 
-                  ? "font-bold uppercase" 
-                  : row.isTotal
-                    ? "font-medium"
-                    : "font-normal";
-            
-            // Calculate left padding based on indentation level
-            const paddingClass = 
-              row.indent === 0 ? "pl-2" : 
-              row.indent === 1 ? "pl-6" : "pl-10";
-            
-            // Add dotted bottom border for most rows
-            const borderClass = row.isHeader ? "" : "border-dotted border-b border-gray-300";
-            
-            return (
-              <TableRow 
-                key={index} 
-                className={`${bgClass} ${borderClass} h-5`} 
-                data-row-code={row.rowCode}
-              >
-                <TableCell 
-                  className={`${paddingClass} ${fontClass} py-0 pr-2 border-r text-left`}
-                >
-                  {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
-                  )}
-                </TableCell>
-                
-                {columns.map((col, colIndex) => {
-                  const dataCode = generateCellCode(row.rowCode, col.colCode);
-                  // Skip data cells for section headers and regular headers
-                  const isDisabled = !row.rowCode;
-                  const cellClass = isDisabled ? "bg-gray-200" : "";
-                  
-                  return (
-                    <TableCell 
-                      key={`${row.rowCode || index}-${col.colCode}`}
-                      className={`text-center py-0 px-1 border-r last:border-r-0 group ${cellClass}`}
-                      data-code={!isDisabled ? dataCode : ""}
-                    >
-                      {!isDisabled && dataCode && (
-                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                          {dataCode}
-                        </span>
-                      )}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </div>
+    <FinancialTable 
+      rows={liabilitiesTableRows} 
+      columns={columns} 
+      sheetCode="2020"
+    />
   );
 };
 

@@ -13,42 +13,29 @@ interface VisualizationMapperProps {
   sheetCode: string;
 }
 
+// Create a mapper registry for better scalability
+const visualizationMappers: Record<string, React.FC<{sheetCode: string}>| undefined> = {
+  "Provincial Stats": ProvincialStatsMapper,
+  "Premiums, Claims, & LAE": PremiumsClaimsMapper,
+  "Commissions": CommissionsMapper,
+  "Financial Statements": FinancialStatementsMapper,
+  "Investments": InvestmentsMapper,
+  "Reinsurance": ReinsuranceMapper
+};
+
 const VisualizationMapper: React.FC<VisualizationMapperProps> = ({
   section,
   sheet,
   sheetCode
 }) => {
-  // Provincial Stats visualizations
-  if (section === "Provincial Stats") {
-    return <ProvincialStatsMapper sheetCode={sheetCode} />;
+  // Use the registry pattern instead of if/else
+  const MapperComponent = visualizationMappers[section];
+  
+  if (!MapperComponent) {
+    return null;
   }
-
-  // Premiums, Claims, & LAE visualizations
-  if (section === "Premiums, Claims, & LAE") {
-    return <PremiumsClaimsMapper sheetCode={sheetCode} />;
-  }
-
-  // Commissions visualizations
-  if (section === "Commissions") {
-    return <CommissionsMapper sheetCode={sheetCode} />;
-  }
-
-  // Financial Statements visualizations
-  if (section === "Financial Statements") {
-    return <FinancialStatementsMapper sheetCode={sheetCode} />;
-  }
-
-  // Investments visualizations
-  if (section === "Investments") {
-    return <InvestmentsMapper sheetCode={sheetCode} />;
-  }
-
-  // Reinsurance visualizations
-  if (section === "Reinsurance") {
-    return <ReinsuranceMapper sheetCode={sheetCode} />;
-  }
-
-  return null;
+  
+  return <MapperComponent sheetCode={sheetCode} />;
 };
 
-export default VisualizationMapper;
+export default React.memo(VisualizationMapper);
