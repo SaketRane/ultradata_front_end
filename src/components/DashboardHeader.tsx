@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
-import { Bell, ChevronDown, LogOut, User, Settings } from "lucide-react";
+import { Bell, ChevronDown, LogOut, User, Settings, Upload } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,15 +14,16 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/auth";
 
 const DashboardHeader: React.FC = () => {
   const navigate = useNavigate();
+  const { signOut, isAdmin } = useAuth();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     toast.info('Logging out...');
-    setTimeout(() => {
-      navigate('/');
-    }, 1000);
+    await signOut();
+    navigate('/');
   };
 
   return (
@@ -63,6 +64,12 @@ const DashboardHeader: React.FC = () => {
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                 </DropdownMenuItem>
+                {isAdmin && (
+                  <DropdownMenuItem onClick={() => navigate('/data-upload')}>
+                    <Upload className="mr-2 h-4 w-4" />
+                    <span>Data Upload</span>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
