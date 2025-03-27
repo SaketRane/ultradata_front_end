@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { PostgrestError } from "@supabase/supabase-js";
+import { PostgrestError, PostgrestFilterBuilder, PostgrestQueryBuilder } from "@supabase/supabase-js";
 
 // Define valid table names to improve type safety
 type ValidTableName = 'companies' | 'company_invitations' | 'insurance_data_points' | 'profiles';
@@ -27,41 +27,45 @@ export function useDataFetching<T>(options: DataFetchOptions) {
       setError(null);
 
       try {
-        // Start with the basic query
+        // Create query starting from the table
         let query = supabase.from(options.tableName);
 
+        // For TypeScript: We need to cast the query at each step to maintain type safety
+        let selectQuery;
+        
         // Apply select - must be called before filters, ordering, etc.
         if (options.distinct && options.column) {
-          query = query.select(options.column, { count: 'exact', head: false });
+          selectQuery = query.select(options.column, { count: 'exact', head: false });
         } else {
-          query = query.select('*');
+          selectQuery = query.select('*');
         }
 
         // Apply filters after select
+        let filteredQuery = selectQuery;
         if (options.filters) {
           Object.entries(options.filters).forEach(([key, value]) => {
             if (value !== null && value !== undefined && value !== '') {
-              // We need to type cast here since TypeScript doesn't recognize
-              // that after select(), eq() becomes available
-              query = (query as any).eq(key, value);
+              filteredQuery = filteredQuery.eq(key, value);
             }
           });
         }
 
         // Apply ordering after filters
+        let orderedQuery = filteredQuery;
         if (options.orderBy) {
-          query = (query as any).order(options.orderBy.column, { 
+          orderedQuery = filteredQuery.order(options.orderBy.column, { 
             ascending: options.orderBy.ascending 
           });
         }
 
         // Apply pagination as the last operation before executing
+        let finalQuery = orderedQuery;
         if (options.limit) {
-          query = (query as any).limit(options.limit);
+          finalQuery = orderedQuery.limit(options.limit);
         }
 
         // Execute the query and get the response
-        const { data: responseData, error: responseError } = await query;
+        const { data: responseData, error: responseError } = await finalQuery;
 
         if (responseError) {
           throw responseError;
