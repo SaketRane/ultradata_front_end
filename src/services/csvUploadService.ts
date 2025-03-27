@@ -1,6 +1,8 @@
+
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { DEV_MODE } from "@/contexts/auth/auth-utils";
+import { Json } from "@/integrations/supabase/types";
 
 interface CsvDataPoint {
   year: number;
@@ -8,6 +10,11 @@ interface CsvDataPoint {
   sheet_code: string;
   value: number;
 }
+
+// Utility function to convert CsvDataPoint to Json type
+const convertToJson = (records: CsvDataPoint[]): Json[] => {
+  return records as unknown as Json[];
+};
 
 // Throttle function to limit how often a function can be called
 const throttle = (func: Function, limit: number) => {
@@ -143,7 +150,7 @@ export const processAndUploadCsv = async (
         } else {
           // Use RPC to bypass RLS
           const { data, error } = await supabase.rpc('insert_insurance_data', {
-            records: batch
+            records: convertToJson(batch)
           });
           
           if (error) {

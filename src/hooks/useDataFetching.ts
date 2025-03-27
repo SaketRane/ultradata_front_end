@@ -2,9 +2,13 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { PostgrestError } from "@supabase/supabase-js";
+
+// Define valid table names to improve type safety
+type ValidTableName = 'companies' | 'company_invitations' | 'insurance_data_points' | 'profiles';
 
 interface DataFetchOptions {
-  tableName: string;
+  tableName: ValidTableName;
   column?: string;
   distinct?: boolean;
   limit?: number;

@@ -14,6 +14,7 @@ interface FilterContextType {
   availableSheets: Array<{code: string, label: string}>;
   sheetCode: string | null;
   resetFilters: () => void;
+  sectionSheetsMapping: typeof sectionSheetsMapping;
 }
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
@@ -63,7 +64,8 @@ export const FilterProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         setSheet,
         availableSheets,
         sheetCode,
-        resetFilters
+        resetFilters,
+        sectionSheetsMapping
       }}
     >
       {children}

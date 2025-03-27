@@ -8,12 +8,12 @@ interface YearOption {
   disabled?: boolean;
 }
 
-interface InsurerData {
-  insurer_code: string;
-}
-
 interface YearData {
   year: number;
+}
+
+interface InsurerData {
+  insurer_code: string;
 }
 
 export const useYearOptions = () => {
