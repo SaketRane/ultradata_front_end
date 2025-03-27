@@ -1,5 +1,5 @@
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,8 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useInsurerOptions } from "@/hooks/useFilterOptions";
-import { Skeleton } from "@/components/ui/skeleton";
+import { insurers } from "@/data/insurers";
 
 interface InsurerSelectorProps {
   insurer: string;
@@ -21,19 +20,16 @@ interface InsurerSelectorProps {
 
 const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer }) => {
   const [insurerSearchTerm, setInsurerSearchTerm] = useState<string>("");
-  const { insurerOptions, isLoading } = useInsurerOptions();
   
-  // Memoize the filtered insurers to avoid recomputing on every render
-  const filteredInsurers = useMemo(() => {
-    if (insurerSearchTerm.length === 0) return insurerOptions;
-    
-    return insurerOptions.filter(ins => 
-      ins.toLowerCase().includes(insurerSearchTerm.toLowerCase())
-    );
-  }, [insurerOptions, insurerSearchTerm]);
+  const filteredInsurers = insurerSearchTerm.length > 0
+    ? insurers.filter(ins => 
+        ins.name.toLowerCase().startsWith(insurerSearchTerm.toLowerCase()))
+    : insurers;
 
   const handleInsurerChange = (value: string) => {
     setInsurer(value);
+    const selectedInsurer = insurers.find(ins => ins.name === value);
+    console.log("Selected insurer code:", selectedInsurer?.code);
   };
 
   const handleOpenChange = (open: boolean) => {
@@ -41,16 +37,6 @@ const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer }
       setInsurerSearchTerm("");
     }
   };
-
-  // Show skeleton while loading
-  if (isLoading) {
-    return (
-      <div className="space-y-1">
-        <label className="text-xs font-medium">Insurer</label>
-        <Skeleton className="w-full h-8" />
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-1">
@@ -82,8 +68,8 @@ const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer }
             <SelectLabel className="px-3 pt-1">Insurers</SelectLabel>
             {filteredInsurers.length > 0 ? (
               filteredInsurers.map((ins) => (
-                <SelectItem key={ins} value={ins}>
-                  {ins}
+                <SelectItem key={ins.code} value={ins.name}>
+                  {ins.name}
                 </SelectItem>
               ))
             ) : (

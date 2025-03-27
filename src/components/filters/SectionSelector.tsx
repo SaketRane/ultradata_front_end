@@ -9,21 +9,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { sectionSheetsMapping } from "@/constants/sectionSheets";
 
 interface SectionSelectorProps {
   section: string;
   setSection: (section: string) => void;
+  sectionSheetsMapping: Record<string, { code: string, sheets: Array<{code: string, label: string}> }>;
 }
 
 const SectionSelector: React.FC<SectionSelectorProps> = ({ 
   section, 
-  setSection 
+  setSection, 
+  sectionSheetsMapping 
 }) => {
   const sections = Object.keys(sectionSheetsMapping);
 
   const handleSectionChange = (value: string) => {
     setSection(value);
+    const selectedSection = sectionSheetsMapping[value];
+    console.log("Selected section code:", selectedSection.code);
   };
 
   return (

@@ -25,6 +25,8 @@ const SheetSelector: React.FC<SheetSelectorProps> = ({
 }) => {
   const handleSheetChange = (value: string) => {
     setSheet(value);
+    const selectedSheet = availableSheets.find(s => s.label === value);
+    console.log("Selected sheet code:", selectedSheet?.code);
   };
 
   return (

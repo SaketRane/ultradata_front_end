@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import Logo from "@/components/Logo";
 import LoginForm from "@/components/Auth/LoginForm";
 import SuperAdminSetup from "@/components/Auth/SuperAdminSetup";
-import { useAuth } from "@/contexts/auth";
+import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 
 const Index: React.FC = () => {
