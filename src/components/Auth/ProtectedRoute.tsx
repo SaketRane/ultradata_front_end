@@ -1,14 +1,13 @@
+
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/auth";
+import { DEV_MODE } from "@/contexts/auth/auth-utils";
 
 interface ProtectedRouteProps {
   requireAdmin?: boolean;
   requireSuperAdmin?: boolean;
 }
-
-// Imported from AuthContext to keep in sync - remove in production
-const DEV_MODE = true;
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
   requireAdmin = false,

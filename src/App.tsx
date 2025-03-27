@@ -10,7 +10,7 @@ import DataUpload from "./pages/DataUpload";
 import ResetPassword from "./pages/ResetPassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import NotFound from "./pages/NotFound";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/auth";
 import { DataProvider } from "./contexts/DataContext";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
