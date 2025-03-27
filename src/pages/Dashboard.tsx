@@ -5,8 +5,6 @@ import DashboardFooter from "@/components/DashboardFooter";
 import DataFilterSelector from "@/components/DataFilterSelector";
 import DataVisualization from "@/components/DataVisualization";
 import { sectionSheetsMapping } from "@/constants/sectionSheets";
-import { useFilterOptions } from "@/hooks/useFilterOptions";
-import { DEV_MODE } from "@/contexts/auth/auth-utils";
 
 const Dashboard: React.FC = () => {
   const [year, setYear] = useState<string>("");
@@ -14,9 +12,6 @@ const Dashboard: React.FC = () => {
   const [section, setSection] = useState<string>("");
   const [sheet, setSheet] = useState<string>("");
   const [availableSheets, setAvailableSheets] = useState<Array<{code: string, label: string}>>([]);
-  
-  // Get filter options from our hook
-  const { years, insurers, isLoading } = useFilterOptions();
 
   useEffect(() => {
     if (section) {
@@ -29,16 +24,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     document.title = "UltraData | Dashboard";
-    
-    // Debug info
-    if (DEV_MODE) {
-      console.log("Dashboard loaded:", {
-        availableYears: years,
-        availableInsurers: insurers,
-        isLoading
-      });
-    }
-  }, [years, insurers, isLoading]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
