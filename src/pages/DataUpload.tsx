@@ -17,6 +17,7 @@ import DashboardFooter from "@/components/DashboardFooter";
 import FileUploadZone from "@/components/DataUpload/FileUploadZone";
 import UploadProgress from "@/components/DataUpload/UploadProgress";
 import { processAndUploadCsv } from "@/services/csvUploadService";
+import { DEV_MODE } from "@/contexts/auth/auth-utils";
 
 const DataUpload: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -32,6 +33,14 @@ const DataUpload: React.FC = () => {
       toast.error("You need admin privileges to access this page");
     }
   }, [isAdmin, isSuperAdmin, navigate]);
+
+  useEffect(() => {
+    // Log authentication state for debugging
+    if (DEV_MODE) {
+      console.log("Dev mode is enabled");
+      console.log("Admin status:", { isAdmin, isSuperAdmin });
+    }
+  }, [isAdmin, isSuperAdmin]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -51,8 +60,15 @@ const DataUpload: React.FC = () => {
     }
 
     setUploading(true);
+    setProgress(0);
     
     try {
+      // Additional debug information
+      if (DEV_MODE) {
+        console.log("Starting upload in dev mode");
+        toast.info("Dev mode is active - upload will be simulated");
+      }
+      
       const successfulRows = await processAndUploadCsv(file, setProgress);
       
       if (successfulRows > 0) {
@@ -75,6 +91,14 @@ const DataUpload: React.FC = () => {
       
       <main className="flex-1 container mx-auto py-8 px-4">
         <h1 className="text-2xl font-bold mb-6">Data Upload</h1>
+        
+        {DEV_MODE && (
+          <div className="mb-4 p-2 bg-yellow-100 border border-yellow-300 rounded text-sm">
+            <p className="font-bold">Dev Mode Active</p>
+            <p>Admin status: {isAdmin ? "✅" : "❌"}</p>
+            <p>Super Admin status: {isSuperAdmin ? "✅" : "❌"}</p>
+          </div>
+        )}
         
         <Card className="max-w-2xl mx-auto">
           <CardHeader>

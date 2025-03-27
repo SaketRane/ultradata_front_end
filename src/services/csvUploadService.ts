@@ -1,6 +1,7 @@
 
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { DEV_MODE } from "@/contexts/auth/auth-utils";
 
 interface CsvDataPoint {
   year: number;
@@ -64,17 +65,23 @@ export const processAndUploadCsv = async (
                 sheet_code: item.sheet_code,
                 value: item.value
               }));
-
-              // Use RPC to bypass RLS
-              const { data, error } = await supabase.rpc('insert_insurance_data', {
-                records: recordsArray
-              });
               
-              if (error) {
-                console.error("Upload error:", error);
-                toast.error(`Error in batch: ${error.message}`);
-              } else {
+              // In dev mode, bypass the RPC call entirely
+              if (DEV_MODE) {
                 successfulRows += batch.length;
+                console.log("DEV MODE: Simulated successful upload of", batch.length, "rows");
+              } else {
+                // Use RPC to bypass RLS
+                const { data, error } = await supabase.rpc('insert_insurance_data', {
+                  records: recordsArray
+                });
+                
+                if (error) {
+                  console.error("Upload error:", error);
+                  toast.error(`Error in batch: ${error.message}`);
+                } else {
+                  successfulRows += batch.length;
+                }
               }
             } catch (batchError: any) {
               console.error("Batch error:", batchError);
