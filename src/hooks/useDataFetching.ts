@@ -27,36 +27,40 @@ export function useDataFetching<T>(options: DataFetchOptions) {
       setError(null);
 
       try {
+        // Start with the basic query
         let query = supabase.from(options.tableName);
 
-        // Apply distinct selection if needed
+        // Apply select - must be called before filters, ordering, etc.
         if (options.distinct && options.column) {
           query = query.select(options.column, { count: 'exact', head: false });
         } else {
           query = query.select('*');
         }
 
-        // Apply filters
+        // Apply filters after select
         if (options.filters) {
           Object.entries(options.filters).forEach(([key, value]) => {
             if (value !== null && value !== undefined && value !== '') {
-              query = query.eq(key, value);
+              // We need to type cast here since TypeScript doesn't recognize
+              // that after select(), eq() becomes available
+              query = (query as any).eq(key, value);
             }
           });
         }
 
-        // Apply ordering
+        // Apply ordering after filters
         if (options.orderBy) {
-          query = query.order(options.orderBy.column, { 
+          query = (query as any).order(options.orderBy.column, { 
             ascending: options.orderBy.ascending 
           });
         }
 
-        // Apply pagination
+        // Apply pagination as the last operation before executing
         if (options.limit) {
-          query = query.limit(options.limit);
+          query = (query as any).limit(options.limit);
         }
 
+        // Execute the query and get the response
         const { data: responseData, error: responseError } = await query;
 
         if (responseError) {
