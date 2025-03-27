@@ -1,174 +1,77 @@
 
-import React from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import React, { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
-// Define row data with codes for main table
-const mainTableRows = [
-  { name: "Property - total", rowCode: "09", isTotal: false },
-  { name: "Automobile - total", rowCode: "29", isTotal: false },
-  { name: "Liability", rowCode: "59", isTotal: false },
-  { name: "Marine", rowCode: "68", isTotal: false },
-  { name: "Other", rowCode: "75", isTotal: false },
-  { name: "TOTAL", rowCode: "79", isTotal: true }
-];
-
-// Define column codes for main table
-const mainTableColumnCodes = {
-  "deferredCommBoY": "02",
-  "unearnedCommBoY": "03",
-  "directCommWP": "04",
-  "reinsuranceAssumedCommWP": "05",
-  "reinsuranceCededCommWP": "06",
-  "net": "07",
-  "deferredCommEoY": "08",
-  "unearnedCommEoY": "09",
-  "netCommissions": "10"
-};
-
-// Define row data with codes for summary table
-const summaryTableRows = [
-  { name: "Gross:", rowCode: "", isHeader: true, indent: 0 },
-  { name: "Commission Expense", rowCode: "30", isHeader: false, indent: 1 },
-  { name: "Contingent Commissions", rowCode: "33", isHeader: false, indent: 1 },
-  { name: "Other Non-Deferrable Commissions", rowCode: "35", isHeader: false, indent: 1 },
-  { name: "Total Gross", rowCode: "39", isHeader: false, indent: 0 },
-  { name: "Ceded:", rowCode: "", isHeader: true, indent: 0 },
-  { name: "Commission Income", rowCode: "40", isHeader: false, indent: 1 },
-  { name: "Contingent Commissions", rowCode: "43", isHeader: false, indent: 1 },
-  { name: "Other Non-Deferrable Commissions", rowCode: "45", isHeader: false, indent: 1 },
-  { name: "Total Ceded", rowCode: "49", isHeader: false, indent: 0 },
-  { name: "TOTAL NET COMMISSIONS", rowCode: "89", isHeader: false, indent: 0 }
-];
+interface CommissionData {
+  year: number;
+  insurer_code: string;
+  value: number;
+}
 
 const CommissionsTable: React.FC = () => {
-  // Function to generate data cell code for main table
-  const generateMainTableDataCode = (rowCode: string, columnCode: string) => {
-    if (!rowCode) return "";
-    return `8010${rowCode}${columnCode}`;
-  };
+  const [data, setData] = useState<CommissionData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Function to generate data cell code for summary table
-  const generateSummaryTableDataCode = (rowCode: string) => {
-    if (!rowCode) return "";
-    return `8010${rowCode}10`;
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('insurance_data_points')
+          .select('year, insurer_code, value')
+          .eq('sheet_code', '8010')
+          .order('year', { ascending: false })
+          .order('insurer_code', { ascending: true });
+
+        if (error) {
+          throw error;
+        }
+
+        setData(data || []);
+      } catch (err: any) {
+        console.error('Error fetching commission data:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div className="py-10 text-center">Loading commission data...</div>;
+  }
+
+  if (error) {
+    return <div className="py-10 text-center text-red-500">Error loading data: {error}</div>;
+  }
+
+  if (data.length === 0) {
+    return <div className="py-10 text-center">No commission data available. Please upload data first.</div>;
+  }
 
   return (
-    <div className="space-y-4">
-      {/* Main Table */}
-      <div className="overflow-auto max-h-[50vh] rounded-md border bg-white/80 backdrop-blur-sm">
-        <Table className="min-w-[1200px] text-xs dropdown-data">
-          <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-            <TableRow className="h-8">
-              <TableHead className="w-[250px] text-xs font-semibold text-left py-1 px-2">
-                Class of Insurance
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Deferred Comm. (BoY)
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Unearned Comm (BoY)
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Direct Comm (WP)
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Reinsurance assumed Comm (WP)
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Reinsurance ceded Comm (WP)
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Net
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Deferred Comm (EoY)
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Unearned Comm (EoY)
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2">
-                Net Commissions
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="text-[10px]">
-            {mainTableRows.map((row, index) => {
-              // Determine background color for row
-              const bgClass = row.isTotal ? "bg-gray-50" : "";
-              
-              return (
-                <TableRow key={index} className={`${bgClass} h-5`} data-row-code={row.rowCode}>
-                  <TableCell className="font-medium py-0 px-2">
-                    {row.name}
-                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
-                  </TableCell>
-                  
-                  {Object.values(mainTableColumnCodes).map((columnCode) => {
-                    const dataCode = generateMainTableDataCode(row.rowCode, columnCode);
-                    return (
-                      <TableCell 
-                        key={`${row.rowCode}-${columnCode}`}
-                        className="text-center py-0 px-2 group"
-                        data-code={dataCode}
-                      >
-                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                          {dataCode}
-                        </span>
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
-
-      {/* Summary Table */}
-      <div className="mt-4 overflow-auto rounded-md border bg-white/80 backdrop-blur-sm">
-        <Table className="text-xs dropdown-data" style={{ maxWidth: "400px" }}>
-          <TableHeader className="bg-white/95 backdrop-blur-sm z-10">
-            <TableRow className="h-7">
-              <TableHead className="w-[250px] text-xs font-semibold text-left py-1 px-2">
-                Summary of Commissions
-              </TableHead>
-              <TableHead className="text-xs font-semibold text-center py-1 px-2 w-[120px]">
-                Net Commissions
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="text-[10px]">
-            {summaryTableRows.map((row, index) => {
-              // Calculate left padding based on indentation level
-              const paddingClass = row.indent === 1 ? "pl-6" : "";
-              
-              // Determine text weight and style
-              const fontClass = row.isHeader ? "font-medium italic" : "font-normal";
-              
-              return (
-                <TableRow key={index} className="h-5" data-row-code={row.rowCode}>
-                  <TableCell className={`${paddingClass} ${fontClass} py-0 px-2 border-b`}>
-                    {row.name}
-                    {row.rowCode && <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>}
-                  </TableCell>
-                  
-                  <TableCell 
-                    className="text-center py-0 px-2 border-b group"
-                    data-code={generateSummaryTableDataCode(row.rowCode)}
-                  >
-                    {row.rowCode && (
-                      <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                        {generateSummaryTableDataCode(row.rowCode)}
-                      </span>
-                    )}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
+    <div className="overflow-x-auto">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Insurer</th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Commission Value</th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {data.map((row, index) => (
+            <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{row.year}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{row.insurer_code}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

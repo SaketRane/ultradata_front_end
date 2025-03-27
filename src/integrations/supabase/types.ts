@@ -68,6 +68,33 @@ export type Database = {
           },
         ]
       }
+      insurance_data_points: {
+        Row: {
+          created_at: string
+          id: string
+          insurer_code: string
+          sheet_code: string
+          value: number
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          insurer_code: string
+          sheet_code: string
+          value: number
+          year: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          insurer_code?: string
+          sheet_code?: string
+          value?: number
+          year?: number
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           company_id: string | null
