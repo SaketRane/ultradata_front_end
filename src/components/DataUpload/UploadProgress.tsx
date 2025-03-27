@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Progress } from "@/components/ui/progress";
+import ProgressIndicator from "./ProgressIndicator";
 
 interface UploadProgressProps {
   progress: number;
@@ -10,12 +10,7 @@ interface UploadProgressProps {
 const UploadProgress: React.FC<UploadProgressProps> = ({ progress, visible }) => {
   if (!visible) return null;
   
-  return (
-    <div className="w-full">
-      <Progress value={progress} className="h-2 bg-gray-200" />
-      <p className="text-sm text-center mt-2">{progress}% complete</p>
-    </div>
-  );
+  return <ProgressIndicator progress={progress} />;
 };
 
 export default UploadProgress;

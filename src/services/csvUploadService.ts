@@ -57,9 +57,17 @@ export const processAndUploadCsv = async (
           
           if (batch.length > 0) {
             try {
+              // Convert batch to format expected by RPC function
+              const recordsArray = batch.map(item => ({
+                year: item.year,
+                insurer_code: item.insurer_code,
+                sheet_code: item.sheet_code,
+                value: item.value
+              }));
+
               // Use RPC to bypass RLS
               const { data, error } = await supabase.rpc('insert_insurance_data', {
-                records: batch
+                records: recordsArray
               });
               
               if (error) {

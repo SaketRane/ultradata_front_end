@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Input } from "@/components/ui/input";
+import FileLabel from "./FileLabel";
 
 interface FileUploadZoneProps {
   file: File | null;
@@ -21,12 +22,9 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({ file, onFileChange, upl
       />
       <label 
         htmlFor="file-upload" 
-        className="cursor-pointer text-blue-600 hover:text-blue-800 transition-colors block"
+        className="cursor-pointer block"
       >
-        {file ? file.name : "Click to select a CSV file"}
-        <p className="text-sm text-gray-500 mt-1">
-          Format: Year, Insurer Code, Sheet Code, Value
-        </p>
+        <FileLabel fileName={file ? file.name : null} />
       </label>
     </div>
   );
