@@ -11,6 +11,15 @@ interface FilterOptions {
   error: string | null;
 }
 
+// Define proper types for the database results
+interface YearData {
+  year: number;
+}
+
+interface InsurerData {
+  insurer_code: string;
+}
+
 export const useFilterOptions = () => {
   const [options, setOptions] = useState<FilterOptions>({
     years: [],
@@ -35,7 +44,7 @@ export const useFilterOptions = () => {
           .order("year", { ascending: false })
           .then(result => ({
             ...result,
-            data: result.data ? Array.from(new Set(result.data.map(item => item.year))) : []
+            data: result.data ? Array.from(new Set(result.data.map((item: YearData) => item.year))) : []
           }));
 
         if (yearsError) throw yearsError;
@@ -47,19 +56,19 @@ export const useFilterOptions = () => {
           .order("insurer_code")
           .then(result => ({
             ...result,
-            data: result.data ? Array.from(new Set(result.data.map(item => item.insurer_code))) : []
+            data: result.data ? Array.from(new Set(result.data.map((item: InsurerData) => item.insurer_code))) : []
           }));
 
         if (insurersError) throw insurersError;
 
         // Map insurer codes to the insurer names from our existing data
-        const mappedInsurers = insurersData.map(insurer => ({
+        const mappedInsurers = insurersData.map((insurer: InsurerData) => ({
           code: insurer.insurer_code,
           name: insurer.insurer_code // Default to code if no mapping found
         }));
 
         setOptions({
-          years: yearsData.map(year => year.year.toString()),
+          years: yearsData.map((year: YearData) => year.year.toString()),
           insurers: mappedInsurers,
           isLoading: false,
           error: null,
