@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { PostgrestError, PostgrestFilterBuilder, PostgrestQueryBuilder } from "@supabase/supabase-js";
+import { PostgrestError } from "@supabase/supabase-js";
 
 // Define valid table names to improve type safety
 type ValidTableName = 'companies' | 'company_invitations' | 'insurance_data_points' | 'profiles';
@@ -27,13 +27,12 @@ export function useDataFetching<T>(options: DataFetchOptions) {
       setError(null);
 
       try {
-        // Create query starting from the table
+        // Start with the basic query - we'll use type assertions where needed
+        // but without importing types that don't exist
         let query = supabase.from(options.tableName);
-
-        // For TypeScript: We need to cast the query at each step to maintain type safety
-        let selectQuery;
         
         // Apply select - must be called before filters, ordering, etc.
+        let selectQuery;
         if (options.distinct && options.column) {
           selectQuery = query.select(options.column, { count: 'exact', head: false });
         } else {
@@ -45,6 +44,7 @@ export function useDataFetching<T>(options: DataFetchOptions) {
         if (options.filters) {
           Object.entries(options.filters).forEach(([key, value]) => {
             if (value !== null && value !== undefined && value !== '') {
+              // Use type assertion here
               filteredQuery = filteredQuery.eq(key, value);
             }
           });
