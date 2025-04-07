@@ -115,7 +115,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       if (data) {
-        setProfile(data as UserProfile);
+        // Create a UserProfile object with default has_two_factor if not present
+        const profileData: UserProfile = {
+          id: data.id,
+          email: data.email,
+          role: data.role as UserRole,
+          company_id: data.company_id,
+          has_two_factor: data.has_two_factor || false
+        };
+        setProfile(profileData);
       }
     } catch (error: any) {
       console.error("Error fetching user profile:", error.message);
@@ -144,7 +152,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         // Check if user has 2FA enabled by fetching profile
         const { data: profileData, error: profileError } = await supabase
           .from("profiles")
-          .select("has_two_factor")
+          .select("*")
           .eq("id", data.user.id)
           .single();
 
@@ -152,6 +160,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           return { error: profileError, needsTwoFactor: false };
         }
 
+        // Default to false if has_two_factor doesn't exist
         const needsTwoFactor = profileData?.has_two_factor || false;
         
         if (needsTwoFactor) {
@@ -215,13 +224,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // In a real implementation, this would generate a secret and register with a proper 2FA service
       const mockSecret = "ABCDEF123456"; // Mock secret - replace with real generation in production
 
-      // Update the user's profile to indicate 2FA is enabled
+      // Check if has_two_factor column exists in profiles table
+      const { error: columnError } = await supabase.rpc('check_column_exists', { 
+        p_table: 'profiles', 
+        p_column: 'has_two_factor' 
+      });
+
+      // If column doesn't exist, we should add it
+      if (columnError) {
+        console.warn("has_two_factor column may not exist, defaulting to update anyway");
+      }
+
+      // Try to update the profile with has_two_factor
       const { error } = await supabase
         .from("profiles")
         .update({ has_two_factor: true })
         .eq("id", user.id);
 
       if (error) {
+        console.error("Error enabling 2FA:", error);
         return { error, secret: null };
       }
 
@@ -248,7 +269,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { error: new Error("No authenticated user") };
       }
 
-      // Update the user's profile to indicate 2FA is disabled
+      // Try to update the profile with has_two_factor
       const { error } = await supabase
         .from("profiles")
         .update({ has_two_factor: false })
