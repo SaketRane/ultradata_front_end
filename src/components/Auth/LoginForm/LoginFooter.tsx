@@ -3,6 +3,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CardFooter } from "@/components/ui/card";
 
+/**
+ * Footer component for the login form
+ * Contains additional links and information
+ */
 const LoginFooter: React.FC = () => {
   const navigate = useNavigate();
   

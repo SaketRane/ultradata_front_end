@@ -5,6 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+/**
+ * Props for the TwoFactorForm component
+ */
 interface TwoFactorFormProps {
   twoFactorCode: string;
   setTwoFactorCode: (code: string) => void;
@@ -13,6 +16,9 @@ interface TwoFactorFormProps {
   error: string | null;
 }
 
+/**
+ * Two-factor authentication form component
+ */
 const TwoFactorForm: React.FC<TwoFactorFormProps> = ({
   twoFactorCode,
   setTwoFactorCode,

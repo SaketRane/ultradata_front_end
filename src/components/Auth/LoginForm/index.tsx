@@ -6,6 +6,10 @@ import TwoFactorForm from "./TwoFactorForm";
 import LoginFooter from "./LoginFooter";
 import { useLoginForm } from "./useLoginForm";
 
+/**
+ * Main login form component that manages the authentication UI
+ * Supports both standard email/password login and two-factor authentication
+ */
 const LoginForm: React.FC = () => {
   const {
     email,

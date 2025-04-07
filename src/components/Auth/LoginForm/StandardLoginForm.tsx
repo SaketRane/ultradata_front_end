@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { EyeIcon, EyeOffIcon, Lock, Mail } from "lucide-react";
-import { toast } from "sonner";
-import { useAuth } from "@/contexts/AuthContext";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+/**
+ * Props for the StandardLoginForm component
+ */
 interface StandardLoginFormProps {
   email: string;
   setEmail: (email: string) => void;
@@ -19,6 +20,9 @@ interface StandardLoginFormProps {
   handleResetPassword: () => void;
 }
 
+/**
+ * Standard email and password login form
+ */
 const StandardLoginForm: React.FC<StandardLoginFormProps> = ({
   email,
   setEmail,

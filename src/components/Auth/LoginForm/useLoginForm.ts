@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 
+/**
+ * Custom hook for login form state and behavior
+ * Encapsulates all login-related logic
+ */
 export const useLoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
