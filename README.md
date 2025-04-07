@@ -22,6 +22,7 @@ This project is built with:
   - `/src/components/ui`: Reusable UI components from shadcn
   - `/src/components/visualizations`: Data visualization components
   - `/src/components/Auth`: Authentication-related components
+  - `/src/components/tables`: Financial table components
   - `/src/components/filters`: Filter selection components
 - `/src/contexts`: React context providers for global state
 - `/src/pages`: Top-level page components
@@ -31,49 +32,60 @@ This project is built with:
 - `/src/constants`: Constant values and configurations
 - `/src/integrations`: External service integrations (Supabase)
 
-## Code Patterns
+## Architecture Overview
 
-### Component Structure
+### Component Architecture
 
-Components follow a consistent pattern:
-- Clear TypeScript interfaces for props
-- Memoization for performance optimization
-- Separation of concerns for better maintainability
+The application follows a component-based architecture, with a focus on:
+- **Separation of concerns**: Each component has a single responsibility
+- **Reusability**: Common components are abstracted into reusable modules
+- **Type safety**: TypeScript interfaces define component props and data structures
+- **Performance optimization**: Memoization is used for heavy components
 
 ### Data Flow
 
-The application uses a unidirectional data flow:
-1. User selects filters in the DataFilterSelector
-2. Selection state is managed in the Dashboard component
-3. Selected data is passed to the DataVisualization component
-4. The VisualizationMapper routes to the correct visualization
+1. User selects filters in the `DataFilterSelector` component
+2. Selection state is managed in the `Dashboard` component
+3. Data is fetched through Tanstack Query hooks
+4. Visualizations are rendered based on selected filters
 
 ### Financial Tables
 
-Financial tables use a common FinancialTable component with:
-- Consistent styling and behavior
+Financial tables use a common pattern:
+- Consistent use of the `FinancialTable` component
 - Type-safe row and column definitions
-- Code-based data referencing
+- Code-based data referencing for integration with backend systems
 
-## Development Practices
+## Development Guidelines
 
-- Use React.memo for components that don't need frequent re-renders
-- Leverage useCallback and useMemo for performance optimization
-- Follow TypeScript best practices for type safety
-- Keep components small and focused on a single responsibility
-- Use environment variables for configuration
+### Creating New Components
 
-## Extending the Application
+1. Place component in appropriate subfolder
+2. Follow naming conventions (PascalCase for components)
+3. Use TypeScript interfaces for props
+4. Implement memoization for performance when appropriate
+5. Keep components focused and small
 
-### Adding New Visualizations
+### Adding New Financial Tables
 
-1. Create a new mapper component in `/src/components/visualizations/mappers/`
-2. Add the component to the visualizationMappers registry in VisualizationMapper.tsx
-3. Update the sectionSheetsMapping in `/src/constants/sectionSheets.ts`
+1. Create a new table component in `/src/components/tables`
+2. Use the existing `FinancialTable` component
+3. Define row and column structures following the established patterns
+4. Register in the appropriate mapper if needed
 
-### Adding New Table Types
+### Performance Optimization
 
-1. Define row and column definitions following the RowDefinition and ColumnDefinition interfaces
-2. Create a new table component extending the FinancialTable
-3. Add the component to the appropriate mapper
+- Use `React.memo()` for components that don't need frequent re-renders
+- Leverage `useCallback` and `useMemo` for performance-critical code
+- Implement code-splitting with lazy loading for larger components
 
+## API Integration
+
+The application uses Tanstack Query for data fetching. Data requests follow a consistent pattern:
+- Query keys based on selected filters
+- Type-safe response handling
+- Proper error and loading state management
+
+## Deployment
+
+The application is configured for deployment through CI/CD pipelines. Environment-specific configuration is handled through environment variables.

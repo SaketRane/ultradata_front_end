@@ -34,6 +34,26 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
     return `${sheetCode}${rowCode}${colCode}`;
   };
 
+  // Memoize the table header to prevent unnecessary re-renders
+  const tableHeader = useMemo(() => (
+    <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
+      {secondaryHeader}
+      <TableRow className="h-6">
+        <TableHead className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
+        {columns.map((col) => (
+          <TableHead 
+            key={col.id} 
+            data-column-code={col.colCode}
+            colSpan={col.colSpan}
+            className="text-xs font-semibold text-center py-0 px-1 border-r last:border-r-0"
+          >
+            {col.label}
+          </TableHead>
+        ))}
+      </TableRow>
+    </TableHeader>
+  ), [columns, secondaryHeader]);
+
   // Memoize the table body to prevent unnecessary re-renders
   const tableBody = useMemo(() => (
     <TableBody className="text-[10px]">
@@ -104,22 +124,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   return (
     <div className={`overflow-auto rounded-md border bg-white/80 backdrop-blur-sm ${className}`} style={{ maxHeight }}>
       <Table className="min-w-[600px] text-xs">
-        <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-          {secondaryHeader}
-          <TableRow className="h-6">
-            <TableHead className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
-            {columns.map((col) => (
-              <TableHead 
-                key={col.id} 
-                data-column-code={col.colCode}
-                colSpan={col.colSpan}
-                className="text-xs font-semibold text-center py-0 px-1 border-r last:border-r-0"
-              >
-                {col.label}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
+        {tableHeader}
         {tableBody}
       </Table>
     </div>

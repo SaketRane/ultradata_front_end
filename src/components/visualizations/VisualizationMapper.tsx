@@ -2,7 +2,7 @@
 import React, { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 
-// Lazy load mappers for better performance
+// Lazy load mappers for better performance and code splitting
 const ProvincialStatsMapper = lazy(() => import("./mappers/ProvincialStatsMapper"));
 const PremiumsClaimsMapper = lazy(() => import("./mappers/PremiumsClaimsMapper"));
 const CommissionsMapper = lazy(() => import("./mappers/CommissionsMapper"));
@@ -16,7 +16,10 @@ interface VisualizationMapperProps {
   sheetCode: string;
 }
 
-// Create a mapper registry for better scalability and maintainability
+/**
+ * Registry of visualization mappers for each section.
+ * Using a registry pattern makes it easy to add new mappers in the future.
+ */
 const visualizationMappers: Record<string, React.ComponentType<{sheetCode: string}>> = {
   "Provincial Stats": ProvincialStatsMapper,
   "Premiums, Claims, & LAE": PremiumsClaimsMapper,
@@ -39,6 +42,7 @@ const VisualizationMapper: React.FC<VisualizationMapperProps> = ({
   const MapperComponent = visualizationMappers[section];
   
   if (!MapperComponent) {
+    console.debug(`No mapper component found for section: ${section}`);
     return null;
   }
   

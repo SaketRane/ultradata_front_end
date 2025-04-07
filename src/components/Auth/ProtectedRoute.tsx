@@ -4,13 +4,15 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface ProtectedRouteProps {
+  /** Require admin role to access this route */
   requireAdmin?: boolean;
+  /** Require super admin role to access this route */
   requireSuperAdmin?: boolean;
 }
 
 /**
  * Route component that requires authentication and optionally specific roles.
- * Uses environment variables properly for development mode.
+ * Handles various authorization states and provides appropriate redirection.
  */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
   requireAdmin = false,
@@ -36,21 +38,25 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Outlet />;
   }
 
-  // Redirect to login if not authenticated
+  // Authentication check - redirect to login if not authenticated
   if (!user) {
+    console.debug("User not authenticated, redirecting to login");
     return <Navigate to="/" replace />;
   }
 
-  // Check for required roles
+  // Role checks
   if (requireSuperAdmin && !isSuperAdmin) {
+    console.debug("Super admin access required but user is not a super admin");
     return <Navigate to="/dashboard" replace />;
   }
 
-  if (requireAdmin && !isAdmin) {
+  if (requireAdmin && !isAdmin && !isSuperAdmin) {
+    console.debug("Admin access required but user is not an admin");
     return <Navigate to="/dashboard" replace />;
   }
 
+  // User is authenticated and has required roles
   return <Outlet />;
 };
 
-export default ProtectedRoute;
+export default React.memo(ProtectedRoute);

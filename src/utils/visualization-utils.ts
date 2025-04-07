@@ -1,58 +1,68 @@
 
 /**
+ * Maps for section titles based on sheet codes
+ * This approach makes it easier to add new visualizations
+ */
+const PROVINCIAL_STATS_TITLES: Record<string, string> = {
+  "6710": "Premiums Written by Province",
+  "6720": "Premiums Earned by Province",
+  "6730": "Claims Inc (incl Adj Exp) by Province",
+  "6731": "Claims Inc (incl Adj Exp Undisc) by Province"
+};
+
+const PREMIUMS_CLAIMS_TITLES: Record<string, string> = {
+  "6020": "Premiums and Claims",
+  "6021": "Undiscounted Claims Incurred",
+  "6030": "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year"
+};
+
+const FINANCIAL_STATEMENTS_TITLES: Record<string, string> = {
+  "2010": "Assets",
+  "2020": "Liabilities, Equity, Head Office Account, Reserves & AOCI",
+  "2030": "Statement of Income",
+  "2042": "Comprehensive Income(Loss) & Accumulated Other Comprehensive Income(Loss)",
+  "2054": "Statement of Changes in Equity",
+  "2045": "Head Office Account & Reserves"
+};
+
+const REINSURANCE_TITLES: Record<string, string> = {
+  "7050": "Registered Reinsurance",
+  "7060": "Unregistered Reinsurance (Canadian)",
+  "7061": "Unregistered Reinsurance (Foreign)"
+};
+
+/**
  * Get the display title for a visualization based on section and sheet code
+ * Using a map-based approach for better maintainability
  */
 export const getVisualizationTitle = (section: string, sheetCode: string): string => {
-  // Provincial Stats
-  if (section === "Provincial Stats") {
-    switch (sheetCode) {
-      case "6710": return "Premiums Written by Province";
-      case "6720": return "Premiums Earned by Province";
-      case "6730": return "Claims Inc (incl Adj Exp) by Province";
-      case "6731": return "Claims Inc (incl Adj Exp Undisc) by Province";
-    }
+  // First check section-specific title maps
+  if (section === "Provincial Stats" && sheetCode in PROVINCIAL_STATS_TITLES) {
+    return PROVINCIAL_STATS_TITLES[sheetCode];
   }
 
-  // Premiums, Claims, & LAE
-  if (section === "Premiums, Claims, & LAE") {
-    switch (sheetCode) {
-      case "6020": return "Premiums and Claims";
-      case "6021": return "Undiscounted Claims Incurred";
-      case "6030": return "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year";
-    }
+  if (section === "Premiums, Claims, & LAE" && sheetCode in PREMIUMS_CLAIMS_TITLES) {
+    return PREMIUMS_CLAIMS_TITLES[sheetCode];
   }
 
-  // Commissions
   if (section === "Commissions" && sheetCode === "8010") {
     return "Commissions";
   }
 
-  // Financial Statements
-  if (section === "Financial Statements") {
-    switch (sheetCode) {
-      case "2010": return "Assets";
-      case "2020": return "Liabilities, Equity, Head Office Account, Reserves & AOCI";
-      case "2030": return "Statement of Income";
-      case "2042": return "Comprehensive Income(Loss) & Accumulated Other Comprehensive Income(Loss)";
-      case "2054": return "Statement of Changes in Equity";
-      case "2045": return "Head Office Account & Reserves";
-    }
+  if (section === "Financial Statements" && sheetCode in FINANCIAL_STATEMENTS_TITLES) {
+    return FINANCIAL_STATEMENTS_TITLES[sheetCode];
   }
 
-  // Investments
   if (section === "Investments" && sheetCode === "4007") {
     return "Summary of Investments";
   }
 
-  // Reinsurance
-  if (section === "Reinsurance") {
-    switch (sheetCode) {
-      case "7050": return "Registered Reinsurance";
-      case "7060": return "Unregistered Reinsurance (Canadian)";
-      case "7061": return "Unregistered Reinsurance (Foreign)";
-    }
+  if (section === "Reinsurance" && sheetCode in REINSURANCE_TITLES) {
+    return REINSURANCE_TITLES[sheetCode];
   }
 
+  // If no match is found, return empty string
+  console.debug(`No title found for section: ${section}, sheetCode: ${sheetCode}`);
   return "";
 };
 

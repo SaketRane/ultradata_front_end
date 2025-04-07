@@ -31,6 +31,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
   );
   
   if (!sheetCode) {
+    console.debug(`No sheet code found for sheet: ${sheet}`);
     return null;
   }
 
@@ -41,6 +42,7 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
   );
   
   if (!title) {
+    console.debug(`No title found for section: ${section}, sheetCode: ${sheetCode}`);
     return null;
   }
 
