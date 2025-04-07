@@ -1,7 +1,7 @@
 
 import { User } from "@supabase/supabase-js";
 
-export type UserRole = "superadmin" | "admin" | "user";
+export type UserRole = "admin" | "user";
 
 export interface UserProfile {
   id: string;
@@ -24,5 +24,4 @@ export interface AuthContextType {
   resetPassword: (email: string) => Promise<{ error: any | null }>;
   updatePassword: (password: string) => Promise<{ error: any | null }>;
   isAdmin: boolean;
-  isSuperAdmin: boolean;
 }

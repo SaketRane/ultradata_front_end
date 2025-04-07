@@ -37,11 +37,6 @@ const App = () => (
               {/* Add admin routes here */}
             </Route>
             
-            {/* Superadmin routes */}
-            <Route element={<ProtectedRoute requireSuperAdmin />}>
-              {/* Add superadmin routes here */}
-            </Route>
-            
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>

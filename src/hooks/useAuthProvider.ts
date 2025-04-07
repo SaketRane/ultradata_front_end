@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { User, Session } from "@supabase/supabase-js";
+import { User } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { UserProfile } from "@/types/auth";
@@ -90,9 +90,8 @@ export const useAuthProvider = () => {
     }
   };
 
-  // Check if user is an admin or superadmin
-  const isAdmin = DEV_MODE ? true : (profile?.role === "admin" || profile?.role === "superadmin");
-  const isSuperAdmin = DEV_MODE ? true : (profile?.role === "superadmin");
+  // Check if user is an admin
+  const isAdmin = DEV_MODE ? true : (profile?.role === "admin");
 
   return {
     user,
@@ -105,6 +104,5 @@ export const useAuthProvider = () => {
     resetPassword,
     updatePassword,
     isAdmin,
-    isSuperAdmin,
   };
 };

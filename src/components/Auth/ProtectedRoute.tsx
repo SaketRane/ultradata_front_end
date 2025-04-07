@@ -6,8 +6,6 @@ import { useAuth } from "@/contexts/AuthContext";
 interface ProtectedRouteProps {
   /** Require admin role to access this route */
   requireAdmin?: boolean;
-  /** Require super admin role to access this route */
-  requireSuperAdmin?: boolean;
 }
 
 /**
@@ -15,10 +13,9 @@ interface ProtectedRouteProps {
  * Handles various authorization states and provides appropriate redirection.
  */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-  requireAdmin = false,
-  requireSuperAdmin = false
+  requireAdmin = false
 }) => {
-  const { user, loading, isAdmin, isSuperAdmin } = useAuth();
+  const { user, loading, isAdmin } = useAuth();
 
   // Show loading indicator while checking authentication
   if (loading) {
@@ -45,12 +42,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }
 
   // Role checks
-  if (requireSuperAdmin && !isSuperAdmin) {
-    console.debug("Super admin access required but user is not a super admin");
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  if (requireAdmin && !isAdmin && !isSuperAdmin) {
+  if (requireAdmin && !isAdmin) {
     console.debug("Admin access required but user is not an admin");
     return <Navigate to="/dashboard" replace />;
   }

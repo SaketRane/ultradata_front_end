@@ -14,7 +14,7 @@ export const mockUser = DEV_MODE ? {
 export const mockProfile = DEV_MODE ? {
   id: "dev-user-id",
   email: "dev@example.com",
-  role: "superadmin" as const,
+  role: "admin" as const,
   company_id: null
 } : null;
 
