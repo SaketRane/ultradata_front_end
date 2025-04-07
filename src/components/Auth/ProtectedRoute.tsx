@@ -2,6 +2,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { DEV_MODE } from "@/utils/auth-utils";
 
 interface ProtectedRouteProps {
   /** Require admin role to access this route */
@@ -26,24 +27,26 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     );
   }
 
-  // In development mode, skip auth checks if enabled in the environment
-  if (
-    import.meta.env.DEV && 
-    import.meta.env.VITE_SKIP_AUTH === "true"
-  ) {
-    console.warn("Development mode: Authentication checks bypassed!");
+  // Development mode auth bypass
+  if (DEV_MODE) {
+    console.log("Development mode: Authentication checks bypassed!");
+    // Even in dev mode, respect admin route requirements
+    if (requireAdmin && !isAdmin) {
+      console.log("Dev mode: Admin role required but user is not an admin");
+      return <Navigate to="/dashboard" replace />;
+    }
     return <Outlet />;
   }
 
   // Authentication check - redirect to login if not authenticated
   if (!user) {
-    console.debug("User not authenticated, redirecting to login");
+    console.log("User not authenticated, redirecting to login");
     return <Navigate to="/" replace />;
   }
 
   // Role checks
   if (requireAdmin && !isAdmin) {
-    console.debug("Admin access required but user is not an admin");
+    console.log("Admin access required but user is not an admin");
     return <Navigate to="/dashboard" replace />;
   }
 

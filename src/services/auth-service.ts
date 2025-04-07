@@ -8,7 +8,7 @@ import { DEV_MODE } from "@/utils/auth-utils";
  */
 export const signIn = async (email: string, password: string) => {
   if (DEV_MODE) {
-    // Mock successful login in dev mode
+    console.log("Dev mode: mock successful login");
     return { error: null, needsTwoFactor: false };
   }
 
@@ -19,15 +19,16 @@ export const signIn = async (email: string, password: string) => {
     });
 
     if (error) {
+      console.error("Sign in error:", error.message);
       return { error, needsTwoFactor: false };
     }
 
-    // Check if 2FA is required (this would need to be implemented in your database)
-    // For now, it's a placeholder for future 2FA implementation
+    // Check if 2FA is required (placeholder for future implementation)
     const needsTwoFactor = false;
 
     return { error: null, needsTwoFactor };
   } catch (error: any) {
+    console.error("Sign in error:", error.message);
     return { error, needsTwoFactor: false };
   }
 };
@@ -37,7 +38,7 @@ export const signIn = async (email: string, password: string) => {
  */
 export const signUp = async (email: string, password: string) => {
   if (DEV_MODE) {
-    // Mock successful signup in dev mode
+    console.log("Dev mode: mock successful signup");
     return { error: null };
   }
 
@@ -48,11 +49,13 @@ export const signUp = async (email: string, password: string) => {
     });
 
     if (error) {
+      console.error("Sign up error:", error.message);
       return { error };
     }
 
     return { error: null };
   } catch (error: any) {
+    console.error("Sign up error:", error.message);
     return { error };
   }
 };
@@ -62,38 +65,48 @@ export const signUp = async (email: string, password: string) => {
  */
 export const signOut = async () => {
   if (DEV_MODE) {
+    console.log("Dev mode: mock successful sign out");
     return { error: null };
   }
 
   try {
     const { error } = await supabase.auth.signOut();
     if (error) {
+      console.error("Sign out error:", error.message);
       toast.error("Error signing out");
-      console.error("Error signing out:", error.message);
       return { error };
     }
     return { error: null };
   } catch (error: any) {
+    console.error("Sign out error:", error.message);
     toast.error("Error signing out");
-    console.error("Error signing out:", error.message);
     return { error };
   }
 };
 
 /**
- * Verify two-factor authentication (placeholder for future implementation)
+ * Verify two-factor authentication
+ * @param token The two-factor authentication token
  */
 export const verifyTwoFactor = async (token: string) => {
+  if (DEV_MODE) {
+    console.log("Dev mode: mock successful 2FA verification");
+    return { error: null };
+  }
+
   // This would need to be implemented with a real 2FA solution
+  // Placeholder for future implementation
+  console.log("Verifying 2FA token:", token);
   return { error: null };
 };
 
 /**
  * Reset password
+ * @param email The email address to send the password reset link to
  */
 export const resetPassword = async (email: string) => {
   if (DEV_MODE) {
-    // Mock successful password reset in dev mode
+    console.log("Dev mode: mock successful password reset");
     toast.success("In development mode, password reset is simulated");
     return { error: null };
   }
@@ -104,21 +117,24 @@ export const resetPassword = async (email: string) => {
     });
 
     if (error) {
+      console.error("Password reset error:", error.message);
       return { error };
     }
 
     return { error: null };
   } catch (error: any) {
+    console.error("Password reset error:", error.message);
     return { error };
   }
 };
 
 /**
  * Update password
+ * @param password The new password
  */
 export const updatePassword = async (password: string) => {
   if (DEV_MODE) {
-    // Mock successful password update in dev mode
+    console.log("Dev mode: mock successful password update");
     toast.success("In development mode, password update is simulated");
     return { error: null };
   }
@@ -129,11 +145,13 @@ export const updatePassword = async (password: string) => {
     });
 
     if (error) {
+      console.error("Password update error:", error.message);
       return { error };
     }
 
     return { error: null };
   } catch (error: any) {
+    console.error("Password update error:", error.message);
     return { error };
   }
 };

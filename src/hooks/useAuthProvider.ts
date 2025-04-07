@@ -19,27 +19,38 @@ import {
   updatePassword
 } from "@/services/auth-service";
 
+/**
+ * Custom hook that provides authentication functionality
+ */
 export const useAuthProvider = () => {
-  const [user, setUser] = useState<User | null>(mockUser as User | null);
-  const [profile, setProfile] = useState<UserProfile | null>(mockProfile);
+  const [user, setUser] = useState<User | null>(DEV_MODE ? mockUser as User : null);
+  const [profile, setProfile] = useState<UserProfile | null>(DEV_MODE ? mockProfile : null);
   const [loading, setLoading] = useState(!DEV_MODE);
   const navigate = useNavigate();
 
-  // Check if user is authenticated and fetch profile only if not in dev mode
+  // Authentication state and session management
   useEffect(() => {
-    if (DEV_MODE) return;
+    if (DEV_MODE) {
+      console.log("Development mode: Using mock auth data");
+      setLoading(false);
+      return;
+    }
 
     // Get current session
     const checkSession = async () => {
       try {
+        console.log("Checking auth session...");
         const { data: { session } } = await supabase.auth.getSession();
         
         if (session?.user) {
+          console.log("Active session found");
           setUser(session.user);
           const userProfile = await fetchUserProfile(session.user.id);
           if (userProfile) {
             setProfile(userProfile);
           }
+        } else {
+          console.log("No active session");
         }
       } catch (error) {
         console.error("Error checking session:", error);
@@ -75,9 +86,12 @@ export const useAuthProvider = () => {
     };
   }, []);
 
+  // Sign out handler
   const handleSignOut = async () => {
     if (DEV_MODE) {
-      // In development mode, just redirect to home
+      console.log("Dev mode: Simulating sign out");
+      setUser(null);
+      setProfile(null);
       navigate("/");
       return;
     }
@@ -91,7 +105,7 @@ export const useAuthProvider = () => {
   };
 
   // Check if user is an admin
-  const isAdmin = DEV_MODE ? true : (profile?.role === "admin");
+  const isAdmin = profile?.role === "admin";
 
   return {
     user,

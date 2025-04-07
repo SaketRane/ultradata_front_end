@@ -1,8 +1,14 @@
 
 import { User } from "@supabase/supabase-js";
 
+/**
+ * Possible user roles in the application
+ */
 export type UserRole = "admin" | "user";
 
+/**
+ * User profile data structure
+ */
 export interface UserProfile {
   id: string;
   email: string;
@@ -10,6 +16,9 @@ export interface UserProfile {
   company_id: string | null;
 }
 
+/**
+ * Authentication context interface for the application
+ */
 export interface AuthContextType {
   user: User | null;
   profile: UserProfile | null;

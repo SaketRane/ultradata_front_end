@@ -3,9 +3,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { UserProfile } from "@/types/auth";
 
 // Development mode configuration
-export const DEV_MODE = true; // Set to false to use real authentication
+// This is explicitly separated from production code for clarity
+export const DEV_MODE = process.env.NODE_ENV === 'development' && import.meta.env.VITE_USE_MOCK_AUTH === 'true';
 
-// Development mock user and profile
+// Development mock user and profile (only used in DEV_MODE)
 export const mockUser = DEV_MODE ? {
   id: "dev-user-id",
   email: "dev@example.com",
@@ -20,8 +21,14 @@ export const mockProfile = DEV_MODE ? {
 
 /**
  * Fetch user profile from profiles table
+ * This is used in both dev and production modes
  */
 export const fetchUserProfile = async (userId: string): Promise<UserProfile | null> => {
+  if (DEV_MODE) {
+    console.log("Dev mode: returning mock profile");
+    return mockProfile;
+  }
+
   try {
     const { data, error } = await supabase
       .from("profiles")
@@ -30,14 +37,11 @@ export const fetchUserProfile = async (userId: string): Promise<UserProfile | nu
       .single();
 
     if (error) {
+      console.error("Error fetching user profile:", error.message);
       throw error;
     }
 
-    if (data) {
-      return data as UserProfile;
-    }
-    
-    return null;
+    return data as UserProfile;
   } catch (error: any) {
     console.error("Error fetching user profile:", error.message);
     return null;
