@@ -3,16 +3,7 @@
  * Types for the ClaimsUndiscountedTable component
  */
 
-export interface InsuranceRow {
-  name: string;
-  indent: number;
-  rowCode: string;
-  isSubtotal: boolean;
-  isTotal: boolean;
-}
+import { InsuranceRowDefinition, ProvinceColumnDefinition } from "@/types/financial";
 
-export interface ProvinceColumn {
-  name: string;
-  code: string;
-}
-
+// Re-export the types from the financial types
+export type { InsuranceRowDefinition, ProvinceColumnDefinition };

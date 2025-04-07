@@ -1,24 +1,47 @@
 
-import React from "react";
+import React, { memo, useMemo } from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { InsuranceRow, ProvinceColumn } from "./types";
+import { InsuranceRowDefinition, ProvinceColumnDefinition } from "./types";
 import { generateDataCellCode, getRowClasses } from "./utils";
 
 interface TableRowProps {
-  row: InsuranceRow;
+  row: InsuranceRowDefinition;
   index: number;
-  columns: ProvinceColumn[];
+  columns: ProvinceColumnDefinition[];
 }
 
 /**
- * Table row component for ClaimsUndiscountedTable
+ * Optimized table row component for ClaimsUndiscountedTable
+ * Uses memoization for better performance with large datasets
  */
 const TableRowComponent: React.FC<TableRowProps> = ({ row, index, columns }) => {
-  const { paddingClass, bgClass, fontClass, sizeClass } = getRowClasses(
-    row.indent, 
-    row.isTotal, 
-    row.isSubtotal
-  );
+  // Memoize the CSS classes to prevent recalculation on each render
+  const rowClasses = useMemo(() => 
+    getRowClasses(row.indent, row.isTotal, row.isSubtotal)
+  , [row.indent, row.isTotal, row.isSubtotal]);
+  
+  const { paddingClass, bgClass, fontClass, sizeClass } = rowClasses;
+  
+  // Memoize the cells to prevent unnecessary re-renders
+  const cells = useMemo(() => 
+    columns.map(column => {
+      const dataCode = generateDataCellCode(row.rowCode, column.code);
+      
+      return (
+        <TableCell 
+          key={`${index}-${column.name}`} 
+          className={`text-center py-1 px-4 ${sizeClass} ${fontClass}`}
+          data-code={dataCode}
+        >
+          {dataCode && (
+            <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">
+              {dataCode}
+            </span>
+          )}
+        </TableCell>
+      );
+    })
+  , [columns, row.rowCode, fontClass, sizeClass, index]);
   
   return (
     <TableRow 
@@ -35,25 +58,10 @@ const TableRowComponent: React.FC<TableRowProps> = ({ row, index, columns }) => 
         )}
       </TableCell>
       
-      {columns.map(column => {
-        const dataCode = generateDataCellCode(row.rowCode, column.code);
-        
-        return (
-          <TableCell 
-            key={`${index}-${column.name}`} 
-            className={`text-center py-1 px-4 ${sizeClass} ${fontClass}`}
-            data-code={dataCode}
-          >
-            {dataCode && (
-              <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">
-                {dataCode}
-              </span>
-            )}
-          </TableCell>
-        );
-      })}
+      {cells}
     </TableRow>
   );
 };
 
-export default React.memo(TableRowComponent);
+// Use React.memo to prevent unnecessary re-renders
+export default memo(TableRowComponent);

@@ -2,6 +2,7 @@
 /**
  * Utility functions for the ClaimsUndiscountedTable component
  */
+import { getRowClasses as getBaseRowClasses } from "@/utils/table-utils";
 
 /**
  * Generate a data cell code for claims undiscounted data
@@ -18,41 +19,22 @@ export const generateDataCellCode = (rowCode: string, provinceCode: string): str
 
 /**
  * Get CSS classes for table rows based on row properties
- * 
- * @param indent The indentation level
- * @param isTotal Whether the row is a total row
- * @param isSubtotal Whether the row is a subtotal row
- * @returns Object with CSS classes for different styling aspects
+ * This function wraps the shared utility but customizes it for this specific table
  */
 export const getRowClasses = (indent: number, isTotal: boolean, isSubtotal: boolean) => {
-  // Calculate left padding based on indentation level
+  const baseClasses = getBaseRowClasses(indent, isTotal, isSubtotal);
+  
+  // Override padding for this specific table
   const paddingClass = indent === 0 
     ? "" 
     : indent === 1 
       ? "pl-8" 
       : "pl-16";
   
-  // Determine background color for row
-  const bgClass = isTotal 
-    ? "bg-gray-50" 
-    : isSubtotal 
-      ? "" 
-      : "";
-      
-  // Determine text weight
-  const fontClass = isTotal || isSubtotal
-    ? "font-medium" 
-    : indent === 0 
-      ? "font-medium" 
-      : "";
-      
-  // Determine font size
-  const sizeClass = indent > 0 && !isSubtotal ? "text-[9px]" : "";
-
   return {
+    ...baseClasses,
     paddingClass,
-    bgClass,
-    fontClass,
-    sizeClass
+    // Add any component-specific customizations here
+    borderClass: "" // Override borderClass for this component
   };
 };
