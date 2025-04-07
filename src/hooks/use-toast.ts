@@ -1,4 +1,3 @@
-
 import * as React from "react"
 
 import type {
@@ -169,7 +168,7 @@ function toast({ ...props }: Toast) {
   }
 }
 
-export function useToast() {
+function useToast() {
   const [state, setState] = React.useState<State>(memoryState)
 
   React.useEffect(() => {
@@ -189,4 +188,4 @@ export function useToast() {
   }
 }
 
-export { toast }
+export { useToast, toast }

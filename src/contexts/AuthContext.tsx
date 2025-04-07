@@ -11,7 +11,6 @@ export interface UserProfile {
   email: string;
   role: UserRole;
   company_id: string | null;
-  has_two_factor: boolean;
 }
 
 interface AuthContextType {
@@ -27,8 +26,6 @@ interface AuthContextType {
   verifyTwoFactor: (token: string) => Promise<{ error: any | null }>;
   resetPassword: (email: string) => Promise<{ error: any | null }>;
   updatePassword: (password: string) => Promise<{ error: any | null }>;
-  enableTwoFactor: () => Promise<{ error: any | null; secret: string | null }>;
-  disableTwoFactor: () => Promise<{ error: any | null }>;
   isAdmin: boolean;
   isSuperAdmin: boolean;
 }
@@ -46,15 +43,13 @@ const mockProfile = DEV_MODE ? {
   id: "dev-user-id",
   email: "dev@example.com",
   role: "superadmin" as UserRole,
-  company_id: null,
-  has_two_factor: false,
+  company_id: null
 } : null;
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<any | null>(mockUser);
   const [profile, setProfile] = useState<UserProfile | null>(mockProfile);
   const [loading, setLoading] = useState(!DEV_MODE);
-  const [temporarySession, setTemporarySession] = useState<any | null>(null);
   const navigate = useNavigate();
 
   // Check if user is authenticated and fetch profile only if not in dev mode
@@ -115,15 +110,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       if (data) {
-        // Create a UserProfile object with default has_two_factor if not present
-        const profileData: UserProfile = {
-          id: data.id,
-          email: data.email,
-          role: data.role as UserRole,
-          company_id: data.company_id,
-          has_two_factor: data.has_two_factor || false
-        };
-        setProfile(profileData);
+        setProfile(data as UserProfile);
       }
     } catch (error: any) {
       console.error("Error fetching user profile:", error.message);
@@ -147,146 +134,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { error, needsTwoFactor: false };
       }
 
-      // Store the session temporarily if 2FA is required
-      if (data?.user) {
-        // Check if user has 2FA enabled by fetching profile
-        const { data: profileData, error: profileError } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", data.user.id)
-          .single();
+      // Check if 2FA is required (this would need to be implemented in your database)
+      // For now, it's a placeholder for future 2FA implementation
+      const needsTwoFactor = false;
 
-        if (profileError) {
-          return { error: profileError, needsTwoFactor: false };
-        }
-
-        // Default to false if has_two_factor doesn't exist
-        const needsTwoFactor = profileData?.has_two_factor || false;
-        
-        if (needsTwoFactor) {
-          // Store session temporarily and prevent automatic login
-          setTemporarySession(data.session);
-          setUser(null);
-          
-          // Request 2FA code via API (in production, this would send an email or SMS)
-          // This is a mock implementation, in a real app you would use a proper 2FA service
-          console.log("2FA required for user:", data.user.email);
-          
-          return { error: null, needsTwoFactor: true };
-        }
-      }
-
-      return { error: null, needsTwoFactor: false };
+      return { error: null, needsTwoFactor };
     } catch (error: any) {
       return { error, needsTwoFactor: false };
-    }
-  };
-
-  // Verify two-factor authentication
-  const verifyTwoFactor = async (token: string) => {
-    if (DEV_MODE) {
-      // Mock successful verification in dev mode
-      return { error: null };
-    }
-
-    try {
-      if (!temporarySession) {
-        return { error: new Error("No active login session") };
-      }
-
-      // Validate the token (In a real implementation, this would validate against a proper 2FA service)
-      if (token === "123456") { // Mock validation - replace with real validation in production
-        // Complete the sign-in process with the stored session
-        setUser(temporarySession.user);
-        await fetchUserProfile(temporarySession.user.id);
-        setTemporarySession(null);
-        return { error: null };
-      } else {
-        return { error: new Error("Invalid verification code") };
-      }
-    } catch (error: any) {
-      return { error };
-    }
-  };
-
-  // Enable two-factor authentication for the current user
-  const enableTwoFactor = async () => {
-    if (DEV_MODE) {
-      // Mock successful enabling in dev mode
-      return { error: null, secret: "MOCK2FASECRET" };
-    }
-
-    try {
-      if (!user) {
-        return { error: new Error("No authenticated user"), secret: null };
-      }
-
-      // In a real implementation, this would generate a secret and register with a proper 2FA service
-      const mockSecret = "ABCDEF123456"; // Mock secret - replace with real generation in production
-
-      // Check if has_two_factor column exists in profiles table
-      const { error: columnError } = await supabase.rpc('check_column_exists', { 
-        p_table: 'profiles', 
-        p_column: 'has_two_factor' 
-      });
-
-      // If column doesn't exist, we should add it
-      if (columnError) {
-        console.warn("has_two_factor column may not exist, defaulting to update anyway");
-      }
-
-      // Try to update the profile with has_two_factor
-      const { error } = await supabase
-        .from("profiles")
-        .update({ has_two_factor: true })
-        .eq("id", user.id);
-
-      if (error) {
-        console.error("Error enabling 2FA:", error);
-        return { error, secret: null };
-      }
-
-      // Update local profile state
-      if (profile) {
-        setProfile({ ...profile, has_two_factor: true });
-      }
-
-      return { error: null, secret: mockSecret };
-    } catch (error: any) {
-      return { error, secret: null };
-    }
-  };
-
-  // Disable two-factor authentication for the current user
-  const disableTwoFactor = async () => {
-    if (DEV_MODE) {
-      // Mock successful disabling in dev mode
-      return { error: null };
-    }
-
-    try {
-      if (!user) {
-        return { error: new Error("No authenticated user") };
-      }
-
-      // Try to update the profile with has_two_factor
-      const { error } = await supabase
-        .from("profiles")
-        .update({ has_two_factor: false })
-        .eq("id", user.id);
-
-      if (error) {
-        return { error };
-      }
-
-      // Update local profile state
-      if (profile) {
-        setProfile({ ...profile, has_two_factor: false });
-      }
-
-      return { error: null };
-    } catch (error: any) {
-      return { error };
     }
   };
 
@@ -332,6 +186,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Verify two-factor authentication (placeholder for future implementation)
+  const verifyTwoFactor = async (token: string) => {
+    // This would need to be implemented with a real 2FA solution
+    return { error: null };
+  };
+
   // Reset password
   const resetPassword = async (email: string) => {
     if (DEV_MODE) {
@@ -342,7 +202,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/update-password`,
+        redirectTo: `${window.location.origin}/reset-password`,
       });
 
       if (error) {
@@ -392,8 +252,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     verifyTwoFactor,
     resetPassword,
     updatePassword,
-    enableTwoFactor,
-    disableTwoFactor,
     isAdmin,
     isSuperAdmin,
   };
