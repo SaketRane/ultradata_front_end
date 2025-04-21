@@ -27,14 +27,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     );
   }
 
-  // Development mode auth bypass
+  // Updated DEV_MODE bypass: all routes are enabled
   if (DEV_MODE) {
-    console.log("Development mode: Authentication checks bypassed!");
-    // Even in dev mode, respect admin route requirements
-    if (requireAdmin && !isAdmin) {
-      console.log("Dev mode: Admin role required but user is not an admin");
-      return <Navigate to="/dashboard" replace />;
-    }
+    console.log("Development mode: ALL authentication and admin checks bypassed!");
     return <Outlet />;
   }
 
@@ -55,3 +50,4 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 };
 
 export default React.memo(ProtectedRoute);
+
