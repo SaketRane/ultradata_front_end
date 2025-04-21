@@ -21,8 +21,18 @@ const LoginFooter: React.FC = () => {
           Contact your administrator
         </button>
       </div>
+      <div className="text-center text-sm text-muted-foreground">
+        Are you an administrator?{" "}
+        <button 
+          onClick={() => navigate("/dashboard")}
+          className="text-primary-600 hover:text-primary-500 font-medium"
+        >
+          Go to Dashboard
+        </button>
+      </div>
     </CardFooter>
   );
 };
 
 export default LoginFooter;
+
