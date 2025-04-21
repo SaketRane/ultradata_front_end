@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CardFooter } from "@/components/ui/card";
 import { DEV_MODE } from "@/utils/auth-utils";
+import { toast } from "sonner";
 
 /**
  * Footer component for the login form
@@ -14,12 +15,13 @@ const LoginFooter: React.FC = () => {
   const handleAdminAccess = () => {
     if (DEV_MODE) {
       // In development mode, immediately bypass auth and navigate
-      // No toast, force navigation, add visible log
       console.log("DEV_MODE: Forcing navigation to /dashboard as admin.");
+      toast.success("DEV MODE: Accessing dashboard as admin");
+      // Force replace navigation to ensure history is replaced
       navigate("/dashboard", { replace: true });
-      return;
     } else {
       // In production, inform user they need to log in first
+      toast.info("Please log in with administrator credentials");
       navigate("/dashboard");
     }
   };

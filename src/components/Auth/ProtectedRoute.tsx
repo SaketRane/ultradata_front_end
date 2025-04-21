@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { DEV_MODE } from "@/utils/auth-utils";
 
@@ -17,6 +17,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   requireAdmin = false
 }) => {
   const { user, loading, isAdmin } = useAuth();
+  const location = useLocation();
 
   // Show loading indicator while checking authentication
   if (loading) {
@@ -27,9 +28,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     );
   }
 
-  // Updated DEV_MODE bypass: all routes are enabled
+  // Enhanced DEV_MODE bypass with better logging
   if (DEV_MODE) {
-    console.log("Development mode: ALL authentication and admin checks bypassed!");
+    console.log(`DEV_MODE active: Authentication bypassed for ${location.pathname}`);
     return <Outlet />;
   }
 
@@ -50,4 +51,3 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 };
 
 export default React.memo(ProtectedRoute);
-
