@@ -9,8 +9,8 @@ import Dashboard from "./pages/Dashboard";
 import ResetPassword from "./pages/ResetPassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import NotFound from "./pages/NotFound";
-import { AuthProvider } from "./contexts/AuthContext";
-import ProtectedRoute from "./components/Auth/ProtectedRoute";
+// (Removed AuthProvider import)
+// (Removed ProtectedRoute import)
 
 const queryClient = new QueryClient();
 
@@ -20,27 +20,15 @@ const App = () => (
       <Toaster />
       <Sonner position="top-right" expand={true} closeButton={true} />
       <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/update-password" element={<UpdatePassword />} />
-            
-            {/* Protected routes */}
-            <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Route>
-            
-            {/* Admin routes */}
-            <Route element={<ProtectedRoute requireAdmin />}>
-              {/* Add admin routes here */}
-            </Route>
-            
-            {/* 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
+        {/* No more AuthProvider */}
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/update-password" element={<UpdatePassword />} />
+          {/* All routes accessible, no protected/admin routes */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

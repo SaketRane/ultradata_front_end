@@ -1,15 +1,11 @@
 
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import Logo from "@/components/Logo";
-import LoginForm from "@/components/Auth/LoginForm";
-import { useAuth } from "@/contexts/AuthContext";
 import { PageLayout } from "@/components/Layout/PageLayout";
 
 // Header component for the index page
 const IndexHeader: React.FC = () => (
   <header className="container mx-auto py-8">
-    <Logo size="lg" className="mx-auto md:mx-0" />
+    <div className="text-3xl font-bold text-center">Welcome!</div>
   </header>
 );
 
@@ -23,8 +19,8 @@ const IndexFooter: React.FC = () => (
 // Main content component for the index page
 const IndexContent: React.FC = () => (
   <main className="flex-1 flex items-center justify-center p-6">
-    <div className="w-full max-w-md">
-      <LoginForm />
+    <div className="w-full max-w-md text-center text-lg">
+      Login & signup are currently disabled. Use the dropdowns on /dashboard to build your application.
     </div>
   </main>
 );
@@ -33,16 +29,9 @@ const IndexContent: React.FC = () => (
  * Index page component serving as the entry point of the application
  */
 const Index: React.FC = () => {
-  const { user, loading } = useAuth();
-  
   useEffect(() => {
-    document.title = "UltraData | Sign In";
+    document.title = "UltraData | App";
   }, []);
-
-  // Redirect to dashboard if already logged in
-  if (!loading && user) {
-    return <Navigate to="/dashboard" replace />;
-  }
 
   return (
     <PageLayout
