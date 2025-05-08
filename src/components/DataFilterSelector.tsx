@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import YearSelector from "./filters/YearSelector";
+import YearSelector, { YearOption } from "./filters/YearSelector";
 import InsurerSelector from "./filters/InsurerSelector";
 import SectionSelector from "./filters/SectionSelector";
 import SheetSelector from "./filters/SheetSelector";
@@ -29,7 +29,7 @@ export interface SectionSheetMapping {
 /**
  * Props for the DataFilterSelector component
  */
-interface DataFilterSelectorProps {
+export interface DataFilterSelectorProps {
   /** Currently selected year */
   year: string;
   /** Function to update the selected year */
@@ -58,6 +58,9 @@ interface DataFilterSelectorProps {
  * This component provides the filter interface for the dashboard, allowing users
  * to select year, insurer, section, and sheet to view specific financial data.
  * The filters have dependencies (e.g., available sheets depend on the selected section).
+ * 
+ * @param {DataFilterSelectorProps} props - Component props
+ * @returns {JSX.Element} A card containing the filter selection UI
  */
 const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
   year,

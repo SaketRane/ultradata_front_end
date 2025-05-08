@@ -38,7 +38,8 @@ The UltraData Financial Dashboard follows a component-based architecture built w
 
 ### Filter System
 
-The filter system is composed of:
+The filter system consists of several interconnected components:
+
 - `YearSelector`: Year dropdown (2015-2022, with 2023-2024 coming soon)
 - `InsurerSelector`: Insurance company selection
 - `SectionSelector`: Category of financial data
@@ -56,8 +57,8 @@ The visualization system follows a mapper pattern:
 ### Authentication
 
 Authentication is handled through Supabase:
-- Login/signup functionality
-- Session management
+- Login/signup functionality through `LoginForm` and related components
+- Session management via `AuthContext`
 - Role-based access control via user profiles
 
 For development purposes, a DEV_MODE flag is available that uses mock authentication.
@@ -65,9 +66,18 @@ For development purposes, a DEV_MODE flag is available that uses mock authentica
 ## State Management
 
 The application uses:
-- React's Context API for auth state
+- React's Context API for authentication state
 - React's useState and useCallback for component state
 - Tanstack Query for data fetching and caching
+
+## TypeScript Type System
+
+The application uses TypeScript for type safety. Key type definitions include:
+
+- `SheetOption`: Represents a selectable data sheet
+- `SectionSheetMapping`: Maps sections to available sheets
+- `DataFilterSelectorProps`: Props for the filter selector component
+- Various component prop interfaces (e.g., `YearSelectorProps`, `SheetSelectorProps`)
 
 ## Styling Approach
 
@@ -112,6 +122,14 @@ npm run build
 
 The application is configured for deployment through CI/CD pipelines. Environment-specific configuration is handled through environment variables.
 
+## Component Dependencies
+
+Understanding the relationships between components is crucial for maintenance:
+
+- `Dashboard` → `DataFilterSelector` → `YearSelector`, `InsurerSelector`, `SectionSelector`, `SheetSelector`
+- `Dashboard` → `DataVisualization` → `VisualizationMapper` → Specific mappers
+- Mappers → Various visualization components and tables
+
 ## Common Issues and Troubleshooting
 
 ### Authentication Issues
@@ -125,7 +143,7 @@ If experiencing authentication issues:
 
 If visualizations are not rendering:
 - Check browser console for errors
-- Verify the selection path (section -> sheet) is valid
+- Verify the selection path (section → sheet) is valid
 - Ensure data is available for the selected filters
 
 ### Styling Issues

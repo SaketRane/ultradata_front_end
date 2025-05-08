@@ -9,13 +9,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SectionSheetMapping } from "../DataFilterSelector";
 
-interface SectionSelectorProps {
+/**
+ * Props for the SectionSelector component
+ */
+export interface SectionSelectorProps {
+  /** Currently selected section */
   section: string;
+  /** Function to update the selected section */
   setSection: (section: string) => void;
-  sectionSheetsMapping: Record<string, { code: string, sheets: Array<{code: string, label: string}> }>;
+  /** Mapping of sections to their available sheets */
+  sectionSheetsMapping: Record<string, SectionSheetMapping>;
 }
 
+/**
+ * SectionSelector component for selecting data section
+ * 
+ * This component renders a dropdown that allows users to select
+ * the section of financial data they want to view.
+ * 
+ * @param {SectionSelectorProps} props - Component props
+ * @returns {JSX.Element} A Select component for section selection
+ */
 const SectionSelector: React.FC<SectionSelectorProps> = ({ 
   section, 
   setSection, 

@@ -9,14 +9,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SheetOption } from "../DataFilterSelector";
 
-interface SheetSelectorProps {
+/**
+ * Props for the SheetSelector component
+ */
+export interface SheetSelectorProps {
+  /** Currently selected sheet */
   sheet: string;
+  /** Function to update the selected sheet */
   setSheet: (sheet: string) => void;
+  /** Currently selected section (needed to determine available sheets) */
   section: string;
-  availableSheets: Array<{code: string, label: string}>;
+  /** Collection of available sheets based on the current section */
+  availableSheets: SheetOption[];
 }
 
+/**
+ * SheetSelector component for selecting specific data sheet
+ * 
+ * This component renders a dropdown that allows users to select
+ * a specific sheet within the chosen section. The available sheets
+ * depend on the currently selected section.
+ * 
+ * @param {SheetSelectorProps} props - Component props
+ * @returns {JSX.Element} A Select component for sheet selection
+ */
 const SheetSelector: React.FC<SheetSelectorProps> = ({ 
   sheet, 
   setSheet, 

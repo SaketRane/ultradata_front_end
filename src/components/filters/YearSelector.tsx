@@ -13,16 +13,19 @@ import {
 /**
  * Interface for year options in the selector
  */
-interface YearOption {
+export interface YearOption {
+  /** Unique value for the year (e.g., "2022") */
   value: string;
+  /** Display label for the year (e.g., "2022" or "2024 (Coming Soon)") */
   label: string;
+  /** Whether this option is disabled (e.g., future years) */
   disabled?: boolean;
 }
 
 /**
  * Props for the YearSelector component
  */
-interface YearSelectorProps {
+export interface YearSelectorProps {
   /** Currently selected year */
   year: string;
   /** Function to update the selected year */
@@ -34,6 +37,9 @@ interface YearSelectorProps {
  * 
  * This component renders a dropdown that allows users to select
  * the year for which they want to view financial data.
+ * 
+ * @param {YearSelectorProps} props - Component props 
+ * @returns {JSX.Element} A Select component for year selection
  */
 const YearSelector: React.FC<YearSelectorProps> = ({ year, setYear }) => {
   // Available years with labels and disabled status
