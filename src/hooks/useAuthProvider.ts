@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserProfile } from "@/types/auth";
+import { User, UserProfile } from "@/types/auth";
 import { 
   fetchUserProfile, 
   DEV_MODE, 
@@ -17,17 +16,11 @@ import {
   updatePassword
 } from "@/services/auth-service";
 
-// Define a simple User type to replace the Supabase User type
-type User = {
-  id: string;
-  email: string;
-};
-
 /**
  * Custom hook that provides authentication functionality
  */
 export const useAuthProvider = () => {
-  const [user, setUser] = useState<User | null>(DEV_MODE ? mockUser as User : null);
+  const [user, setUser] = useState<User | null>(DEV_MODE ? mockUser : null);
   const [profile, setProfile] = useState<UserProfile | null>(DEV_MODE ? mockProfile : null);
   const [loading, setLoading] = useState(!DEV_MODE);
   const navigate = useNavigate();

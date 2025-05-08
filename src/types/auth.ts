@@ -1,10 +1,16 @@
 
-import { User } from "@supabase/supabase-js";
-
 /**
  * Possible user roles in the application
  */
 export type UserRole = "admin" | "user";
+
+/**
+ * Custom User type that replaces the Supabase User type
+ */
+export type User = {
+  id: string;
+  email: string;
+};
 
 /**
  * User profile data structure
