@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, UserProfile } from "@/types/auth";
@@ -13,7 +14,8 @@ import {
   signOut as authSignOut,
   verifyTwoFactor,
   resetPassword,
-  updatePassword
+  updatePassword,
+  fetchCurrentUserProfile
 } from "@/services/auth-service";
 
 /**
@@ -33,22 +35,34 @@ export const useAuthProvider = () => {
       return;
     }
 
-    // This would be replaced with PostgreSQL session checking
+    // Check for active session with Spring Boot backend
     const checkSession = async () => {
       try {
         console.log("Checking auth session...");
-        // This is a placeholder for PostgreSQL implementation
-        console.log("No active session - authentication not implemented yet");
-        setLoading(false);
+        
+        // This would call a Spring Boot endpoint to check session validity
+        const userProfile = await fetchCurrentUserProfile();
+        
+        if (userProfile) {
+          // If we have a profile, we can create a basic user object
+          setUser({
+            id: userProfile.id,
+            email: userProfile.email
+          });
+          setProfile(userProfile);
+          console.log("Active session found");
+        } else {
+          console.log("No active session");
+        }
       } catch (error) {
         console.error("Error checking session:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     checkSession();
 
-    // This would be replaced with PostgreSQL auth state listener
     return () => {
       console.log("Auth listener cleanup");
     };
@@ -88,3 +102,4 @@ export const useAuthProvider = () => {
     isAdmin,
   };
 };
+

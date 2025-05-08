@@ -1,10 +1,12 @@
 
 import { toast } from "sonner";
 import { DEV_MODE } from "@/utils/auth-utils";
+import { apiClient } from "@/integrations/database/client";
+import { User, UserProfile } from "@/types/auth";
 
 /**
  * Sign in with email and password
- * This is a placeholder implementation that will be replaced with PostgreSQL
+ * This implementation will work with Spring Security
  */
 export const signIn = async (email: string, password: string) => {
   if (DEV_MODE) {
@@ -12,15 +14,36 @@ export const signIn = async (email: string, password: string) => {
     return { error: null, needsTwoFactor: false };
   }
 
-  // This is a placeholder for PostgreSQL implementation
-  console.log("Sign in attempted with:", email);
-  toast.error("Authentication functionality not implemented yet");
-  return { error: { message: "Authentication not implemented" }, needsTwoFactor: false };
+  try {
+    // This would call the Spring Boot login endpoint
+    await apiClient.post<{ token: string }>('/auth/login', {
+      username: email, // Spring Security often uses 'username' instead of 'email'
+      password
+    });
+    
+    console.log("Login successful, fetching user data");
+    
+    // After login, fetch the user profile
+    // This mimics how Spring Security typically works with separate endpoints
+    const userData = await apiClient.get<User>('/auth/user');
+    
+    return { error: null, needsTwoFactor: false, user: userData };
+  } catch (err: any) {
+    console.error("Login error:", err);
+    
+    // Check for 2FA challenge
+    if (err.message?.includes("2FA required")) {
+      return { error: null, needsTwoFactor: true };
+    }
+    
+    toast.error(err.message || "Authentication failed");
+    return { error: { message: err.message || "Authentication failed" }, needsTwoFactor: false };
+  }
 };
 
 /**
  * Sign up with email and password
- * This is a placeholder implementation that will be replaced with PostgreSQL
+ * This implementation will work with Spring Security
  */
 export const signUp = async (email: string, password: string) => {
   if (DEV_MODE) {
@@ -28,15 +51,24 @@ export const signUp = async (email: string, password: string) => {
     return { error: null };
   }
 
-  // This is a placeholder for PostgreSQL implementation
-  console.log("Sign up attempted with:", email);
-  toast.error("Authentication functionality not implemented yet");
-  return { error: { message: "Authentication not implemented" } };
+  try {
+    await apiClient.post('/auth/register', {
+      email,
+      password
+    });
+    
+    toast.success("Registration successful. Please log in.");
+    return { error: null };
+  } catch (err: any) {
+    console.error("Registration error:", err);
+    toast.error(err.message || "Registration failed");
+    return { error: { message: err.message || "Registration failed" } };
+  }
 };
 
 /**
  * Sign out the current user
- * This is a placeholder implementation that will be replaced with PostgreSQL
+ * This implementation will work with Spring Security
  */
 export const signOut = async () => {
   if (DEV_MODE) {
@@ -44,15 +76,19 @@ export const signOut = async () => {
     return { error: null };
   }
 
-  // This is a placeholder for PostgreSQL implementation
-  console.log("Sign out attempted");
-  toast.error("Authentication functionality not implemented yet");
-  return { error: { message: "Authentication not implemented" } };
+  try {
+    await apiClient.post('/auth/logout', {});
+    return { error: null };
+  } catch (err: any) {
+    console.error("Logout error:", err);
+    toast.error(err.message || "Logout failed");
+    return { error: { message: err.message || "Logout failed" } };
+  }
 };
 
 /**
  * Verify two-factor authentication
- * This is a placeholder implementation that will be replaced with PostgreSQL
+ * This implementation will work with Spring Security
  * @param token The two-factor authentication token
  */
 export const verifyTwoFactor = async (token: string) => {
@@ -61,15 +97,19 @@ export const verifyTwoFactor = async (token: string) => {
     return { error: null };
   }
 
-  // This is a placeholder for PostgreSQL implementation
-  console.log("2FA verification attempted with:", token);
-  toast.error("2FA functionality not implemented yet");
-  return { error: { message: "2FA not implemented" } };
+  try {
+    await apiClient.post('/auth/verify-2fa', { token });
+    return { error: null };
+  } catch (err: any) {
+    console.error("2FA verification error:", err);
+    toast.error(err.message || "2FA verification failed");
+    return { error: { message: err.message || "2FA verification failed" } };
+  }
 };
 
 /**
  * Reset password
- * This is a placeholder implementation that will be replaced with PostgreSQL
+ * This implementation will work with Spring Security
  * @param email The email address to send the password reset link to
  */
 export const resetPassword = async (email: string) => {
@@ -79,15 +119,20 @@ export const resetPassword = async (email: string) => {
     return { error: null };
   }
 
-  // This is a placeholder for PostgreSQL implementation
-  console.log("Password reset attempted for:", email);
-  toast.error("Password reset functionality not implemented yet");
-  return { error: { message: "Password reset not implemented" } };
+  try {
+    await apiClient.post('/auth/reset-password', { email });
+    toast.success("Password reset email sent. Please check your inbox.");
+    return { error: null };
+  } catch (err: any) {
+    console.error("Password reset error:", err);
+    toast.error(err.message || "Password reset failed");
+    return { error: { message: err.message || "Password reset failed" } };
+  }
 };
 
 /**
  * Update password
- * This is a placeholder implementation that will be replaced with PostgreSQL
+ * This implementation will work with Spring Security
  * @param password The new password
  */
 export const updatePassword = async (password: string) => {
@@ -97,8 +142,37 @@ export const updatePassword = async (password: string) => {
     return { error: null };
   }
 
-  // This is a placeholder for PostgreSQL implementation
-  console.log("Password update attempted");
-  toast.error("Password update functionality not implemented yet");
-  return { error: { message: "Password update not implemented" } };
+  try {
+    await apiClient.post('/auth/update-password', { password });
+    toast.success("Password updated successfully");
+    return { error: null };
+  } catch (err: any) {
+    console.error("Password update error:", err);
+    toast.error(err.message || "Password update failed");
+    return { error: { message: err.message || "Password update failed" } };
+  }
 };
+
+/**
+ * Fetch user profile
+ * This implementation will work with Spring Security
+ */
+export const fetchCurrentUserProfile = async (): Promise<UserProfile | null> => {
+  if (DEV_MODE) {
+    console.log("Dev mode: returning mock profile");
+    return {
+      id: "dev-user-id",
+      email: "dev@example.com",
+      role: "admin",
+      company_id: null
+    };
+  }
+
+  try {
+    return await apiClient.get<UserProfile>('/auth/profile');
+  } catch (err: any) {
+    console.error("Error fetching profile:", err);
+    return null;
+  }
+};
+
