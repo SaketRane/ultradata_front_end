@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import YearSelector from "./filters/YearSelector";
 import InsurerSelector from "./filters/InsurerSelector";
 import SectionSelector from "./filters/SectionSelector";
@@ -31,32 +32,25 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
   sectionSheetsMapping
 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 dropdown-data">
-      <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
-        <YearSelector year={year} setYear={setYear} />
-      </div>
-      
-      <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
-        <InsurerSelector insurer={insurer} setInsurer={setInsurer} />
-      </div>
-      
-      <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
-        <SectionSelector 
-          section={section} 
-          setSection={setSection} 
-          sectionSheetsMapping={sectionSheetsMapping} 
-        />
-      </div>
-      
-      <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
-        <SheetSelector 
-          sheet={sheet} 
-          setSheet={setSheet} 
-          section={section}
-          availableSheets={availableSheets} 
-        />
-      </div>
-    </div>
+    <Card className="shadow-lg glass w-full">
+      <CardContent className="p-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 dropdown-data compact-dropdown">
+          <YearSelector year={year} setYear={setYear} />
+          <InsurerSelector insurer={insurer} setInsurer={setInsurer} />
+          <SectionSelector 
+            section={section} 
+            setSection={setSection} 
+            sectionSheetsMapping={sectionSheetsMapping} 
+          />
+          <SheetSelector 
+            sheet={sheet} 
+            setSheet={setSheet} 
+            section={section}
+            availableSheets={availableSheets} 
+          />
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
