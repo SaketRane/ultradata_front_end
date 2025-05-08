@@ -6,19 +6,59 @@ import InsurerSelector from "./filters/InsurerSelector";
 import SectionSelector from "./filters/SectionSelector";
 import SheetSelector from "./filters/SheetSelector";
 
-interface DataFilterSelectorProps {
-  year: string;
-  setYear: (year: string) => void;
-  insurer: string;
-  setInsurer: (insurer: string) => void;
-  section: string;
-  setSection: (section: string) => void;
-  sheet: string;
-  setSheet: (sheet: string) => void;
-  availableSheets: Array<{code: string, label: string}>;
-  sectionSheetsMapping: Record<string, { code: string, sheets: Array<{code: string, label: string}> }>;
+/**
+ * Sheet object interface representing a data sheet
+ */
+export interface SheetOption {
+  /** Unique code identifier for the sheet */
+  code: string;
+  /** Display label for the sheet in the UI */
+  label: string;
 }
 
+/**
+ * Section mapping interface representing the structure of sections and their sheets
+ */
+export interface SectionSheetMapping {
+  /** Unique code identifier for the section */
+  code: string;
+  /** Collection of sheets available in this section */
+  sheets: SheetOption[];
+}
+
+/**
+ * Props for the DataFilterSelector component
+ */
+interface DataFilterSelectorProps {
+  /** Currently selected year */
+  year: string;
+  /** Function to update the selected year */
+  setYear: (year: string) => void;
+  /** Currently selected insurer */
+  insurer: string;
+  /** Function to update the selected insurer */
+  setInsurer: (insurer: string) => void;
+  /** Currently selected section */
+  section: string;
+  /** Function to update the selected section */
+  setSection: (section: string) => void;
+  /** Currently selected sheet */
+  sheet: string;
+  /** Function to update the selected sheet */
+  setSheet: (sheet: string) => void;
+  /** Collection of available sheets based on the current selection */
+  availableSheets: SheetOption[];
+  /** Mapping of sections to their available sheets */
+  sectionSheetsMapping: Record<string, SectionSheetMapping>;
+}
+
+/**
+ * DataFilterSelector component
+ * 
+ * This component provides the filter interface for the dashboard, allowing users
+ * to select year, insurer, section, and sheet to view specific financial data.
+ * The filters have dependencies (e.g., available sheets depend on the selected section).
+ */
 const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
   year,
   setYear,
