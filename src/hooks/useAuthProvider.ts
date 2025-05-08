@@ -1,8 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { User } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { UserProfile } from "@/types/auth";
 import { 
   fetchUserProfile, 
@@ -18,6 +16,12 @@ import {
   resetPassword,
   updatePassword
 } from "@/services/auth-service";
+
+// Define a simple User type to replace the Supabase User type
+type User = {
+  id: string;
+  email: string;
+};
 
 /**
  * Custom hook that provides authentication functionality
@@ -36,53 +40,24 @@ export const useAuthProvider = () => {
       return;
     }
 
-    // Get current session
+    // This would be replaced with PostgreSQL session checking
     const checkSession = async () => {
       try {
         console.log("Checking auth session...");
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (session?.user) {
-          console.log("Active session found");
-          setUser(session.user);
-          const userProfile = await fetchUserProfile(session.user.id);
-          if (userProfile) {
-            setProfile(userProfile);
-          }
-        } else {
-          console.log("No active session");
-        }
+        // This is a placeholder for PostgreSQL implementation
+        console.log("No active session - authentication not implemented yet");
+        setLoading(false);
       } catch (error) {
         console.error("Error checking session:", error);
-      } finally {
         setLoading(false);
       }
     };
 
     checkSession();
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log("Auth state changed:", event);
-        
-        if (session?.user) {
-          setUser(session.user);
-          const userProfile = await fetchUserProfile(session.user.id);
-          if (userProfile) {
-            setProfile(userProfile);
-          }
-        } else {
-          setUser(null);
-          setProfile(null);
-        }
-        
-        setLoading(false);
-      }
-    );
-
+    // This would be replaced with PostgreSQL auth state listener
     return () => {
-      subscription.unsubscribe();
+      console.log("Auth listener cleanup");
     };
   }, []);
 

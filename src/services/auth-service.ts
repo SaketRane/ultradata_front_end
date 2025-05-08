@@ -1,10 +1,10 @@
 
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { DEV_MODE } from "@/utils/auth-utils";
 
 /**
  * Sign in with email and password
+ * This is a placeholder implementation that will be replaced with PostgreSQL
  */
 export const signIn = async (email: string, password: string) => {
   if (DEV_MODE) {
@@ -12,29 +12,15 @@ export const signIn = async (email: string, password: string) => {
     return { error: null, needsTwoFactor: false };
   }
 
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      console.error("Sign in error:", error.message);
-      return { error, needsTwoFactor: false };
-    }
-
-    // Check if 2FA is required (placeholder for future implementation)
-    const needsTwoFactor = false;
-
-    return { error: null, needsTwoFactor };
-  } catch (error: any) {
-    console.error("Sign in error:", error.message);
-    return { error, needsTwoFactor: false };
-  }
+  // This is a placeholder for PostgreSQL implementation
+  console.log("Sign in attempted with:", email);
+  toast.error("Authentication functionality not implemented yet");
+  return { error: { message: "Authentication not implemented" }, needsTwoFactor: false };
 };
 
 /**
  * Sign up with email and password
+ * This is a placeholder implementation that will be replaced with PostgreSQL
  */
 export const signUp = async (email: string, password: string) => {
   if (DEV_MODE) {
@@ -42,26 +28,15 @@ export const signUp = async (email: string, password: string) => {
     return { error: null };
   }
 
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) {
-      console.error("Sign up error:", error.message);
-      return { error };
-    }
-
-    return { error: null };
-  } catch (error: any) {
-    console.error("Sign up error:", error.message);
-    return { error };
-  }
+  // This is a placeholder for PostgreSQL implementation
+  console.log("Sign up attempted with:", email);
+  toast.error("Authentication functionality not implemented yet");
+  return { error: { message: "Authentication not implemented" } };
 };
 
 /**
  * Sign out the current user
+ * This is a placeholder implementation that will be replaced with PostgreSQL
  */
 export const signOut = async () => {
   if (DEV_MODE) {
@@ -69,23 +44,15 @@ export const signOut = async () => {
     return { error: null };
   }
 
-  try {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Sign out error:", error.message);
-      toast.error("Error signing out");
-      return { error };
-    }
-    return { error: null };
-  } catch (error: any) {
-    console.error("Sign out error:", error.message);
-    toast.error("Error signing out");
-    return { error };
-  }
+  // This is a placeholder for PostgreSQL implementation
+  console.log("Sign out attempted");
+  toast.error("Authentication functionality not implemented yet");
+  return { error: { message: "Authentication not implemented" } };
 };
 
 /**
  * Verify two-factor authentication
+ * This is a placeholder implementation that will be replaced with PostgreSQL
  * @param token The two-factor authentication token
  */
 export const verifyTwoFactor = async (token: string) => {
@@ -94,14 +61,15 @@ export const verifyTwoFactor = async (token: string) => {
     return { error: null };
   }
 
-  // This would need to be implemented with a real 2FA solution
-  // Placeholder for future implementation
-  console.log("Verifying 2FA token:", token);
-  return { error: null };
+  // This is a placeholder for PostgreSQL implementation
+  console.log("2FA verification attempted with:", token);
+  toast.error("2FA functionality not implemented yet");
+  return { error: { message: "2FA not implemented" } };
 };
 
 /**
  * Reset password
+ * This is a placeholder implementation that will be replaced with PostgreSQL
  * @param email The email address to send the password reset link to
  */
 export const resetPassword = async (email: string) => {
@@ -111,25 +79,15 @@ export const resetPassword = async (email: string) => {
     return { error: null };
   }
 
-  try {
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`,
-    });
-
-    if (error) {
-      console.error("Password reset error:", error.message);
-      return { error };
-    }
-
-    return { error: null };
-  } catch (error: any) {
-    console.error("Password reset error:", error.message);
-    return { error };
-  }
+  // This is a placeholder for PostgreSQL implementation
+  console.log("Password reset attempted for:", email);
+  toast.error("Password reset functionality not implemented yet");
+  return { error: { message: "Password reset not implemented" } };
 };
 
 /**
  * Update password
+ * This is a placeholder implementation that will be replaced with PostgreSQL
  * @param password The new password
  */
 export const updatePassword = async (password: string) => {
@@ -139,19 +97,8 @@ export const updatePassword = async (password: string) => {
     return { error: null };
   }
 
-  try {
-    const { error } = await supabase.auth.updateUser({
-      password,
-    });
-
-    if (error) {
-      console.error("Password update error:", error.message);
-      return { error };
-    }
-
-    return { error: null };
-  } catch (error: any) {
-    console.error("Password update error:", error.message);
-    return { error };
-  }
+  // This is a placeholder for PostgreSQL implementation
+  console.log("Password update attempted");
+  toast.error("Password update functionality not implemented yet");
+  return { error: { message: "Password update not implemented" } };
 };
