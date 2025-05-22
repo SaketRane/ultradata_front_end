@@ -11,10 +11,10 @@ export const sectionSheetsMapping = {
       { code: "2045", label: "Head Office Account & Reserves" },
       // New sheets for 2023-2025
       { code: "2011", label: "Liabilities and Equity" },
-      { code: "2012", label: "Liability Roll Forward - xyz" },
-      { code: "2014", label: "Liability Roll Forward - abc" },
-      { code: "2016", label: "Liability Roll Forward - 123" },
-      { code: "2018", label: "Liability Roll Forward - 456" },
+      { code: "2012", label: "Insurance Liabilities by Measurement Component (Non-PAA)" },
+      { code: "2014", label: "Insurance Liabilities: Coverage vs. Claims" },
+      { code: "2016", label: "Reinsurance Held by Measurement Component (Non-PAA)" },
+      { code: "2018", label: "Reinsurance Held: Coverage vs. Claims" },
       { code: "2022", label: "Statement of Profit or Loss" },
       { code: "2041", label: "Statement of Residual Interest - Policyholders' Equity & Liabilities" },
     ]

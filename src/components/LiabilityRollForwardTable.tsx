@@ -7,17 +7,16 @@ interface LiabilityRollForwardTableProps {
   sheetCode: string;
 }
 
-// Placeholder for the Liability Roll Forward tables
-// This will be implemented with actual data structure when provided
+// Updated component for the Insurance Liabilities and Reinsurance Held tables
 const LiabilityRollForwardTable: React.FC<LiabilityRollForwardTableProps> = ({ sheetCode }) => {
   // Get title based on sheetCode
   const getTitle = () => {
     switch (sheetCode) {
-      case "2012": return "Liability Roll Forward - xyz";
-      case "2014": return "Liability Roll Forward - abc";
-      case "2016": return "Liability Roll Forward - 123";
-      case "2018": return "Liability Roll Forward - 456";
-      default: return "Liability Roll Forward";
+      case "2012": return "Insurance Liabilities by Measurement Component (Non-PAA)";
+      case "2014": return "Insurance Liabilities: Coverage vs. Claims";
+      case "2016": return "Reinsurance Held by Measurement Component (Non-PAA)";
+      case "2018": return "Reinsurance Held: Coverage vs. Claims";
+      default: return "Insurance Liabilities / Reinsurance";
     }
   };
 

@@ -1,4 +1,3 @@
-
 /**
  * Enhanced utility functions for visualizations with performance optimizations
  */
@@ -44,10 +43,10 @@ const SECTION_TITLE_MAPS: Record<string, Record<string, string>> = {
     "2045": "Head Office Account & Reserves",
     // New sheets for 2023-2025
     "2011": "Liabilities and Equity",
-    "2012": "Liability Roll Forward - xyz",
-    "2014": "Liability Roll Forward - abc",
-    "2016": "Liability Roll Forward - 123",
-    "2018": "Liability Roll Forward - 456",
+    "2012": "Insurance Liabilities by Measurement Component (Non-PAA)",
+    "2014": "Insurance Liabilities: Coverage vs. Claims",
+    "2016": "Reinsurance Held by Measurement Component (Non-PAA)",
+    "2018": "Reinsurance Held: Coverage vs. Claims",
     "2022": "Statement of Profit or Loss",
     "2041": "Statement of Residual Interest - Policyholders' Equity & Liabilities"
   },
