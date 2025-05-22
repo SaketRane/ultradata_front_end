@@ -23,7 +23,9 @@ interface VisualizationMapperProps {
 const visualizationMappers: Record<string, React.ComponentType<{sheetCode: string}>> = {
   "Provincial Stats": ProvincialStatsMapper,
   "Premiums, Claims, & LAE": PremiumsClaimsMapper,
+  "Insurance Results & Onerous Contracts": PremiumsClaimsMapper, // Map to the same component as Premiums, Claims, & LAE
   "Commissions": CommissionsMapper,
+  "Commissions & Expenses": CommissionsMapper, // Map to the same component as Commissions
   "Financial Statements": FinancialStatementsMapper,
   "Investments": InvestmentsMapper,
   "Reinsurance": ReinsuranceMapper

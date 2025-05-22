@@ -21,6 +21,8 @@ export interface SectionSelectorProps {
   setSection: (section: string) => void;
   /** Mapping of sections to their available sheets */
   sectionSheetsMapping: Record<string, SectionSheetMapping>;
+  /** Optional list of available sections (filtered by year) */
+  availableSections?: string[];
 }
 
 /**
@@ -35,14 +37,18 @@ export interface SectionSelectorProps {
 const SectionSelector: React.FC<SectionSelectorProps> = ({ 
   section, 
   setSection, 
-  sectionSheetsMapping 
+  sectionSheetsMapping,
+  availableSections 
 }) => {
-  const sections = Object.keys(sectionSheetsMapping);
+  // Use the provided availableSections if provided, otherwise use all sections
+  const sections = availableSections || Object.keys(sectionSheetsMapping);
 
   const handleSectionChange = (value: string) => {
     setSection(value);
-    const selectedSection = sectionSheetsMapping[value];
-    console.log("Selected section code:", selectedSection.code);
+    // If the section exists in the mapping, log its code
+    if (sectionSheetsMapping[value]) {
+      console.log("Selected section code:", sectionSheetsMapping[value].code);
+    }
   };
 
   return (

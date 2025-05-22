@@ -50,6 +50,8 @@ export interface DataFilterSelectorProps {
   availableSheets: SheetOption[];
   /** Mapping of sections to their available sheets */
   sectionSheetsMapping: Record<string, SectionSheetMapping>;
+  /** List of available sections based on the selected year */
+  availableSections?: string[];
 }
 
 /**
@@ -72,7 +74,8 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
   sheet,
   setSheet,
   availableSheets,
-  sectionSheetsMapping
+  sectionSheetsMapping,
+  availableSections
 }) => {
   return (
     <Card className="shadow-lg glass w-full">
@@ -84,6 +87,7 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
             section={section} 
             setSection={setSection} 
             sectionSheetsMapping={sectionSheetsMapping} 
+            availableSections={availableSections}
           />
           <SheetSelector 
             sheet={sheet} 
