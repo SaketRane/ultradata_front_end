@@ -14,15 +14,26 @@ const SECTION_TITLE_MAPS: Record<string, Record<string, string>> = {
     "6710": "Premiums Written by Province",
     "6720": "Premiums Earned by Province",
     "6730": "Claims Inc (incl Adj Exp) by Province",
-    "6731": "Claims Inc (incl Adj Exp Undisc) by Province"
+    "6731": "Claims Inc (incl Adj Exp Undisc) by Province",
+    // New sheets for 2023-2025
+    "6740": "Insurance Revenue by Province",
+    "6750": "Insurance Service Expenses by Province",
+    "6760": "Net Expenses from Reinsurance Contracts Held by Province",
+    "6770": "Insurance Service Result by Province"
   },
   "Premiums, Claims, & LAE": {
     "6020": "Premiums and Claims",
     "6021": "Undiscounted Claims Incurred",
-    "6030": "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year"
+    "6030": "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year",
+    // New sheets for 2023-2025
+    "6025": "Insurance Service Result",
+    "6080": "Changes in Onerous Contracts for the Current Period"
   },
   "Commissions": {
-    "8010": "Commissions"
+    "8010": "Commissions",
+    // New sheets for 2023-2025
+    "8015": "Commissions",
+    "8025": "Insurance Service and Other Operating Expenses"
   },
   "Financial Statements": {
     "2010": "Assets",
@@ -30,10 +41,20 @@ const SECTION_TITLE_MAPS: Record<string, Record<string, string>> = {
     "2030": "Statement of Income",
     "2042": "Comprehensive Income(Loss) & Accumulated Other Comprehensive Income(Loss)",
     "2054": "Statement of Changes in Equity",
-    "2045": "Head Office Account & Reserves"
+    "2045": "Head Office Account & Reserves",
+    // New sheets for 2023-2025
+    "2011": "Liabilities and Equity",
+    "2012": "Liability Roll Forward - xyz",
+    "2014": "Liability Roll Forward - abc",
+    "2016": "Liability Roll Forward - 123",
+    "2018": "Liability Roll Forward - 456",
+    "2022": "Statement of Profit or Loss",
+    "2041": "Statement of Residual Interest - Policyholders' Equity & Liabilities"
   },
   "Investments": {
-    "4007": "Summary of Investments"
+    "4007": "Summary of Investments",
+    // New sheets for 2023-2025
+    "4008": "Summary of Investments"
   },
   "Reinsurance": {
     "7050": "Registered Reinsurance",
