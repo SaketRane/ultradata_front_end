@@ -16,7 +16,7 @@ import {
 export interface YearOption {
   /** Unique value for the year (e.g., "2022") */
   value: string;
-  /** Display label for the year (e.g., "2022" or "2024 (Coming Soon)") */
+  /** Display label for the year (e.g., "2022" or "2024 (IFRS 17)") */
   label: string;
   /** Whether this option is disabled (e.g., future years) */
   disabled?: boolean;
@@ -44,8 +44,9 @@ export interface YearSelectorProps {
 const YearSelector: React.FC<YearSelectorProps> = ({ year, setYear }) => {
   // Available years with labels and disabled status
   const years: YearOption[] = [
-    { value: "2024", label: "2024 (Coming Soon)", disabled: true },
-    { value: "2023", label: "2023 (Coming Soon)", disabled: true },
+    { value: "2025", label: "2025 (IFRS 17)", disabled: true },
+    { value: "2024", label: "2024 (IFRS 17)", disabled: true },
+    { value: "2023", label: "2023 (IFRS 17)", disabled: true },
     { value: "2022", label: "2022" },
     { value: "2021", label: "2021" },
     { value: "2020", label: "2020" },
