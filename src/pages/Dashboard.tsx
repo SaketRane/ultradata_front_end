@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
       setAvailableSections([
         "Financial Statements",
         "Investments",
-        "Insurance Results & Onerous Contracts",
+        "Premiums, Claims, and LAE",
         "Provincial Stats",
         "Commissions & Expenses",
         "Reinsurance"

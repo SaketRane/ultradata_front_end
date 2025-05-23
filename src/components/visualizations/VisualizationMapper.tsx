@@ -1,4 +1,3 @@
-
 import React, { lazy, Suspense, useMemo } from "react";
 import { Loader2 } from "lucide-react";
 
@@ -24,7 +23,7 @@ interface VisualizationMapperProps {
 const visualizationMappers: Record<string, React.ComponentType<{sheetCode: string}>> = {
   "Provincial Stats": ProvincialStatsMapper,
   "Premiums, Claims, & LAE": PremiumsClaimsMapper,
-  "Insurance Results & Onerous Contracts": PremiumsClaimsMapper, // New name for 2023-2025
+  "Premiums, Claims, and LAE": PremiumsClaimsMapper, // New name for 2023-2025
   "Commissions": CommissionsMapper,
   "Commissions & Expenses": CommissionsMapper, // New name for 2023-2025
   "Financial Statements": FinancialStatementsMapper,

@@ -27,7 +27,7 @@ export const sectionSheetsMapping = {
       { code: "4007", label: "Summary of Investments" }
     ]
   },
-  "Insurance Results & Onerous Contracts": {
+  "Premiums, Claims, and LAE": {
     code: "PCL",
     sheets: [
       { code: "6025", label: "Insurance Service Result" },
