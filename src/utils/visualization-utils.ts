@@ -1,3 +1,4 @@
+
 /**
  * Enhanced utility functions for visualizations with performance optimizations
  */
@@ -23,20 +24,14 @@ const SECTION_TITLE_MAPS: Record<string, Record<string, string>> = {
   "Premiums, Claims, & LAE": {
     "6020": "Premiums and Claims",
     "6021": "Undiscounted Claims Incurred",
-    "6030": "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year",
-    // New sheets for 2023-2025 (also available in "Premiums, Claims, and LAE")
-    "6025": "Insurance Service Result",
-    "6080": "Changes in Onerous Contracts for the Current Period"
+    "6030": "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year"
   },
-  "Premiums, Claims, and LAE": {
+  "Insurance Results & Onerous Contracts": {
     "6025": "Insurance Service Result",
     "6080": "Changes in Onerous Contracts for the Current Period"
   },
   "Commissions": {
-    "8010": "Commissions",
-    // New sheets for 2023-2025 (also available in "Commissions & Expenses")
-    "8015": "Commissions",
-    "8025": "Insurance Service and Other Operating Expenses"
+    "8010": "Commissions"
   },
   "Commissions & Expenses": {
     "8015": "Commissions",

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useCallback } from "react";
 import DashboardHeader from "@/components/DashboardHeader";
 import DashboardFooter from "@/components/DashboardFooter";
@@ -32,7 +33,7 @@ const Dashboard: React.FC = () => {
       setAvailableSections([
         "Financial Statements",
         "Investments",
-        "Premiums, Claims, and LAE",
+        "Insurance Results & Onerous Contracts",
         "Provincial Stats",
         "Commissions & Expenses",
         "Reinsurance"

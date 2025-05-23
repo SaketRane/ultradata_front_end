@@ -1,3 +1,4 @@
+
 import React from "react";
 import PremiumsAndClaimsTable from "@/components/PremiumsAndClaimsTable";
 import UndiscountedClaimsTable from "@/components/UndiscountedClaimsTable";
@@ -9,14 +10,20 @@ interface CategoryMapperProps {
   sheetCode: string;
 }
 
-const PremiumsClaimsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
+/**
+ * Maps insurance results and onerous contracts sheets to their respective components
+ */
+const InsuranceResultsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
   switch (sheetCode) {
+    // Legacy sheets (pre-2023)
     case "6020":
       return <PremiumsAndClaimsTable />;
     case "6021":
       return <UndiscountedClaimsTable />;
     case "6030":
       return <ClaimsAndAdjustmentExpensesTable />;
+    
+    // New sheets (2023+)
     case "6025":
       return <InsuranceServiceResultTable />;
     case "6080":
@@ -26,4 +33,4 @@ const PremiumsClaimsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
   }
 };
 
-export default PremiumsClaimsMapper;
+export default InsuranceResultsMapper;

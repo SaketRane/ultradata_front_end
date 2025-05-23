@@ -1,9 +1,10 @@
+
 import React, { lazy, Suspense, useMemo } from "react";
 import { Loader2 } from "lucide-react";
 
 // Lazy load mappers for better performance and code splitting
 const ProvincialStatsMapper = lazy(() => import("./mappers/ProvincialStatsMapper"));
-const PremiumsClaimsMapper = lazy(() => import("./mappers/PremiumsClaimsMapper"));
+const InsuranceResultsMapper = lazy(() => import("./mappers/PremiumsClaimsMapper"));
 const CommissionsMapper = lazy(() => import("./mappers/CommissionsMapper"));
 const FinancialStatementsMapper = lazy(() => import("./mappers/FinancialStatementsMapper"));
 const InvestmentsMapper = lazy(() => import("./mappers/InvestmentsMapper"));
@@ -22,10 +23,10 @@ interface VisualizationMapperProps {
  */
 const visualizationMappers: Record<string, React.ComponentType<{sheetCode: string}>> = {
   "Provincial Stats": ProvincialStatsMapper,
-  "Premiums, Claims, & LAE": PremiumsClaimsMapper,
-  "Premiums, Claims, and LAE": PremiumsClaimsMapper, // New name for 2023-2025
-  "Commissions": CommissionsMapper,
-  "Commissions & Expenses": CommissionsMapper, // New name for 2023-2025
+  "Insurance Results & Onerous Contracts": InsuranceResultsMapper,
+  "Premiums, Claims, & LAE": InsuranceResultsMapper, // Legacy name for 2022 and earlier
+  "Commissions & Expenses": CommissionsMapper,
+  "Commissions": CommissionsMapper, // Legacy name for 2022 and earlier
   "Financial Statements": FinancialStatementsMapper,
   "Investments": InvestmentsMapper,
   "Reinsurance": ReinsuranceMapper,

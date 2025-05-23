@@ -12,7 +12,7 @@ export const sectionSheetsMapping = {
       { code: "2022", label: "Statement of Profit or Loss" },
       { code: "2041", label: "Statement of Residual Interest - Policyholders' Equity & Liabilities" },
       { code: "2042", label: "Comprehensive Income(Loss) & Accumulated Other Comprehensive Income(Loss)" },
-      { code: "2045", label: "Head Office Account & Reserves" },
+      { code: "2045", label: "Head Office Account and Reserves" },
       { code: "2054", label: "Statement of Changes in Equity" },
       // Legacy sheets for 2022 and earlier years
       { code: "2020", label: "Liabilities, Equity, Head Office Account, Reserves & AOCI" },
@@ -27,8 +27,8 @@ export const sectionSheetsMapping = {
       { code: "4007", label: "Summary of Investments" }
     ]
   },
-  "Premiums, Claims, and LAE": {
-    code: "PCL",
+  "Insurance Results & Onerous Contracts": {
+    code: "IROC",
     sheets: [
       { code: "6025", label: "Insurance Service Result" },
       { code: "6080", label: "Changes in Onerous Contracts for the Current Period" },
