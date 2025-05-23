@@ -7,10 +7,10 @@ import ComprehensiveIncomeTable from "@/components/ComprehensiveIncomeTable";
 import StatementOfChangesInEquityTable from "@/components/StatementOfChangesInEquityTable";
 import HeadOfficeAccountAndReservesTable from "@/components/HeadOfficeAccountAndReservesTable";
 import LiabilitiesAndEquityTable from "@/components/LiabilitiesAndEquityTable";
+import LiabilityRollForwardTable from "@/components/LiabilityRollForwardTable";
 import StatementOfProfitOrLossTable from "@/components/StatementOfProfitOrLossTable";
 import StatementOfResidualInterestTable from "@/components/StatementOfResidualInterestTable";
 import InsuranceLiabilitiesByMeasurementComponentTable from "@/components/InsuranceLiabilitiesByMeasurementComponentTable";
-import InsuranceLiabilitiesCoverageClaimsTable from "@/components/InsuranceLiabilitiesCoverageClaimsTable";
 
 interface CategoryMapperProps {
   sheetCode: string;
@@ -35,7 +35,6 @@ const FinancialStatementsMapper: React.FC<CategoryMapperProps> = ({ sheetCode })
     case "2012":
       return <InsuranceLiabilitiesByMeasurementComponentTable />;
     case "2014":
-      return <InsuranceLiabilitiesCoverageClaimsTable />;
     case "2016":
     case "2018":
       return <LiabilityRollForwardTable sheetCode={sheetCode} />;
