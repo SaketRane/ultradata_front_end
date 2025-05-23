@@ -1,4 +1,3 @@
-
 import React, { lazy, Suspense, useMemo } from "react";
 import { Loader2 } from "lucide-react";
 
@@ -9,6 +8,7 @@ const CommissionsMapper = lazy(() => import("./mappers/CommissionsMapper"));
 const FinancialStatementsMapper = lazy(() => import("./mappers/FinancialStatementsMapper"));
 const InvestmentsMapper = lazy(() => import("./mappers/InvestmentsMapper"));
 const ReinsuranceMapper = lazy(() => import("./mappers/ReinsuranceMapper"));
+const MCTMapper = lazy(() => import("./mappers/MCTMapper"));
 
 interface VisualizationMapperProps {
   section: string;
@@ -23,12 +23,13 @@ interface VisualizationMapperProps {
 const visualizationMappers: Record<string, React.ComponentType<{sheetCode: string}>> = {
   "Provincial Stats": ProvincialStatsMapper,
   "Premiums, Claims, & LAE": PremiumsClaimsMapper,
-  "Insurance Results & Onerous Contracts": PremiumsClaimsMapper, // Map to the same component as Premiums, Claims, & LAE
+  "Premiums, Claims, and LAE": PremiumsClaimsMapper, // New name for 2023-2025
   "Commissions": CommissionsMapper,
-  "Commissions & Expenses": CommissionsMapper, // Map to the same component as Commissions
+  "Commissions & Expenses": CommissionsMapper, // New name for 2023-2025
   "Financial Statements": FinancialStatementsMapper,
   "Investments": InvestmentsMapper,
-  "Reinsurance": ReinsuranceMapper
+  "Reinsurance": ReinsuranceMapper,
+  "MCT/BAAT": MCTMapper
 };
 
 /**

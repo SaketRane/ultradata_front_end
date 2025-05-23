@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useCallback } from "react";
 import DashboardHeader from "@/components/DashboardHeader";
 import DashboardFooter from "@/components/DashboardFooter";
@@ -33,14 +32,22 @@ const Dashboard: React.FC = () => {
       setAvailableSections([
         "Financial Statements",
         "Investments",
-        "Insurance Results & Onerous Contracts",
+        "Premiums, Claims, and LAE",
         "Provincial Stats",
         "Commissions & Expenses",
         "Reinsurance"
       ]);
     } else {
       // For 2022 and earlier years
-      setAvailableSections(Object.keys(sectionSheetsMapping));
+      setAvailableSections([
+        "Financial Statements",
+        "Investments",
+        "Premiums, Claims, & LAE",
+        "Provincial Stats",
+        "Commissions",
+        "Reinsurance",
+        "MCT/BAAT"
+      ]);
     }
   }, []);
   
@@ -60,28 +67,19 @@ const Dashboard: React.FC = () => {
       // If we're in an IFRS 17 year (2023+)
       const yearValue = parseInt(year, 10);
       if (yearValue >= 2023) {
-        if (section === "Insurance Results & Onerous Contracts") {
-          // Map "Insurance Results & Onerous Contracts" to "Premiums, Claims, & LAE" sheets for IFRS 17
-          setAvailableSheets(sectionSheetsMapping["Premiums, Claims, & LAE"].sheets.filter(
-            sheet => ["6025", "6080"].includes(sheet.code)
-          ));
-        } else if (section === "Investments") {
-          // Use the specific IFRS 17 sheet for Investments
+        // For 2023+ years, show only the IFRS 17 sheets
+        const ifrs17Sheets = [
+          "2010", "2011", "2012", "2014", "2016", "2018", "2022", "2041", "2042", "2045", "2054",
+          "4008",
+          "6025", "6080",
+          "6740", "6750", "6760", "6770",
+          "8015", "8025",
+          "7050", "7060"
+        ];
+        
+        if (sectionSheetsMapping[section]) {
           setAvailableSheets(sectionSheetsMapping[section].sheets.filter(
-            sheet => sheet.code === "4008"
-          ));
-        } else if (sectionSheetsMapping[section]) {
-          // For other sections, filter sheets that are specifically for IFRS 17 years
-          setAvailableSheets(sectionSheetsMapping[section].sheets.filter(
-            sheet => {
-              // IFRS 17 specific sheets
-              const ifrs17SheetCodes = [
-                "2011", "2012", "2014", "2016", "2018", "2022", "2041",
-                "6740", "6750", "6760", "6770",
-                "8015", "8025"
-              ];
-              return ifrs17SheetCodes.includes(sheet.code);
-            }
+            sheet => ifrs17Sheets.includes(sheet.code)
           ));
         } else {
           setAvailableSheets([]);
@@ -89,18 +87,18 @@ const Dashboard: React.FC = () => {
       } else {
         // For non-IFRS 17 years (2022 and earlier)
         if (sectionSheetsMapping[section]) {
+          const legacySheets = [
+            "2010", "2020", "2030", "2042", "2045", "2054",
+            "4007",
+            "6020", "6021", "6030",
+            "6710", "6720", "6730", "6731",
+            "8010",
+            "7050", "7060", "7061",
+            "3061", "3062", "3092", "3064", "3066", "3071", "3081", "3073", "3074", "3075", "3077", "3079"
+          ];
+          
           setAvailableSheets(sectionSheetsMapping[section].sheets.filter(
-            sheet => {
-              // Exclude IFRS 17 specific sheets
-              const ifrs17SheetCodes = [
-                "2011", "2012", "2014", "2016", "2018", "2022", "2041",
-                "4008",
-                "6025", "6080",
-                "6740", "6750", "6760", "6770",
-                "8015", "8025"
-              ];
-              return !ifrs17SheetCodes.includes(sheet.code);
-            }
+            sheet => legacySheets.includes(sheet.code)
           ));
         } else {
           setAvailableSheets([]);

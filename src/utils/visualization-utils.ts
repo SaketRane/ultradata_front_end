@@ -24,13 +24,21 @@ const SECTION_TITLE_MAPS: Record<string, Record<string, string>> = {
     "6020": "Premiums and Claims",
     "6021": "Undiscounted Claims Incurred",
     "6030": "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year",
-    // New sheets for 2023-2025
+    // New sheets for 2023-2025 (also available in "Premiums, Claims, and LAE")
+    "6025": "Insurance Service Result",
+    "6080": "Changes in Onerous Contracts for the Current Period"
+  },
+  "Premiums, Claims, and LAE": {
     "6025": "Insurance Service Result",
     "6080": "Changes in Onerous Contracts for the Current Period"
   },
   "Commissions": {
     "8010": "Commissions",
-    // New sheets for 2023-2025
+    // New sheets for 2023-2025 (also available in "Commissions & Expenses")
+    "8015": "Commissions",
+    "8025": "Insurance Service and Other Operating Expenses"
+  },
+  "Commissions & Expenses": {
     "8015": "Commissions",
     "8025": "Insurance Service and Other Operating Expenses"
   },
@@ -57,8 +65,22 @@ const SECTION_TITLE_MAPS: Record<string, Record<string, string>> = {
   },
   "Reinsurance": {
     "7050": "Registered Reinsurance",
-    "7060": "Unregistered Reinsurance (Canadian)",
+    "7060": "Unregistered Reinsurance",
     "7061": "Unregistered Reinsurance (Foreign)"
+  },
+  "MCT/BAAT": {
+    "3061": "Minimum Capital Test/Branch Adequacy of Assets Test",
+    "3062": "Minimum Capital Test: Capital Available",
+    "3092": "Branch Adequacy of Assets Test: Net Assets Available",
+    "3064": "Insurance Risk: Capital/Margin Required for Unpaid Claims and Premium Liabilities",
+    "3066": "Market Risk Capital/Margin Requirements",
+    "3071": "Credit Risk: Capital Required for Balance Sheet Assets",
+    "3081": "Credit Risk: Margins Required for Balance Sheet Assets",
+    "3073": "Credit Risk: Capital/Margin Required for Balance Sheet/Vested Assets based on External Credit Ratings",
+    "3074": "Credit Risk: Capital Required for Balance Sheet Assets based on External Credit Ratings (Québec**)",
+    "3075": "Credit Risk: Capital/Margin Required for Off-Balance Sheet Exposures",
+    "3077": "Credit Risk: Capital/Margin Required for Collateral held for Unregistered Reinsurance Exposures and Self-Insured Retention",
+    "3079": "Operational Risk: Capital/Margin Required"
   }
 };
 
