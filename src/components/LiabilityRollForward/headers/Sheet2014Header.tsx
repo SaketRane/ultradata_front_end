@@ -1,6 +1,14 @@
 
 import React from "react";
 
+export const Sheet2014PrimaryHeader: React.FC = () => (
+  <tr className="h-6">
+    <th className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></th>
+    <th className="text-xs font-semibold text-center py-0 px-1 border-r" colSpan={6}>Current Period</th>
+    <th className="text-xs font-semibold text-center py-0 px-1" colSpan={6}>Prior Period Restated</th>
+  </tr>
+);
+
 export const Sheet2014SecondaryHeader: React.FC = () => (
   <tr className="h-6">
     <th className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></th>
@@ -35,6 +43,7 @@ export const Sheet2014ThirdHeader: React.FC = () => (
 
 export const Sheet2014Header: React.FC = () => (
   <>
+    <Sheet2014PrimaryHeader />
     <Sheet2014SecondaryHeader />
     <Sheet2014ThirdHeader />
   </>
