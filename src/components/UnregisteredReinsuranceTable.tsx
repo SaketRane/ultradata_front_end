@@ -9,20 +9,44 @@ const reinsuranceTableRows = [
   { name: "TOTAL BUSINESS", rowCode: "29", isBold: true, isTotal: true },
 ];
 
-// Define column structure
+// Define column structure with updated headers and codes
 const tableColumns = [
-  { name: "Reinsurance Premiums Ceded", code: "18", width: "1fr" },
-  { name: "UEP ceded to assuming insurer", code: "20", width: "1fr" },
-  { name: "Outstanding losses recoverable from assuming insurer", code: "22", width: "1fr" },
+  {
+    name: "Net Expenses from Reinsurance Contracts Held",
+    subColumns: [
+      { name: "Allocation of Reinsurance Premiums", code: "50" },
+      { name: "Amounts Recoverable from Reinsurers for Incurred Claims", code: "52" },
+      { name: "Effect of changes in non-performance risk of reinsurers", code: "54" },
+      { name: "Total", code: "59" }
+    ],
+    width: "4fr"
+  },
+  {
+    name: "Assets for Remaining Coverage",
+    code: "62",
+    width: "1fr"
+  },
+  {
+    name: "Asssets for Incurred Claims",
+    subColumns: [
+      { name: "Under PAA", code: "72" },
+      { name: "Not under PAA", code: "74" }
+    ],
+    width: "2fr"
+  },
+  {
+    name: "Reinsurance Contract Held Balances Total",
+    code: "79",
+    width: "1fr"
+  },
   { 
     name: "Receivables", 
     subColumns: [
       { name: "Reinsurance Receivable", code: "24" },
       { name: "Reinsurance Payable", code: "26" },
-      { name: "Net Receivable", code: "28" },
-      { name: "Aging of Reinsurance Asset", code: "30" }
+      { name: "Net Receivable", code: "28" }
     ],
-    width: "4fr"
+    width: "3fr"
   },
   {
     name: "Reinsurance Collateral",
@@ -32,17 +56,6 @@ const tableColumns = [
       { name: "Reinsurance Collateral - Funds Held", code: "36" },
       { name: "Letters of Credit", code: "38" },
       { name: "Total", code: "39" }
-    ],
-    width: "5fr"
-  },
-  {
-    name: "Calculations for MCT purposes (where positive)",
-    subColumns: [
-      { name: "20% Margin on UEP and outstanding losses recoverable", code: "40" },
-      { name: "Recoverables in excess of acceptable collateral", code: "42" },
-      { name: "Acceptable collateral in excess of recoverables", code: "44" },
-      { name: "Margin Required", code: "46" },
-      { name: "Excess Collateral", code: "48" }
     ],
     width: "5fr"
   }
@@ -57,7 +70,7 @@ const UnregisteredReinsuranceTable: React.FC = () => {
 
   return (
     <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
-      <Table className="min-w-[1000px] text-xs">
+      <Table className="min-w-[1200px] text-xs">
         <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
           <TableRow>
             <TableHead className="w-[250px] text-xs font-semibold text-left py-2 px-4 border-r" rowSpan={2}></TableHead>
