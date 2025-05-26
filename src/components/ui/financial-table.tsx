@@ -1,3 +1,4 @@
+
 import React, { useMemo, useCallback } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { type RowDefinition, type ColumnDefinition } from "@/types/financial";
@@ -10,7 +11,6 @@ interface FinancialTableProps {
   secondaryHeader?: React.ReactNode;
   className?: string;
   maxHeight?: string;
-  specialCells?: Record<string, string>; // Map of rowCode+colCode to custom cell code
 }
 
 /**
@@ -20,7 +20,6 @@ interface FinancialTableProps {
  * - Indentation based on row hierarchy
  * - Code-based data cells for integration with data sources
  * - Performance optimized with memoization and virtualization preparation
- * - Support for special cell codes that don't follow the standard pattern
  */
 const FinancialTable: React.FC<FinancialTableProps> = ({
   columns,
@@ -28,17 +27,12 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   sheetCode,
   secondaryHeader,
   className = "",
-  maxHeight = "70vh",
-  specialCells = {}
+  maxHeight = "70vh"
 }) => {
   // Memoize the cell code generator function to improve performance
   const getCellCode = useCallback((rowCode: string, colCode: string) => {
-    const specialKey = rowCode + colCode;
-    if (specialCells[specialKey]) {
-      return specialCells[specialKey];
-    }
     return generateCellCode(sheetCode, rowCode, colCode);
-  }, [sheetCode, specialCells]);
+  }, [sheetCode]);
 
   // Memoize the table header to prevent unnecessary re-renders
   const tableHeader = useMemo(() => (
