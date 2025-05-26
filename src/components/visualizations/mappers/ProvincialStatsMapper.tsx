@@ -1,7 +1,9 @@
 
 import React from "react";
-import { InsuranceRevenueTable } from "@/components/tables/provincial-stats";
-import InsuranceServiceExpensesTable from "@/components/InsuranceServiceExpensesTable";
+import { 
+  InsuranceRevenueTable, 
+  InsuranceServiceExpensesByProvinceTable 
+} from "@/components/tables/provincial-stats";
 import NetExpensesReinsuranceTable from "@/components/NetExpensesReinsuranceTable";
 import InsuranceServiceResultProvincialTable from "@/components/InsuranceServiceResultProvincialTable";
 
@@ -14,7 +16,7 @@ const ProvincialStatsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => 
     case "6740":
       return <InsuranceRevenueTable />;
     case "6750":
-      return <InsuranceServiceExpensesTable />;
+      return <InsuranceServiceExpensesByProvinceTable />;
     case "6760":
       return <NetExpensesReinsuranceTable />;
     case "6770":
