@@ -5,34 +5,28 @@ import { RowDefinition, ColumnDefinition } from "@/types/financial";
 
 const UnregisteredReinsuranceTable: React.FC = () => {
   const rows: RowDefinition[] = [
-    { name: "CEDED REINSURANCE", rowCode: "", indent: 0, isHeader: true },
-    { name: "Property", rowCode: "01", indent: 1, isTotal: false },
-    { name: "Automobile", rowCode: "02", indent: 1, isTotal: false },
-    { name: "Liability", rowCode: "03", indent: 1, isTotal: false },
-    { name: "Accident & Sickness", rowCode: "04", indent: 1, isTotal: false },
-    { name: "Aircraft", rowCode: "05", indent: 1, isTotal: false },
-    { name: "Boiler & Machinery", rowCode: "06", indent: 1, isTotal: false },
-    { name: "Credit Protection", rowCode: "07", indent: 1, isTotal: false },
-    { name: "Other", rowCode: "08", indent: 1, isTotal: false },
-    { name: "Total Ceded", rowCode: "09", indent: 0, isTotal: true },
-    { name: "ASSUMED REINSURANCE", rowCode: "", indent: 0, isHeader: true },
-    { name: "Property", rowCode: "10", indent: 1, isTotal: false },
-    { name: "Automobile", rowCode: "11", indent: 1, isTotal: false },
-    { name: "Liability", rowCode: "12", indent: 1, isTotal: false },
-    { name: "Accident & Sickness", rowCode: "13", indent: 1, isTotal: false },
-    { name: "Aircraft", rowCode: "14", indent: 1, isTotal: false },
-    { name: "Boiler & Machinery", rowCode: "15", indent: 1, isTotal: false },
-    { name: "Credit Protection", rowCode: "16", indent: 1, isTotal: false },
-    { name: "Other", rowCode: "17", indent: 1, isTotal: false },
-    { name: "Total Assumed", rowCode: "18", indent: 0, isTotal: true },
-    { name: "NET REINSURANCE RESULT", rowCode: "19", indent: 0, isTotal: true, isFinalTotal: true }
+    { name: "Total Associated and Non-qualifying subsidiary", rowCode: "09", indent: 0, isTotal: false },
+    { name: "Total Non-associated and Non-subsidiary", rowCode: "19", indent: 0, isTotal: false },
+    { name: "TOTAL BUSINESS", rowCode: "29", indent: 0, isTotal: true, isFinalTotal: true }
   ];
 
   const columns: ColumnDefinition[] = [
-    { id: "premiumsWritten", label: "Premiums Written", colCode: "01" },
-    { id: "premiumsEarned", label: "Premiums Earned", colCode: "02" },
-    { id: "claimsIncurred", label: "Claims Incurred", colCode: "03" },
-    { id: "commissions", label: "Commissions", colCode: "04" }
+    { id: "allocationReinsurancePremiums", label: "Allocation of Reinsurance Premiums", colCode: "50" },
+    { id: "amountsRecoverableIncurredClaims", label: "Amounts Recoverable from Reinsurers for Incurred Claims", colCode: "52" },
+    { id: "effectChangesNonPerformanceRisk", label: "Effect of changes in non-performance risk of reinsurers", colCode: "54" },
+    { id: "netExpensesTotal", label: "Total", colCode: "59" },
+    { id: "assetsRemainingCoverage", label: "Assets for Remaining Coverage", colCode: "62" },
+    { id: "assetsIncurredClaimsUnderPAA", label: "Under PAA", colCode: "72" },
+    { id: "assetsIncurredClaimsNotUnderPAA", label: "Not under PAA", colCode: "74" },
+    { id: "reinsuranceContractHeldBalancesTotal", label: "Reinsurance Contract Held Balances Total", colCode: "79" },
+    { id: "reinsuranceReceivable", label: "Reinsurance Receivable", colCode: "24" },
+    { id: "reinsurancePayable", label: "Reinsurance Payable", colCode: "26" },
+    { id: "netReceivable", label: "Net Receivable", colCode: "28" },
+    { id: "nonOwnedDepositsRSA", label: "Non-owned deposits - RSA", colCode: "32" },
+    { id: "otherAcceptableNonOwnedDeposits", label: "Other acceptable non-owned deposits", colCode: "34" },
+    { id: "reinsuranceCollateralFundsHeld", label: "Reinsurance Collateral - Funds Held", colCode: "36" },
+    { id: "lettersOfCredit", label: "Letters of Credit", colCode: "38" },
+    { id: "reinsuranceCollateralTotal", label: "Total", colCode: "39" }
   ];
 
   return (
