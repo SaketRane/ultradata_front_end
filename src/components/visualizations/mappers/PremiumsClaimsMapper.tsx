@@ -1,5 +1,6 @@
 
 import React from "react";
+import InsuranceServiceResultTable from "@/components/InsuranceServiceResultTable";
 
 interface CategoryMapperProps {
   sheetCode: string;
@@ -7,6 +8,8 @@ interface CategoryMapperProps {
 
 const PremiumsClaimsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
   switch (sheetCode) {
+    case "6025":
+      return <InsuranceServiceResultTable />;
     default:
       return (
         <div className="flex justify-center items-center p-8 text-muted-foreground">
