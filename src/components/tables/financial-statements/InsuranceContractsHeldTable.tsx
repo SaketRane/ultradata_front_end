@@ -48,23 +48,25 @@ const InsuranceContractsHeldTable: React.FC = () => {
     { name: "Net ending reinsurance contract held balances", rowCode: "599", indent: 1, isTotal: true, isFinalTotal: true }
   ], []);
 
-  // Define column data based on the structure provided
+  // Define column data in the exact order from the image
   const columns: ColumnDefinition[] = useMemo(() => [
-    { id: "currentExcludingLoss", label: "Excluding Loss-Recovery Component", colCode: "02" },
+    // Current Period columns
+    { id: "currentExcludingLoss", label: "Excluding Loss-Recovery", colCode: "02" },
     { id: "currentLossRecovery", label: "Loss-Recovery Component", colCode: "03" },
     { id: "currentTotal", label: "Total", colCode: "10" },
-    { id: "currentExpectedPV", label: "Expected Present Value of Future Cash Flows", colCode: "12" },
+    { id: "currentExpectedPV", label: "Expected Present Value of Future Cash", colCode: "12" },
     { id: "currentRiskAdj", label: "Risk Adjustment", colCode: "16" },
     { id: "currentTotalAll", label: "TOTAL", colCode: "19" },
-    { id: "priorExcludingLoss", label: "Excluding Loss-Recovery Component", colCode: "22" },
+    // Prior Period columns
+    { id: "priorExcludingLoss", label: "Excluding Loss-Recovery", colCode: "22" },
     { id: "priorLossRecovery", label: "Loss-Recovery Component", colCode: "23" },
     { id: "priorTotal", label: "Total", colCode: "30" },
-    { id: "priorExpectedPV", label: "Expected Present Value of Future Cash Flows", colCode: "32" },
+    { id: "priorExpectedPV", label: "Expected Present Value of Future", colCode: "32" },
     { id: "priorRiskAdj", label: "Risk Adjustment", colCode: "36" },
     { id: "priorTotalAll", label: "TOTAL", colCode: "39" }
   ], []);
 
-  // Secondary header for the table showing period divisions and sub-groupings
+  // Secondary header matching the exact structure from the image
   const secondaryHeader = useMemo(() => (
     <>
       <TableRow className="h-6">
