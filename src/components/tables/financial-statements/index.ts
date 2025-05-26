@@ -1,4 +1,3 @@
-
 // Financial Statements tables
 export { default as AssetsTable } from "./AssetsTable";
 export { default as InsuranceLiabilitiesTable } from "./InsuranceLiabilitiesTable";
@@ -8,4 +7,3 @@ export { default as HeadOfficeAccountAndReservesTable } from "./HeadOfficeAccoun
 export { default as StatementOfChangesInEquityTable } from "./StatementOfChangesInEquityTable";
 export { default as StatementOfProfitOrLossTable } from "../../StatementOfProfitOrLossTable";
 export { default as StatementOfResidualInterestTable } from "../../StatementOfResidualInterestTable";
-export { default as ReinsuranceHeldCoverageVsClaimsTable } from "./ReinsuranceHeldCoverageVsClaimsTable";
