@@ -1,43 +1,43 @@
 
 import React from "react";
-import AssetsTable from "@/components/AssetsTable";
-import LiabilitiesAndEquityTable from "@/components/LiabilitiesAndEquityTable";
-import InsuranceLiabilitiesTable from "@/components/tables/financial-statements/InsuranceLiabilitiesTable";
-import ReinsuranceHeldTable from "@/components/tables/financial-statements/ReinsuranceHeldTable";
-import ComprehensiveIncomeTable from "@/components/tables/financial-statements/ComprehensiveIncomeTable";
-import HeadOfficeAccountAndReservesTable from "@/components/tables/financial-statements/HeadOfficeAccountAndReservesTable";
-import StatementOfChangesInEquityTable from "@/components/tables/financial-statements/StatementOfChangesInEquityTable";
-import StatementOfProfitOrLossTable from "@/components/StatementOfProfitOrLossTable";
-import StatementOfResidualInterestTable from "@/components/StatementOfResidualInterestTable";
+import { 
+  AssetsTable,
+  StatementOfChangesInEquityTable,
+  ComprehensiveIncomeTable,
+  HeadOfficeAccountAndReservesTable,
+  ReinsuranceHeldTable,
+  InsuranceContractsHeldTable,
+  InsuranceLiabilitiesTable
+} from "@/components/tables/financial-statements";
 
-interface CategoryMapperProps {
+interface FinancialStatementsMapperProps {
   sheetCode: string;
 }
 
-const FinancialStatementsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
+/**
+ * Maps financial statement sheet codes to their corresponding table components
+ * Handles assets, liabilities, equity, and comprehensive income statements
+ */
+const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ sheetCode }) => {
   switch (sheetCode) {
     case "2010":
       return <AssetsTable />;
     case "2011":
-      return <LiabilitiesAndEquityTable />;
-    case "2012":
       return <InsuranceLiabilitiesTable />;
+    case "2012":
+      return <StatementOfChangesInEquityTable />;
+    case "2014":
+      return <ComprehensiveIncomeTable />;
     case "2016":
       return <ReinsuranceHeldTable />;
+    case "2018":
+      return <InsuranceContractsHeldTable />;
     case "2022":
-      return <StatementOfProfitOrLossTable />;
-    case "2041":
-      return <StatementOfResidualInterestTable />;
-    case "2042":
-      return <ComprehensiveIncomeTable />;
-    case "2045":
       return <HeadOfficeAccountAndReservesTable />;
-    case "2054":
-      return <StatementOfChangesInEquityTable />;
     default:
       return (
         <div className="flex justify-center items-center p-8 text-muted-foreground">
-          <p>Table implementation coming soon...</p>
+          <p>Financial statement table implementation coming soon...</p>
         </div>
       );
   }
