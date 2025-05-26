@@ -3,21 +3,11 @@ import React, { useMemo } from "react";
 import FinancialTable from "@/components/ui/financial-table";
 import { RowDefinition, ColumnDefinition } from "@/types/financial";
 
-// Import configurations for different sheets
-import { sheet2012Rows, sheet2012Columns, sheet2012Header } from "./liability-roll-forward/configs/sheet2012Config";
-import { sheet2014Rows, sheet2014Columns, sheet2014Header } from "./liability-roll-forward/configs/sheet2014Config";
-import { sheet2016Rows, sheet2016Columns, sheet2016Header } from "./liability-roll-forward/configs/sheet2016Config";
-import { sheet2018Rows, sheet2018Columns } from "./liability-roll-forward/configs/sheet2018Config";
-
-// Import header components
-import Sheet2012Header from "./liability-roll-forward/headers/Sheet2012Header";
-import Sheet2014Header from "./liability-roll-forward/headers/Sheet2014Header";
-import Sheet2016Header from "./liability-roll-forward/headers/Sheet2016Header";
-
 interface LiabilityRollForwardTableProps {
   sheetCode: string;
 }
 
+// Enhanced component for the Insurance Liabilities and Reinsurance Held tables with more structured data
 const LiabilityRollForwardTable: React.FC<LiabilityRollForwardTableProps> = ({ sheetCode }) => {
   // Get title based on sheetCode
   const getTitle = () => {
@@ -33,51 +23,63 @@ const LiabilityRollForwardTable: React.FC<LiabilityRollForwardTableProps> = ({ s
   // Generate rows based on sheet code
   const rows = useMemo((): RowDefinition[] => {
     switch (sheetCode) {
-      case "2012":
-        return sheet2012Rows;
-      case "2014":
-        return sheet2014Rows;
-      case "2016":
-        return sheet2016Rows;
-      case "2018":
-        return sheet2018Rows;
+      case "2012": // Insurance Liabilities by Measurement Component
+        return [
+          { name: "Present value of future cash flows", rowCode: "01", indent: 0, isTotal: false },
+          { name: "Risk adjustment for non-financial risk", rowCode: "02", indent: 0, isTotal: false },
+          { name: "Contractual service margin", rowCode: "03", indent: 0, isTotal: false },
+          { name: "Total insurance liabilities", rowCode: "04", indent: 0, isTotal: true }
+        ];
+      
+      case "2014": // Insurance Liabilities: Coverage vs. Claims
+        return [
+          { name: "Liability for remaining coverage", rowCode: "01", indent: 0, isTotal: false },
+          { name: "Liability for incurred claims", rowCode: "02", indent: 0, isTotal: false },
+          { name: "Total insurance liabilities", rowCode: "03", indent: 0, isTotal: true }
+        ];
+      
+      case "2016": // Reinsurance Held by Measurement Component
+        return [
+          { name: "Present value of future cash flows", rowCode: "01", indent: 0, isTotal: false },
+          { name: "Risk adjustment for non-financial risk", rowCode: "02", indent: 0, isTotal: false },
+          { name: "Contractual service margin", rowCode: "03", indent: 0, isTotal: false },
+          { name: "Total reinsurance contract assets/(liabilities)", rowCode: "04", indent: 0, isTotal: true }
+        ];
+      
+      case "2018": // Reinsurance Held: Coverage vs. Claims
+        return [
+          { name: "Asset for remaining coverage", rowCode: "01", indent: 0, isTotal: false },
+          { name: "Asset for incurred claims", rowCode: "02", indent: 0, isTotal: false },
+          { name: "Total reinsurance contract assets/(liabilities)", rowCode: "03", indent: 0, isTotal: true }
+        ];
+        
       default:
-        return [{ name: `${getTitle()} - Placeholder`, rowCode: "01", indent: 0, isTotal: false }];
+        return [
+          { name: `${getTitle()} - Placeholder`, rowCode: "01", indent: 0, isTotal: false }
+        ];
     }
   }, [sheetCode]);
 
   // Generate columns based on sheet code
   const columns = useMemo((): ColumnDefinition[] => {
-    switch (sheetCode) {
-      case "2012":
-        return sheet2012Columns;
-      case "2014":
-        return sheet2014Columns;
-      case "2016":
-        return sheet2016Columns;
-      case "2018":
-        return sheet2018Columns;
-      default:
-        return [
-          { id: "openingBalance", label: "Opening Balance", colCode: "01" },
-          { id: "changes", label: "Changes", colCode: "02" },
-          { id: "closingBalance", label: "Closing Balance", colCode: "03" }
-        ];
+    // Base columns for all types
+    const baseColumns: ColumnDefinition[] = [
+      { id: "openingBalance", label: "Opening Balance", colCode: "01" },
+      { id: "changes", label: "Changes", colCode: "02" },
+      { id: "closingBalance", label: "Closing Balance", colCode: "03" }
+    ];
+    
+    // Add detail columns for measurement component tables
+    if (sheetCode === "2012" || sheetCode === "2016") {
+      return [
+        ...baseColumns,
+        { id: "insurance", label: "Insurance Service", colCode: "04" },
+        { id: "investment", label: "Investment", colCode: "05" },
+        { id: "fx", label: "FX & Other", colCode: "06" }
+      ];
     }
-  }, [sheetCode]);
-
-  // Custom header for multi-level headers
-  const customHeader = useMemo(() => {
-    switch (sheetCode) {
-      case "2012":
-        return <Sheet2012Header />;
-      case "2014":
-        return <Sheet2014Header />;
-      case "2016":
-        return <Sheet2016Header />;
-      default:
-        return null;
-    }
+    
+    return baseColumns;
   }, [sheetCode]);
 
   return (
@@ -85,7 +87,6 @@ const LiabilityRollForwardTable: React.FC<LiabilityRollForwardTableProps> = ({ s
       rows={rows} 
       columns={columns} 
       sheetCode={sheetCode}
-      secondaryHeader={customHeader}
     />
   );
 };
