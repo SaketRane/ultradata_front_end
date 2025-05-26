@@ -31,7 +31,7 @@ const RegisteredReinsuranceTable: React.FC = () => {
   const columns: ColumnDefinition[] = [
     { id: "premiumsWritten", label: "Premiums Written", colCode: "01" },
     { id: "premiumsEarned", label: "Premiums Earned", colCode: "02" },
-    { name: "Claims Incurred", label: "Claims Incurred", colCode: "03" },
+    { id: "claimsIncurred", label: "Claims Incurred", colCode: "03" },
     { id: "commissions", label: "Commissions", colCode: "04" }
   ];
 
