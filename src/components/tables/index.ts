@@ -9,7 +9,7 @@ export {
 } from "./insurance-results";
 
 // Provincial Stats
-export { default as InsuranceRevenueTable } from "../InsuranceRevenueTable";
+export { InsuranceRevenueTable } from "./provincial-stats";
 export { default as InsuranceServiceExpensesTable } from "../InsuranceServiceExpensesTable";
 export { default as NetExpensesReinsuranceTable } from "../NetExpensesReinsuranceTable";
 export { default as InsuranceServiceResultProvincialTable } from "../InsuranceServiceResultProvincialTable";
