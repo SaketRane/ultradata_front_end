@@ -1,17 +1,19 @@
 
-import React from "react";
-import AssetsTable from "@/components/tables/financial-statements/AssetsTable";
-import InsuranceLiabilitiesTable from "@/components/tables/financial-statements/InsuranceLiabilitiesTable";
-import StatementOfChangesInEquityTable from "@/components/tables/financial-statements/StatementOfChangesInEquityTable";
-import ComprehensiveIncomeTable from "@/components/tables/financial-statements/ComprehensiveIncomeTable";
-import HeadOfficeAccountAndReservesTable from "@/components/tables/financial-statements/HeadOfficeAccountAndReservesTable";
+import React, { Suspense } from "react";
+import {
+  AssetsTable,
+  InsuranceLiabilitiesTable,
+  StatementOfChangesInEquityTable,
+  ComprehensiveIncomeTable,
+  HeadOfficeAccountAndReservesTable,
+  ReinsuranceHeldTable,
+  InsuranceContractsHeldTable,
+  InsuranceLiabilitiesByMeasurementTable
+} from "@/components/tables/financial-statements";
 import LiabilitiesAndEquityTable from "@/components/LiabilitiesAndEquityTable";
 import StatementOfProfitOrLossTable from "@/components/StatementOfProfitOrLossTable";
 import StatementOfResidualInterestTable from "@/components/StatementOfResidualInterestTable";
-// Insurance Contracts
-import ReinsuranceHeldTable from "@/components/tables/financial-statements/ReinsuranceHeldTable";
-import InsuranceContractsHeldTable from "@/components/tables/financial-statements/InsuranceContractsHeldTable";
-import InsuranceLiabilitiesByMeasurementTable from "@/components/tables/financial-statements/InsuranceLiabilitiesByMeasurementTable";
+import { Loader2 } from "lucide-react";
 
 interface FinancialStatementsMapperProps {
   sheetCode: string;
@@ -19,8 +21,14 @@ interface FinancialStatementsMapperProps {
 
 /**
  * Maps sheet codes to their corresponding financial statement table components.
+ * Optimized with error boundaries and loading states for better UX.
  */
 const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ sheetCode }) => {
+  const LoadingFallback = () => (
+    <div className="flex justify-center items-center p-8">
+      <Loader2 className="animate-spin h-6 w-6 text-primary" />
+    </div>
+  );
 
   const renderTable = () => {
     switch (sheetCode) {
@@ -47,15 +55,20 @@ const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ s
       case "2054":
         return <StatementOfChangesInEquityTable />;
       default:
-        return null;
+        console.warn(`Unknown sheet code: ${sheetCode}`);
+        return (
+          <div className="text-center p-8 text-gray-500">
+            No visualization available for sheet code: {sheetCode}
+          </div>
+        );
     }
   };
 
   return (
-    <>
+    <Suspense fallback={<LoadingFallback />}>
       {renderTable()}
-    </>
+    </Suspense>
   );
 };
 
-export default FinancialStatementsMapper;
+export default React.memo(FinancialStatementsMapper);

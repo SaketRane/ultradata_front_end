@@ -1,25 +1,21 @@
 
-// Financial Statements
-export { default as AssetsTable } from "./financial-statements/AssetsTable";
+// Financial Statements - Core tables
 export * from "./financial-statements";
 
 // Insurance Results & Onerous Contracts
 export * from "./insurance-results";
 
-// Provincial Stats
+// Provincial Statistics
 export * from "./provincial-stats";
 
 // Reinsurance
 export * from "./reinsurance";
 
 // Commissions & Expenses
-export { default as CommissionsNewTable } from "../CommissionsNewTable";
-export { default as InsuranceServiceOperatingExpensesTable } from "../InsuranceServiceOperatingExpensesTable";
+export * from "./commissions";
 
-// Investments
+// Legacy components - TODO: Organize into proper modules
 export { default as SummaryOfInvestmentsTable } from "../SummaryOfInvestmentsTable";
-
-// Legacy components (to be organized)
 export { default as InsuranceServiceExpensesTable } from "../InsuranceServiceExpensesTable";
 export { default as NetExpensesReinsuranceTable } from "../NetExpensesReinsuranceTable";
 export { default as InsuranceServiceResultProvincialTable } from "../InsuranceServiceResultProvincialTable";
