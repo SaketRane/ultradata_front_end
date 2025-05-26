@@ -1,6 +1,6 @@
 
 import React from "react";
-import { ReinsuranceHeldNetExpensesTable } from "@/components/tables/reinsurance";
+import { ReinsuranceHeldNetExpensesTable, UnregisteredReinsuranceNetExpensesTable } from "@/components/tables/reinsurance";
 
 interface CategoryMapperProps {
   sheetCode: string;
@@ -10,6 +10,8 @@ const ReinsuranceMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
   switch (sheetCode) {
     case "7050":
       return <ReinsuranceHeldNetExpensesTable />;
+    case "7060":
+      return <UnregisteredReinsuranceNetExpensesTable />;
     default:
       return (
         <div className="flex justify-center items-center p-8 text-muted-foreground">
