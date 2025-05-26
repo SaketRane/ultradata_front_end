@@ -71,32 +71,44 @@ const InsuranceContractsHeldTable: React.FC = () => {
     <>
       <TableRow className="h-6">
         <TableHead className="text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
-        <TableHead colSpan={6} className="text-xs font-semibold text-center py-0 px-2 border-r">
+        <TableHead colSpan={5} className="text-xs font-semibold text-center py-0 px-2 border-r">
           Current Period
         </TableHead>
-        <TableHead colSpan={6} className="text-xs font-semibold text-center py-0 px-2">
+        <TableHead className="text-xs font-semibold text-center py-0 px-2 border-r">
+          
+        </TableHead>
+        <TableHead colSpan={5} className="text-xs font-semibold text-center py-0 px-2 border-r">
           Prior Period Restated
+        </TableHead>
+        <TableHead className="text-xs font-semibold text-center py-0 px-2">
+          
         </TableHead>
       </TableRow>
       <TableRow className="h-6">
         <TableHead className="text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
-        <TableHead colSpan={3} className="text-xs font-semibold text-center py-0 px-2 border-r">
-          Assets for remaining coverage
-        </TableHead>
         <TableHead colSpan={2} className="text-xs font-semibold text-center py-0 px-2 border-r">
-          Assets for incurred claims not under PAA
+          Assets for remaining coverage
         </TableHead>
         <TableHead className="text-xs font-semibold text-center py-0 px-2 border-r">
-          Assets for incurred claims under PAA
-        </TableHead>
-        <TableHead colSpan={3} className="text-xs font-semibold text-center py-0 px-2 border-r">
-          Assets for remaining coverage
-        </TableHead>
-        <TableHead colSpan={2} className="text-xs font-semibold text-center py-0 px-2 border-r">
           Assets for incurred claims not under PAA
         </TableHead>
-        <TableHead className="text-xs font-semibold text-center py-0 px-2">
+        <TableHead colSpan={2} className="text-xs font-semibold text-center py-0 px-2 border-r">
           Assets for incurred claims under PAA
+        </TableHead>
+        <TableHead className="text-xs font-semibold text-center py-0 px-2 border-r">
+          
+        </TableHead>
+        <TableHead colSpan={2} className="text-xs font-semibold text-center py-0 px-2 border-r">
+          Assets for remaining coverage
+        </TableHead>
+        <TableHead className="text-xs font-semibold text-center py-0 px-2 border-r">
+          Assets for incurred claims not under PAA
+        </TableHead>
+        <TableHead colSpan={2} className="text-xs font-semibold text-center py-0 px-2 border-r">
+          Assets for incurred claims under PAA
+        </TableHead>
+        <TableHead className="text-xs font-semibold text-center py-0 px-2">
+          
         </TableHead>
       </TableRow>
     </>
