@@ -15,3 +15,6 @@ export { default as InsuranceServiceResultProvincialTable } from "../InsuranceSe
 // Commissions & Expenses
 export { default as CommissionsNewTable } from "../CommissionsNewTable";
 export { default as InsuranceServiceOperatingExpensesTable } from "../InsuranceServiceOperatingExpensesTable";
+
+// Investments
+export { default as SummaryOfInvestmentsTable } from "../SummaryOfInvestmentsTable";
