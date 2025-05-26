@@ -11,6 +11,7 @@ import LiabilityRollForwardTable from "@/components/LiabilityRollForwardTable";
 import StatementOfProfitOrLossTable from "@/components/StatementOfProfitOrLossTable";
 import StatementOfResidualInterestTable from "@/components/StatementOfResidualInterestTable";
 import InsuranceLiabilitiesTable from "@/components/tables/financial-statements/InsuranceLiabilitiesTable";
+import ReinsuranceHeldMeasurementTable from "@/components/tables/financial-statements/ReinsuranceHeldMeasurementTable";
 
 interface CategoryMapperProps {
   sheetCode: string;
@@ -38,6 +39,8 @@ const FinancialStatementsMapper: React.FC<CategoryMapperProps> = ({ sheetCode })
     case "2016":
     case "2018":
       return <LiabilityRollForwardTable sheetCode={sheetCode} />;
+    case "2016":
+      return <ReinsuranceHeldMeasurementTable />;
     case "2022":
       return <StatementOfProfitOrLossTable />;
     case "2041":
