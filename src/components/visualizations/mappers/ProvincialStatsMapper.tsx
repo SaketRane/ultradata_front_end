@@ -2,9 +2,9 @@
 import React from "react";
 import { 
   InsuranceRevenueTable, 
-  InsuranceServiceExpensesByProvinceTable 
+  InsuranceServiceExpensesByProvinceTable,
+  NetExpensesReinsuranceTable
 } from "@/components/tables/provincial-stats";
-import NetExpensesReinsuranceTable from "@/components/NetExpensesReinsuranceTable";
 import InsuranceServiceResultProvincialTable from "@/components/InsuranceServiceResultProvincialTable";
 
 interface CategoryMapperProps {
