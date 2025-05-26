@@ -41,25 +41,34 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
     return generateCellCode(sheetCode, rowCode, colCode);
   }, [sheetCode]);
 
+  // Calculate dynamic column width based on number of columns
+  const getColumnWidth = useMemo(() => {
+    const numColumns = columns.length;
+    if (numColumns <= 2) return "w-80"; // Wider for fewer columns
+    if (numColumns <= 4) return "w-60"; // Medium width
+    if (numColumns <= 6) return "w-48"; // Standard width
+    return "w-40"; // Narrower for many columns
+  }, [columns.length]);
+
   // Memoize the table header to prevent unnecessary re-renders
   const tableHeader = useMemo(() => (
     <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
       {secondaryHeader}
       <TableRow className="h-6">
-        <TableHead className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
+        <TableHead className="w-[400px] text-xs font-semibold text-left py-0 px-3 border-r min-w-[300px]"></TableHead>
         {columns.map((col) => (
           <TableHead 
             key={col.id} 
             data-column-code={col.colCode}
             colSpan={col.colSpan}
-            className="text-xs font-semibold text-center py-0 px-1 border-r last:border-r-0"
+            className={`text-xs font-semibold text-center py-0 px-2 border-r last:border-r-0 ${getColumnWidth} min-w-[120px]`}
           >
             {col.label}
           </TableHead>
         ))}
       </TableRow>
     </TableHeader>
-  ), [columns, secondaryHeader]);
+  ), [columns, secondaryHeader, getColumnWidth]);
 
   // Render a single row - extracted for better performance
   const renderRow = useCallback((row: RowDefinition, index: number) => {
@@ -83,7 +92,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
         data-row-code={row.rowCode}
       >
         <TableCell 
-          className={`${paddingClass} ${fontClass} py-0 pr-2 border-r text-left`}
+          className={`${paddingClass} ${fontClass} py-0 pr-3 border-r text-left min-w-[300px]`}
         >
           {row.name}
           {row.rowCode && (
@@ -100,7 +109,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
           return (
             <TableCell 
               key={`${row.rowCode || index}-${col.colCode}`}
-              className={`text-center py-0 px-1 border-r last:border-r-0 group ${cellClass}`}
+              className={`text-center py-0 px-2 border-r last:border-r-0 group ${cellClass} ${getColumnWidth} min-w-[120px]`}
               data-code={!isDisabled ? dataCode : ""}
             >
               {!isDisabled && dataCode && (
@@ -113,7 +122,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
         })}
       </TableRow>
     );
-  }, [columns, getCellCode]);
+  }, [columns, getCellCode, getColumnWidth]);
 
   // Memoize the table body rows to prevent unnecessary re-renders
   const tableRows = useMemo(() => 
@@ -121,8 +130,8 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   , [rows, renderRow]);
 
   return (
-    <div className={`overflow-auto rounded-md border bg-white/80 backdrop-blur-sm ${className}`} style={{ maxHeight }}>
-      <Table className="min-w-[600px] text-xs">
+    <div className={`overflow-auto rounded-md border bg-white/80 backdrop-blur-sm w-full ${className}`} style={{ maxHeight }}>
+      <Table className="w-full min-w-[800px] text-xs table-fixed">
         {tableHeader}
         <TableBody className="text-[10px]">
           {tableRows}
