@@ -6,6 +6,7 @@ import InsuranceLiabilitiesTable from "@/components/tables/financial-statements/
 import ReinsuranceHeldTable from "@/components/tables/financial-statements/ReinsuranceHeldTable";
 import ComprehensiveIncomeTable from "@/components/tables/financial-statements/ComprehensiveIncomeTable";
 import HeadOfficeAccountAndReservesTable from "@/components/tables/financial-statements/HeadOfficeAccountAndReservesTable";
+import StatementOfChangesInEquityTable from "@/components/tables/financial-statements/StatementOfChangesInEquityTable";
 import StatementOfProfitOrLossTable from "@/components/StatementOfProfitOrLossTable";
 import StatementOfResidualInterestTable from "@/components/StatementOfResidualInterestTable";
 
@@ -31,6 +32,8 @@ const FinancialStatementsMapper: React.FC<CategoryMapperProps> = ({ sheetCode })
       return <ComprehensiveIncomeTable />;
     case "2045":
       return <HeadOfficeAccountAndReservesTable />;
+    case "2054":
+      return <StatementOfChangesInEquityTable />;
     default:
       return (
         <div className="flex justify-center items-center p-8 text-muted-foreground">
