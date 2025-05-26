@@ -1,3 +1,4 @@
+
 // Financial Statements
 export { default as AssetsTable } from "./financial-statements/AssetsTable";
 
@@ -14,6 +15,3 @@ export { default as InsuranceServiceResultProvincialTable } from "../InsuranceSe
 // Commissions & Expenses
 export { default as CommissionsNewTable } from "../CommissionsNewTable";
 export { default as InsuranceServiceOperatingExpensesTable } from "../InsuranceServiceOperatingExpensesTable";
-
-// Reinsurance
-export * from "./reinsurance";
