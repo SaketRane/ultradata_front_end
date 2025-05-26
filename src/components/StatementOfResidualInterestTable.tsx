@@ -5,24 +5,29 @@ import { RowDefinition, ColumnDefinition } from "@/types/financial";
 
 const StatementOfResidualInterestTable: React.FC = () => {
   const rows: RowDefinition[] = [
-    { name: "POLICYHOLDERS' EQUITY AND LIABILITIES", rowCode: "", indent: 0, isSection: true, isHeader: true },
-    { name: "Insurance Contract Liabilities", rowCode: "01", indent: 0, isTotal: false },
-    { name: "Investment Contract Liabilities", rowCode: "02", indent: 0, isTotal: false },
-    { name: "Accounts Payable and Accrued Liabilities", rowCode: "03", indent: 0, isTotal: false },
-    { name: "Other Liabilities", rowCode: "04", indent: 0, isTotal: false },
-    { name: "Total Policyholders' Liabilities", rowCode: "05", indent: 0, isTotal: true },
-    { name: "POLICYHOLDERS' EQUITY", rowCode: "", indent: 0, isSection: true, isHeader: true },
-    { name: "Participating Account Surplus", rowCode: "06", indent: 0, isTotal: false },
-    { name: "Non-Participating Account Surplus", rowCode: "07", indent: 0, isTotal: false },
-    { name: "Adjustable Product Account Surplus", rowCode: "08", indent: 0, isTotal: false },
-    { name: "Other Account Surplus", rowCode: "09", indent: 0, isTotal: false },
-    { name: "Total Policyholders' Equity", rowCode: "10", indent: 0, isTotal: true },
-    { name: "TOTAL POLICYHOLDERS' EQUITY AND LIABILITIES", rowCode: "11", indent: 0, isTotal: true, isFinalTotal: true }
+    { name: "Statement of Residual Interest - Policyholders'", rowCode: "", indent: 0, isSection: true, isHeader: true },
+    { name: "Opening Balance of Prior Year as previously reported", rowCode: "010", indent: 0, isTotal: false },
+    { name: "Restated balance of Prior Year", rowCode: "020", indent: 0, isTotal: false },
+    { name: "Adjustments", rowCode: "030", indent: 0, isTotal: false },
+    { name: "(Specify)", rowCode: "040", indent: 0, isTotal: false },
+    { name: "Share of Net Income (Loss)", rowCode: "050", indent: 0, isTotal: false },
+    { name: "Transfers from (to) Non-Par Account", rowCode: "060", indent: 0, isTotal: false },
+    { name: "End of Year", rowCode: "099", indent: 0, isTotal: true },
+    { name: "", rowCode: "", indent: 0, isHeader: true }, // Empty row for spacing
+    { name: "Statement of Residual Interest - Policyholders'", rowCode: "", indent: 0, isSection: true, isHeader: true },
+    { name: "", rowCode: "", indent: 0, isHeader: true }, // Empty row for spacing
+    { name: "Opening Balance of Prior Year as previously reported", rowCode: "110", indent: 0, isTotal: false },
+    { name: "Restated balance of Prior Year", rowCode: "120", indent: 0, isTotal: false },
+    { name: "Adjustments", rowCode: "130", indent: 0, isTotal: false },
+    { name: "(Specify)", rowCode: "140", indent: 0, isTotal: false },
+    { name: "Share of Net Income (Loss)", rowCode: "150", indent: 0, isTotal: false },
+    { name: "Transfers from (to) Non-Par Account", rowCode: "160", indent: 0, isTotal: false },
+    { name: "End of Year", rowCode: "199", indent: 0, isTotal: true }
   ];
 
   const columns: ColumnDefinition[] = [
     { id: "currentPeriod", label: "Current Period", colCode: "01" },
-    { id: "priorPeriod", label: "Prior Period", colCode: "02" }
+    { id: "priorPeriodRestated", label: "Prior Period Restated", colCode: "03" }
   ];
 
   return (

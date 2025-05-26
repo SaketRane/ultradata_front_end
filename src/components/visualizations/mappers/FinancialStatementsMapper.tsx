@@ -5,6 +5,7 @@ import LiabilitiesAndEquityTable from "@/components/LiabilitiesAndEquityTable";
 import InsuranceLiabilitiesTable from "@/components/tables/financial-statements/InsuranceLiabilitiesTable";
 import ReinsuranceHeldTable from "@/components/tables/financial-statements/ReinsuranceHeldTable";
 import StatementOfProfitOrLossTable from "@/components/StatementOfProfitOrLossTable";
+import StatementOfResidualInterestTable from "@/components/StatementOfResidualInterestTable";
 
 interface CategoryMapperProps {
   sheetCode: string;
@@ -22,6 +23,8 @@ const FinancialStatementsMapper: React.FC<CategoryMapperProps> = ({ sheetCode })
       return <ReinsuranceHeldTable />;
     case "2022":
       return <StatementOfProfitOrLossTable />;
+    case "2041":
+      return <StatementOfResidualInterestTable />;
     default:
       return (
         <div className="flex justify-center items-center p-8 text-muted-foreground">
