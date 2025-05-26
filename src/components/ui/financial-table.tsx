@@ -31,6 +31,13 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
 }) => {
   // Memoize the cell code generator function to improve performance
   const getCellCode = useCallback((rowCode: string, colCode: string) => {
+    // Special case for sheet 2022: only row 520 should have a code in column 04
+    if (sheetCode === "2022" && colCode === "04") {
+      if (rowCode === "520") {
+        return "202252004"; // Special code for Discontinued Operations in Total column
+      }
+      return ""; // No code for other rows in Total column
+    }
     return generateCellCode(sheetCode, rowCode, colCode);
   }, [sheetCode]);
 
