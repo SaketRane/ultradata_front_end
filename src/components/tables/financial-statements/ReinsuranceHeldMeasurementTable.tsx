@@ -9,7 +9,7 @@ import { type RowDefinition, type ColumnDefinition } from "@/types/financial";
  * Displays detailed breakdown of reinsurance contract balances by measurement components
  */
 const ReinsuranceHeldMeasurementTable: React.FC = () => {
-  // Define table rows with proper structure and indentation
+  // Define table rows with proper structure and indentation matching the 2016 specification
   const rows: RowDefinition[] = useMemo(() => [
     { name: "BEGINNING OF PERIOD", rowCode: "", indent: 0, isHeader: true },
     { name: "Opening balance reinsurance contract held assets", rowCode: "010", indent: 1, isTotal: false },
@@ -54,7 +54,7 @@ const ReinsuranceHeldMeasurementTable: React.FC = () => {
     { name: "Net ending reinsurance contract held balances", rowCode: "799", indent: 1, isTotal: true, isFinalTotal: true }
   ], []);
 
-  // Define column data for both current and prior periods
+  // Define column data for both current and prior periods with correct column codes
   const columns: ColumnDefinition[] = useMemo(() => [
     { id: "currentExpectedPV", label: "Expected Present Value of Future Cash Flows", colCode: "02" },
     { id: "currentRiskAdj", label: "Risk Adjustment", colCode: "06" },
