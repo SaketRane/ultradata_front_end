@@ -1,7 +1,6 @@
 
 import React from "react";
-import RegisteredReinsuranceTable from "@/components/RegisteredReinsuranceTable";
-import UnregisteredReinsuranceTable from "@/components/UnregisteredReinsuranceTable";
+import { RegisteredReinsuranceTable, UnregisteredReinsuranceTable } from "@/components/tables/reinsurance";
 
 interface CategoryMapperProps {
   sheetCode: string;
