@@ -1,8 +1,6 @@
-
 // Financial Statements tables
 export { default as AssetsTable } from "./AssetsTable";
 export { default as InsuranceLiabilitiesTable } from "./InsuranceLiabilitiesTable";
-export { default as InsuranceLiabilitiesByMeasurementTable } from "./InsuranceLiabilitiesByMeasurementTable";
 export { default as ReinsuranceHeldTable } from "./ReinsuranceHeldTable";
 export { default as ComprehensiveIncomeTable } from "./ComprehensiveIncomeTable";
 export { default as HeadOfficeAccountAndReservesTable } from "./HeadOfficeAccountAndReservesTable";
