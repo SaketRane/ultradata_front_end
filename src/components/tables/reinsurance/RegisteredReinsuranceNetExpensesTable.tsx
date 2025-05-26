@@ -5,10 +5,10 @@ import { TableRow, TableHead } from "@/components/ui/table";
 import { type RowDefinition, type ColumnDefinition } from "@/types/financial";
 
 /**
- * Net Expenses from Reinsurance Contracts Held Table component
- * Displays reinsurance contract expenses and asset balances
+ * Net Expenses from Reinsurance Contracts Held Table component for Registered Reinsurance (7050)
+ * Displays reinsurance contract expenses, asset balances, and receivables
  */
-const ReinsuranceHeldNetExpensesTable: React.FC = () => {
+const RegisteredReinsuranceNetExpensesTable: React.FC = () => {
   // Define table rows with proper structure and indentation
   const rows: RowDefinition[] = useMemo(() => [
     { name: "Total Associated and Non-qualifying subsidiary", rowCode: "09", indent: 0, isTotal: false },
@@ -60,4 +60,4 @@ const ReinsuranceHeldNetExpensesTable: React.FC = () => {
   );
 };
 
-export default React.memo(ReinsuranceHeldNetExpensesTable);
+export default React.memo(RegisteredReinsuranceNetExpensesTable);

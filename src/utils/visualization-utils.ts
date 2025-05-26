@@ -1,4 +1,3 @@
-
 /**
  * Enhanced utility functions for visualizations with performance optimizations
  */
@@ -59,8 +58,8 @@ const SECTION_TITLE_MAPS: Record<string, Record<string, string>> = {
     "4008": "Summary of Investments"
   },
   "Reinsurance": {
-    "7050": "Registered Reinsurance",
-    "7060": "Unregistered Reinsurance",
+    "7050": "Net Expenses from Reinsurance Contracts Held - Registered",
+    "7060": "Net Expenses from Reinsurance Contracts Held - Unregistered",
     "7061": "Unregistered Reinsurance (Foreign)"
   },
   "MCT/BAAT": {
