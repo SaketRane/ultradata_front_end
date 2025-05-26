@@ -33,6 +33,7 @@ export const getRowClasses = (indent: number, isTotal: boolean, isSubtotal: bool
   
   return {
     ...baseClasses,
-    paddingClass
+    paddingClass,
+    sizeClass: "text-xs" // Add sizeClass for consistency
   };
 };

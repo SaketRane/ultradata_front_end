@@ -2,6 +2,22 @@
 import { type RowDefinition } from "@/types/financial";
 
 /**
+ * Simple memoization utility for performance optimization
+ */
+export const memoize = <T extends (...args: any[]) => any>(fn: T): T => {
+  const cache = new Map();
+  return ((...args: any[]) => {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  }) as T;
+};
+
+/**
  * Generate a cell code for data identification
  */
 export const generateCellCode = (sheetCode: string, rowCode: string, colCode: string): string => {
@@ -41,11 +57,14 @@ export const getRowClasses = (
           : "font-normal";
 
   const borderClass = isHeader ? "" : "border-dotted border-b border-gray-300";
+  
+  const sizeClass = "text-xs";
 
   return {
     paddingClass,
     bgClass,
     fontClass,
-    borderClass
+    borderClass,
+    sizeClass
   };
 };

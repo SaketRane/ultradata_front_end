@@ -34,7 +34,7 @@ export const getRowClasses = (indent: number, isTotal: boolean, isSubtotal: bool
   return {
     ...baseClasses,
     paddingClass,
-    // Add any component-specific customizations here
-    borderClass: "" // Override borderClass for this component
+    borderClass: "", // Override borderClass for this component
+    sizeClass: "text-xs" // Add sizeClass for consistency
   };
 };
