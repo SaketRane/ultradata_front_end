@@ -38,9 +38,11 @@ const ReinsuranceHeldNetExpensesTable: React.FC = () => {
       <TableHead colSpan={4} className="text-xs font-semibold text-center py-0 px-2 border-r">
         Net Expenses from Reinsurance Contracts Held
       </TableHead>
-      <TableHead colSpan={4} className="text-xs font-semibold text-center py-0 px-2 border-r">
+      <TableHead className="text-xs font-semibold text-center py-0 px-2 border-r"></TableHead>
+      <TableHead colSpan={2} className="text-xs font-semibold text-center py-0 px-2 border-r">
         Assets for Incurred Claims
       </TableHead>
+      <TableHead className="text-xs font-semibold text-center py-0 px-2 border-r"></TableHead>
       <TableHead colSpan={3} className="text-xs font-semibold text-center py-0 px-2">
         Receivables
       </TableHead>
