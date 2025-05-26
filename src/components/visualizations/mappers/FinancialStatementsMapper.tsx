@@ -1,9 +1,10 @@
+
 import React from "react";
-import AssetsTable from "@/components/AssetsTable";
-import InsuranceLiabilitiesTable from "@/components/InsuranceLiabilitiesTable";
-import StatementOfChangesInEquityTable from "@/components/StatementOfChangesInEquityTable";
-import ComprehensiveIncomeTable from "@/components/ComprehensiveIncomeTable";
-import HeadOfficeAccountAndReservesTable from "@/components/HeadOfficeAccountAndReservesTable";
+import AssetsTable from "@/components/tables/financial-statements/AssetsTable";
+import InsuranceLiabilitiesTable from "@/components/tables/financial-statements/InsuranceLiabilitiesTable";
+import StatementOfChangesInEquityTable from "@/components/tables/financial-statements/StatementOfChangesInEquityTable";
+import ComprehensiveIncomeTable from "@/components/tables/financial-statements/ComprehensiveIncomeTable";
+import HeadOfficeAccountAndReservesTable from "@/components/tables/financial-statements/HeadOfficeAccountAndReservesTable";
 import LiabilitiesAndEquityTable from "@/components/LiabilitiesAndEquityTable";
 import StatementOfProfitOrLossTable from "@/components/StatementOfProfitOrLossTable";
 import StatementOfResidualInterestTable from "@/components/StatementOfResidualInterestTable";
