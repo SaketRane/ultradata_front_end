@@ -1,8 +1,5 @@
+
 import React from "react";
-import PremiumsTable from "@/components/PremiumsTable";
-import PremiumsEarnedTable from "@/components/PremiumsEarnedTable";
-import ClaimsIncurredTable from "@/components/ClaimsIncurredTable";
-import ClaimsUndiscountedTable from "@/components/ClaimsUndiscountedTable";
 import InsuranceRevenueTable from "@/components/InsuranceRevenueTable";
 import InsuranceServiceExpensesTable from "@/components/InsuranceServiceExpensesTable";
 import NetExpensesReinsuranceTable from "@/components/NetExpensesReinsuranceTable";
@@ -14,14 +11,6 @@ interface CategoryMapperProps {
 
 const ProvincialStatsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
   switch (sheetCode) {
-    case "6710":
-      return <PremiumsTable />;
-    case "6720":
-      return <PremiumsEarnedTable />;
-    case "6730":
-      return <ClaimsIncurredTable />;
-    case "6731":
-      return <ClaimsUndiscountedTable />;
     case "6740":
       return <InsuranceRevenueTable />;
     case "6750":
@@ -30,6 +19,15 @@ const ProvincialStatsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => 
       return <NetExpensesReinsuranceTable />;
     case "6770":
       return <InsuranceServiceResultProvincialTable />;
+    // Legacy mappings for pre-2023 years
+    case "6710":
+      return <div>Premiums Written Legacy Table - To be implemented</div>;
+    case "6720":
+      return <div>Premiums Earned Legacy Table - To be implemented</div>;
+    case "6730":
+      return <div>Claims Inc (incl Adj Exp) Legacy Table - To be implemented</div>;
+    case "6731":
+      return <div>Claims Inc (incl Adj Exp Undisc) Legacy Table - To be implemented</div>;
     default:
       return null;
   }

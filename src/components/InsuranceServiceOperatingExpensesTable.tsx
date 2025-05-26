@@ -3,20 +3,23 @@ import React from "react";
 import FinancialTable from "@/components/ui/financial-table";
 import { RowDefinition, ColumnDefinition } from "@/types/financial";
 
-// Placeholder for the Insurance Service and Other Operating Expenses table
-// This will be implemented with actual data structure when provided
 const InsuranceServiceOperatingExpensesTable: React.FC = () => {
-  // Temporary placeholder rows
   const rows: RowDefinition[] = [
-    { name: "Insurance Service and Other Operating Expenses - Placeholder", rowCode: "01", indent: 0, isTotal: false }
+    { name: "INSURANCE SERVICE EXPENSES", rowCode: "", indent: 0, isHeader: true },
+    { name: "Salaries and employee benefits", rowCode: "01", indent: 1, isTotal: false },
+    { name: "Other underwriting expenses", rowCode: "02", indent: 1, isTotal: false },
+    { name: "Premium taxes, licenses and fees", rowCode: "03", indent: 1, isTotal: false },
+    { name: "Total insurance service expenses", rowCode: "04", indent: 0, isTotal: true },
+    { name: "OTHER OPERATING EXPENSES", rowCode: "", indent: 0, isHeader: true },
+    { name: "General expenses", rowCode: "05", indent: 1, isTotal: false },
+    { name: "Investment expenses", rowCode: "06", indent: 1, isTotal: false },
+    { name: "Total other operating expenses", rowCode: "07", indent: 0, isTotal: true },
+    { name: "TOTAL EXPENSES", rowCode: "08", indent: 0, isTotal: true, isFinalTotal: true }
   ];
 
-  // Basic columns
   const columns: ColumnDefinition[] = [
-    { id: "direct", label: "Direct", colCode: "01" },
-    { id: "assumed", label: "Assumed", colCode: "02" },
-    { id: "ceded", label: "Ceded", colCode: "03" },
-    { id: "net", label: "Net", colCode: "04" }
+    { id: "currentPeriod", label: "Current Period", colCode: "01" },
+    { id: "priorPeriod", label: "Prior Period", colCode: "02" }
   ];
 
   return (

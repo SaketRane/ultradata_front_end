@@ -3,20 +3,21 @@ import React from "react";
 import FinancialTable from "@/components/ui/financial-table";
 import { RowDefinition, ColumnDefinition } from "@/types/financial";
 
-// Placeholder for the Insurance Service Result table
-// This will be implemented with actual data structure when provided
 const InsuranceServiceResultTable: React.FC = () => {
-  // Temporary placeholder rows
   const rows: RowDefinition[] = [
-    { name: "Insurance Service Result - Placeholder", rowCode: "01", indent: 0, isTotal: false }
+    { name: "INSURANCE REVENUE", rowCode: "01", indent: 0, isTotal: true },
+    { name: "INSURANCE SERVICE EXPENSES", rowCode: "", indent: 0, isHeader: true },
+    { name: "Incurred claims and other incurred directly attributable expenses", rowCode: "02", indent: 1, isTotal: false },
+    { name: "Amortisation of insurance acquisition cash flows", rowCode: "03", indent: 1, isTotal: false },
+    { name: "Changes that relate to past service", rowCode: "04", indent: 1, isTotal: false },
+    { name: "Other insurance service expenses", rowCode: "05", indent: 1, isTotal: false },
+    { name: "Total insurance service expenses", rowCode: "06", indent: 0, isTotal: true },
+    { name: "INSURANCE SERVICE RESULT", rowCode: "07", indent: 0, isTotal: true, isFinalTotal: true }
   ];
 
-  // Basic columns
   const columns: ColumnDefinition[] = [
-    { id: "direct", label: "Direct", colCode: "01" },
-    { id: "assumed", label: "Assumed", colCode: "02" },
-    { id: "ceded", label: "Ceded", colCode: "03" },
-    { id: "net", label: "Net", colCode: "04" }
+    { id: "currentPeriod", label: "Current Period", colCode: "01" },
+    { id: "priorPeriod", label: "Prior Period", colCode: "02" }
   ];
 
   return (
