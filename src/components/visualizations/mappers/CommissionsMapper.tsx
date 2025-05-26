@@ -1,7 +1,5 @@
 
 import React from "react";
-import CommissionsNewTable from "@/components/CommissionsNewTable";
-import InsuranceServiceOperatingExpensesTable from "@/components/InsuranceServiceOperatingExpensesTable";
 
 interface CategoryMapperProps {
   sheetCode: string;
@@ -9,15 +7,13 @@ interface CategoryMapperProps {
 
 const CommissionsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
   switch (sheetCode) {
-    case "8015":
-      return <CommissionsNewTable />;
-    case "8025":
-      return <InsuranceServiceOperatingExpensesTable />;
-    // Legacy mapping for pre-2023 years
-    case "8010":
-      return <div>Commissions Legacy Table - To be implemented</div>;
+    // All cases removed - will be implemented with new designs
     default:
-      return null;
+      return (
+        <div className="flex justify-center items-center p-8 text-muted-foreground">
+          <p>Table implementation coming soon...</p>
+        </div>
+      );
   }
 };
 
