@@ -3,6 +3,7 @@ import React from "react";
 import AssetsTable from "@/components/AssetsTable";
 import LiabilitiesAndEquityTable from "@/components/LiabilitiesAndEquityTable";
 import InsuranceLiabilitiesTable from "@/components/tables/financial-statements/InsuranceLiabilitiesTable";
+import InsuranceLiabilitiesByMeasurementTable from "@/components/tables/financial-statements/InsuranceLiabilitiesByMeasurementTable";
 import ReinsuranceHeldTable from "@/components/tables/financial-statements/ReinsuranceHeldTable";
 import ComprehensiveIncomeTable from "@/components/tables/financial-statements/ComprehensiveIncomeTable";
 import HeadOfficeAccountAndReservesTable from "@/components/tables/financial-statements/HeadOfficeAccountAndReservesTable";
@@ -22,6 +23,8 @@ const FinancialStatementsMapper: React.FC<CategoryMapperProps> = ({ sheetCode })
       return <LiabilitiesAndEquityTable />;
     case "2012":
       return <InsuranceLiabilitiesTable />;
+    case "2014":
+      return <InsuranceLiabilitiesByMeasurementTable />;
     case "2016":
       return <ReinsuranceHeldTable />;
     case "2022":
