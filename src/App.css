@@ -1,10 +1,10 @@
 
 #root {
   margin: 0 auto;
-  padding: 0.5rem; /* Further reduced padding */
+  padding: 0.25rem;
   text-align: center;
-  width: 100%; /* Use full width */
-  max-width: 100%; /* Ensure no max-width restriction */
+  width: 100%;
+  max-width: 100%;
 }
 
 .logo {
@@ -13,9 +13,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -43,33 +45,32 @@
   color: #888;
 }
 
-/* Table styles */
+/* Optimized table styles */
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-/* Compact table rows */
-.compact-table tr {
-  line-height: 1;
+.text-[9px] {
+  font-size: 9px !important;
+  line-height: 1 !important;
 }
 
-/* Wider container for data display */
+/* Wider container for better data display */
 .data-container {
   max-width: 100%;
   width: 100%;
-  padding: 0 0.25rem; /* Further reduced padding */
+  padding: 0 0.125rem;
 }
 
-/* Smaller text for dropdown data */
+/* Compact dropdowns */
 .dropdown-data {
   font-size: 0.7rem;
   line-height: 0.9rem;
 }
 
-/* Compact dropdowns */
 .compact-dropdown .select-trigger {
-  height: 2rem; /* Reduce height of trigger */
+  height: 2rem;
 }
 
 .compact-dropdown label {
@@ -77,18 +78,7 @@
   margin-bottom: 0.2rem;
 }
 
-.compact-dropdown .space-y-2 {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-/* Non-bolded table data */
-.text-[9px] {
-  font-size: 9px !important;
-  line-height: 1 !important;
-}
-
-/* Improved table layout for better data display */
+/* Optimized table layout */
 .financial-table {
   width: 100%;
   table-layout: fixed;
@@ -100,9 +90,8 @@
   text-overflow: ellipsis;
 }
 
-/* Better responsive behavior for tables */
 @media (min-width: 1024px) {
   .data-container {
-    padding: 0 0.125rem; /* Minimal padding on larger screens */
+    padding: 0 0.0625rem;
   }
 }

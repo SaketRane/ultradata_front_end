@@ -19,10 +19,6 @@ interface FinancialStatementsMapperProps {
   sheetCode: string;
 }
 
-/**
- * Maps sheet codes to their corresponding financial statement table components.
- * Optimized with error boundaries and loading states for better UX.
- */
 const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ sheetCode }) => {
   const LoadingFallback = () => (
     <div className="flex justify-center items-center p-8">
@@ -32,28 +28,17 @@ const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ s
 
   const renderTable = () => {
     switch (sheetCode) {
-      case "2010":
-        return <AssetsTable />;
-      case "2011":
-        return <LiabilitiesAndEquityTable />;
-      case "2012":
-        return <InsuranceLiabilitiesTable />;
-      case "2014":
-        return <InsuranceLiabilitiesByMeasurementTable />;
-      case "2016":
-        return <ReinsuranceHeldTable />;
-      case "2018":
-        return <InsuranceContractsHeldTable />;
-      case "2022":
-        return <StatementOfProfitOrLossTable />;
-      case "2041":
-        return <StatementOfResidualInterestTable />;
-      case "2042":
-        return <ComprehensiveIncomeTable />;
-      case "2045":
-        return <HeadOfficeAccountAndReservesTable />;
-      case "2054":
-        return <StatementOfChangesInEquityTable />;
+      case "2010": return <AssetsTable />;
+      case "2011": return <LiabilitiesAndEquityTable />;
+      case "2012": return <InsuranceLiabilitiesTable />;
+      case "2014": return <InsuranceLiabilitiesByMeasurementTable />;
+      case "2016": return <ReinsuranceHeldTable />;
+      case "2018": return <InsuranceContractsHeldTable />;
+      case "2022": return <StatementOfProfitOrLossTable />;
+      case "2041": return <StatementOfResidualInterestTable />;
+      case "2042": return <ComprehensiveIncomeTable />;
+      case "2045": return <HeadOfficeAccountAndReservesTable />;
+      case "2054": return <StatementOfChangesInEquityTable />;
       default:
         console.warn(`Unknown sheet code: ${sheetCode}`);
         return (
