@@ -3,9 +3,9 @@ import React from "react";
 import { 
   InsuranceRevenueTable, 
   InsuranceServiceExpensesByProvinceTable,
-  NetExpensesReinsuranceTable
+  NetExpensesReinsuranceTable,
+  InsuranceServiceResultProvincialTable
 } from "@/components/tables/provincial-stats";
-import InsuranceServiceResultProvincialTable from "@/components/InsuranceServiceResultProvincialTable";
 
 interface CategoryMapperProps {
   sheetCode: string;
