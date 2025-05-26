@@ -69,6 +69,7 @@ const StatementOfProfitOrLossTable: React.FC = () => {
       columns={columns} 
       sheetCode="2022" 
       maxHeight="85vh"
+      specialCells={{ "52004": "202252004" }}
     />
   );
 };
