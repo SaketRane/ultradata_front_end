@@ -98,7 +98,7 @@ const InsuranceServiceResultTable: React.FC = () => {
     { id: "insuranceServiceResult", label: "Insurance Service Result", colCode: "45" }
   ];
 
-  // Create secondary headers for the main sections
+  // Create secondary headers for the main sections - fixed alignment
   const secondaryHeader = (
     <tr className="h-6 border-b">
       <th className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></th>
@@ -112,9 +112,7 @@ const InsuranceServiceResultTable: React.FC = () => {
       <th className="text-xs font-semibold text-center py-0 px-1 border-r bg-orange-50" colSpan={4}>
         Net Expenses from Reinsurance Contracts Held
       </th>
-      <th className="text-xs font-semibold text-center py-0 px-1 border-r bg-purple-50" colSpan={1}>
-        Insurance Service Result
-      </th>
+      <th className="text-xs font-semibold text-center py-0 px-1 border-r" colSpan={1}></th>
     </tr>
   );
 
