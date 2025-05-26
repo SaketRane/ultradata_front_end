@@ -15,7 +15,6 @@ const StatementOfResidualInterestTable: React.FC = () => {
     { name: "End of Year", rowCode: "099", indent: 0, isTotal: true },
     { name: "", rowCode: "", indent: 0, isHeader: true }, // Empty row for spacing
     { name: "Statement of Residual Interest - Policyholders'", rowCode: "", indent: 0, isSection: true, isHeader: true },
-    { name: "", rowCode: "", indent: 0, isHeader: true }, // Empty row for spacing
     { name: "Opening Balance of Prior Year as previously reported", rowCode: "110", indent: 0, isTotal: false },
     { name: "Restated balance of Prior Year", rowCode: "120", indent: 0, isTotal: false },
     { name: "Adjustments", rowCode: "130", indent: 0, isTotal: false },
