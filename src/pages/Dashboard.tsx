@@ -119,8 +119,8 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
       <DashboardHeader />
       
-      <main className="flex-1 container mx-auto py-4 px-0.5 page-transition data-container">
-        <section className="mb-3 w-full mx-auto">
+      <main className="flex-1 w-full max-w-none py-4 px-2 page-transition">
+        <section className="mb-3 w-full">
           <DataFilterSelector 
             year={year}
             setYear={handleYearChange}

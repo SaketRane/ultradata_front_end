@@ -27,7 +27,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   sheetCode,
   secondaryHeader,
   className = "",
-  maxHeight = "70vh"
+  maxHeight = "calc(100vh - 280px)"
 }) => {
   // Memoize the cell code generator function to improve performance
   const getCellCode = useCallback((rowCode: string, colCode: string) => {
@@ -38,16 +38,18 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   const tableHeader = useMemo(() => (
     <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
       {secondaryHeader}
-      <TableRow className="h-6">
-        <TableHead className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
+      <TableRow className="h-12">
+        <TableHead className="w-[300px] text-sm font-semibold text-left py-2 px-3 border-r bg-gray-50/80"></TableHead>
         {columns.map((col) => (
           <TableHead 
             key={col.id} 
             data-column-code={col.colCode}
             colSpan={col.colSpan}
-            className="text-xs font-semibold text-center py-0 px-1 border-r last:border-r-0"
+            className="text-sm font-semibold text-center py-2 px-2 border-r last:border-r-0 bg-gray-50/80 min-w-[120px]"
           >
-            {col.label}
+            <div className="break-words leading-tight">
+              {col.label}
+            </div>
           </TableHead>
         ))}
       </TableRow>
@@ -72,15 +74,15 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
     return (
       <TableRow 
         key={`${row.rowCode || 'row'}-${index}`}
-        className={`${bgClass} ${borderClass} h-5`} 
+        className={`${bgClass} ${borderClass} h-10`} 
         data-row-code={row.rowCode}
       >
         <TableCell 
-          className={`${paddingClass} ${fontClass} py-0 pr-2 border-r text-left`}
+          className={`${paddingClass} ${fontClass} py-2 pr-3 border-r text-left text-sm`}
         >
           {row.name}
           {row.rowCode && (
-            <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
+            <span className="text-orange-500 ml-2 text-xs font-mono">{row.rowCode}</span>
           )}
         </TableCell>
         
@@ -93,11 +95,11 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
           return (
             <TableCell 
               key={`${row.rowCode || index}-${col.colCode}`}
-              className={`text-center py-0 px-1 border-r last:border-r-0 group ${cellClass}`}
+              className={`text-center py-2 px-2 border-r last:border-r-0 group min-w-[120px] text-sm ${cellClass}`}
               data-code={!isDisabled ? dataCode : ""}
             >
               {!isDisabled && dataCode && (
-                <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                <span className="invisible group-hover:visible text-green-600 text-xs font-mono">
                   {dataCode}
                 </span>
               )}
@@ -114,10 +116,10 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   , [rows, renderRow]);
 
   return (
-    <div className={`overflow-auto rounded-md border bg-white/80 backdrop-blur-sm ${className}`} style={{ maxHeight }}>
-      <Table className="min-w-[600px] text-xs">
+    <div className={`overflow-auto rounded-lg border bg-white/90 backdrop-blur-sm shadow-sm w-full ${className}`} style={{ maxHeight }}>
+      <Table className="w-full text-sm">
         {tableHeader}
-        <TableBody className="text-[10px]">
+        <TableBody className="text-sm">
           {tableRows}
         </TableBody>
       </Table>
