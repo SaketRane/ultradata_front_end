@@ -1,7 +1,9 @@
 
 import React from "react";
-import InsuranceServiceResultTable from "@/components/InsuranceServiceResultTable";
-import ChangesInOnerousContractsTable from "@/components/ChangesInOnerousContractsTable";
+import { 
+  InsuranceServiceResultTable,
+  ChangesInOnerousContractsTable 
+} from "@/components/tables/insurance-results";
 
 interface CategoryMapperProps {
   sheetCode: string;

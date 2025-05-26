@@ -3,8 +3,10 @@
 export { default as AssetsTable } from "./financial-statements/AssetsTable";
 
 // Insurance Results & Onerous Contracts
-export { default as InsuranceServiceResultTable } from "../InsuranceServiceResultTable";
-export { default as ChangesInOnerousContractsTable } from "../ChangesInOnerousContractsTable";
+export { 
+  InsuranceServiceResultTable,
+  ChangesInOnerousContractsTable 
+} from "./insurance-results";
 
 // Provincial Stats
 export { default as InsuranceRevenueTable } from "../InsuranceRevenueTable";

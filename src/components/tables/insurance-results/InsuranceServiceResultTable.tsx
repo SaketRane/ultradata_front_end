@@ -1,4 +1,3 @@
-
 import React from "react";
 import FinancialTable from "@/components/ui/financial-table";
 import { RowDefinition, ColumnDefinition } from "@/types/financial";
@@ -99,7 +98,7 @@ const InsuranceServiceResultTable: React.FC = () => {
     { id: "insuranceServiceResult", label: "Insurance Service Result", colCode: "45" }
   ];
 
-  // Create secondary headers for the main sections - adjusted alignment
+  // Create secondary headers for the main sections
   const secondaryHeader = (
     <tr className="h-6 border-b">
       <th className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></th>
