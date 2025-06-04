@@ -7,7 +7,7 @@
  */
 
 // Base API URL - Update this when Spring Boot backend is available
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://194.163.164.118:8094/api';
 const MAX_RETRIES = 1; // Number of retry attempts for failed requests
 const RETRY_DELAY = 1000; // Delay between retries in ms
 

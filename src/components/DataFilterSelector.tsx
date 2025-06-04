@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -52,6 +53,8 @@ export interface DataFilterSelectorProps {
   sectionSheetsMapping: Record<string, SectionSheetMapping>;
   /** List of available sections based on the selected year */
   availableSections?: string[];
+  yearOptions: any;
+  insurerOptions: any;
 }
 
 /**
@@ -75,14 +78,16 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
   setSheet,
   availableSheets,
   sectionSheetsMapping,
-  availableSections
+  availableSections,
+  yearOptions,
+  insurerOptions
 }) => {
   return (
     <Card className="shadow-lg glass w-full">
       <CardContent className="p-2">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 dropdown-data compact-dropdown">
-          <YearSelector year={year} setYear={setYear} />
-          <InsurerSelector insurer={insurer} setInsurer={setInsurer} />
+          <YearSelector year={year} setYear={setYear} yearOptions={yearOptions}/>
+          <InsurerSelector insurer={insurer} setInsurer={setInsurer} options={insurerOptions}/>
           <SectionSelector 
             section={section} 
             setSection={setSection} 

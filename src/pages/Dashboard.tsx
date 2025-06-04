@@ -1,16 +1,20 @@
-
+import axios from 'axios'
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import DashboardHeader from "@/components/DashboardHeader";
 import DashboardFooter from "@/components/DashboardFooter";
 import DataFilterSelector from "@/components/DataFilterSelector";
 import DataVisualization from "@/components/DataVisualization";
 import { sectionSheetsMapping } from "@/constants/sectionSheets";
+import { apiClient } from "@/integrations/database/client";
 
 const Dashboard: React.FC = () => {
   const [year, setYear] = useState<string>("");
   const [insurer, setInsurer] = useState<string>("");
   const [section, setSection] = useState<string>("");
   const [sheet, setSheet] = useState<string>("");
+
+  const [yearOptions, setYearOptions] = useState([]);
+    const [insurerOptions, setInsurerOptions] = useState([]);
 
   const availableSections = useMemo(() => [
     "Financial Statements",
@@ -53,6 +57,58 @@ const Dashboard: React.FC = () => {
     document.title = "UltraData | Dashboard";
   }, []);
 
+  // useEffect(() => {
+  //   apiClient.post('/insurer/get/insurer', {year: 2024}).then((response) => {
+  //     console.log(response)
+  //   })
+  // }, [])
+
+  useEffect(() => {
+    axios.post('http://194.163.164.118:8094/api/insurer/get/year', {}).then((response) => {
+      const data = response.data;
+      const list = data?.yearList;
+      
+
+      if(list) {
+        const parseArray = list.map((item) => {
+          return {
+            value: item.year,
+            label: item.year,
+          }
+        })
+        setYearOptions(parseArray);
+        return;
+      }
+
+      setYearOptions([])
+    })
+  }, [])
+
+  useEffect(() => {
+   if(year) {
+     axios.post('http://194.163.164.118:8094/api/insurer/get/insurer', {year}).then((response) => {
+      const data = response.data;
+      const list = data?.insurerList;
+      
+
+      if(list) {
+        const parseArray = list.map((item) => {
+          return {
+            name: item.name,
+            code: item.code,
+          }
+        })
+        setInsurerOptions(parseArray);
+        return;
+      }
+
+      setInsurerOptions([])
+    })
+   }
+  }, [year])
+
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
       <DashboardHeader />
@@ -71,6 +127,8 @@ const Dashboard: React.FC = () => {
             availableSheets={availableSheets}
             sectionSheetsMapping={sectionSheetsMapping}
             availableSections={availableSections}
+            yearOptions={yearOptions}
+            insurerOptions={insurerOptions}
           />
         </section>
         

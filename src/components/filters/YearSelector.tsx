@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React from "react";
 import {
@@ -30,6 +31,7 @@ export interface YearSelectorProps {
   year: string;
   /** Function to update the selected year */
   setYear: (year: string) => void;
+  yearOptions: any;
 }
 
 /**
@@ -41,13 +43,13 @@ export interface YearSelectorProps {
  * @param {YearSelectorProps} props - Component props 
  * @returns {JSX.Element} A Select component for year selection
  */
-const YearSelector: React.FC<YearSelectorProps> = ({ year, setYear }) => {
+const YearSelector: React.FC<YearSelectorProps> = ({ year, setYear, yearOptions }) => {
   // Available years with labels - only IFRS 17 years (2023-2025)
-  const years: YearOption[] = [
-    { value: "2025", label: "2025 (IFRS 17)" },
-    { value: "2024", label: "2024 (IFRS 17)" },
-    { value: "2023", label: "2023 (IFRS 17)" }
-  ];
+  // const years: YearOption[] = [
+  //   { value: "2025", label: "2025 (IFRS 17)" },
+  //   { value: "2024", label: "2024 (IFRS 17)" },
+  //   { value: "2023", label: "2023 (IFRS 17)" }
+  // ];
 
   return (
     <div className="space-y-1">
@@ -59,7 +61,7 @@ const YearSelector: React.FC<YearSelectorProps> = ({ year, setYear }) => {
         <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
           <SelectGroup>
             <SelectLabel>Years</SelectLabel>
-            {years.map((y) => (
+            {yearOptions.map((y) => (
               <SelectItem 
                 key={y.value} 
                 value={y.value}

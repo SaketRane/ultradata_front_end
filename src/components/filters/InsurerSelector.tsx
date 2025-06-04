@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState } from "react";
 import { Search } from "lucide-react";
@@ -11,24 +12,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { insurers } from "@/data/insurers";
 
 interface InsurerSelectorProps {
   insurer: string;
   setInsurer: (insurer: string) => void;
+  options: any;
 }
 
-const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer }) => {
+const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer, options }) => {
   const [insurerSearchTerm, setInsurerSearchTerm] = useState<string>("");
   
   const filteredInsurers = insurerSearchTerm.length > 0
-    ? insurers.filter(ins => 
+    ? options.filter(ins => 
         ins.name.toLowerCase().startsWith(insurerSearchTerm.toLowerCase()))
-    : insurers;
+    : options;
 
   const handleInsurerChange = (value: string) => {
     setInsurer(value);
-    const selectedInsurer = insurers.find(ins => ins.name === value);
+    const selectedInsurer = options.find(ins => ins.name === value);
     console.log("Selected insurer code:", selectedInsurer?.code);
   };
 
@@ -37,6 +38,8 @@ const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer }
       setInsurerSearchTerm("");
     }
   };
+
+
 
   return (
     <div className="space-y-1">
