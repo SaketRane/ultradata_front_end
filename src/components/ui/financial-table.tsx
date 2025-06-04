@@ -1,8 +1,9 @@
 
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { type RowDefinition, type ColumnDefinition } from "@/types/financial";
 import { generateCellCode, getRowClasses } from "@/utils/table-utils";
+import axios from "axios";
 
 interface FinancialTableProps {
   columns: ColumnDefinition[];
@@ -25,6 +26,8 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   className = "",
   maxHeight = "70vh"
 }) => {
+  const [value, setValue] = useState(null)
+
   const getCellCode = useCallback((rowCode: string, colCode: string) => {
     if (sheetCode === "2022" && colCode === "04") {
       return rowCode === "520" ? "202252004" : "";
@@ -39,6 +42,13 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
     if (numColumns <= 6) return "w-60";
     return "w-48";
   }, [columns.length]);
+
+  const handleGetCode = (dataCode) => async () => {
+    await axios.post('http://194.163.164.118:8094/api/data', {code: dataCode}).then((response) => {
+      const data = response.data;
+      setValue(data?.value)
+    })
+  }
 
   const tableHeader = useMemo(() => (
     <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
@@ -95,13 +105,14 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
           
           return (
             <TableCell 
+             onMouseEnter={handleGetCode(dataCode)}
               key={`${row.rowCode || index}-${col.colCode}`}
               className={`text-center py-0 px-2 border-r last:border-r-0 group ${cellClass} ${getColumnWidth} min-w-[150px]`}
               data-code={!isDisabled ? dataCode : ""}
             >
               {!isDisabled && dataCode && (
                 <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                  {dataCode}
+                  {value ? value : 'Not exist'}
                 </span>
               )}
             </TableCell>
@@ -109,7 +120,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
         })}
       </TableRow>
     );
-  }, [columns, getCellCode, getColumnWidth]);
+  }, [columns, getCellCode, getColumnWidth, value]);
 
   const tableRows = useMemo(() => 
     rows.map((row, index) => renderRow(row, index))
