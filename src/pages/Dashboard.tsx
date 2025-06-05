@@ -64,7 +64,7 @@ const Dashboard: React.FC = () => {
   // }, [])
 
   useEffect(() => {
-    axios.post('http://194.163.164.118:8094/api/insurer/get/year', {}).then((response) => {
+    axios.post('http://194.163.164.118:8094/api/insurer/get/year', {insurerName: insurer}).then((response) => {
       const data = response.data;
       const list = data?.yearList;
       
@@ -82,30 +82,28 @@ const Dashboard: React.FC = () => {
 
       setYearOptions([])
     })
-  }, [])
+  }, [insurer])
 
   useEffect(() => {
-   if(year) {
-     axios.post('http://194.163.164.118:8094/api/insurer/get/insurer', {year}).then((response) => {
-      const data = response.data;
-      const list = data?.insurerList;
-      
+    axios.post('http://194.163.164.118:8094/api/insurer/get/insurer', {year}).then((response) => {
+        const data = response.data;
+        const list = data?.insurerList;
+        
 
-      if(list) {
-        const parseArray = list.map((item) => {
-          return {
-            name: item.name,
-            code: item.code,
-            countryCode: item?.countryCode,
-          }
-        })
-        setInsurerOptions(parseArray);
-        return;
-      }
+        if(list) {
+          const parseArray = list.map((item) => {
+            return {
+              name: item.name,
+              code: item.code,
+              countryCode: item?.countryCode,
+            }
+          })
+          setInsurerOptions(parseArray);
+          return;
+        }
 
-      setInsurerOptions([])
-    })
-   }
+        setInsurerOptions([])
+      })
   }, [year])
 
 

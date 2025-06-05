@@ -22,7 +22,7 @@ interface InsurerSelectorProps {
 const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer, options }) => {
   const [insurerSearchTerm, setInsurerSearchTerm] = useState<string>("");
   
-  const filteredInsurers = insurerSearchTerm.length > 0
+  const filteredInsurers = insurerSearchTerm.length > -1
     ? options.filter(ins => 
         ins.name.toLowerCase().startsWith(insurerSearchTerm.toLowerCase()))
     : options;
@@ -38,6 +38,7 @@ const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer, 
       setInsurerSearchTerm("");
     }
   };
+
 
 
 
