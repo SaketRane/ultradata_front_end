@@ -47,8 +47,8 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
   }
 
   return (
-    <section className="mb-4 w-full">
-      <Card className="shadow-lg glass w-full">
+    <section className="mb-4">
+      <Card className="shadow-lg glass">
         <CardContent className="p-2">
           <h2 className="text-lg font-semibold mb-3">{title}</h2>
           <VisualizationMapper 

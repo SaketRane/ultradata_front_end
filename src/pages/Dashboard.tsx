@@ -96,6 +96,7 @@ const Dashboard: React.FC = () => {
           return {
             name: item.name,
             code: item.code,
+            countryCode: item?.countryCode,
           }
         })
         setInsurerOptions(parseArray);
@@ -108,13 +109,21 @@ const Dashboard: React.FC = () => {
   }, [year])
 
 
+  useEffect(() => {
+    const filterInsurer = insurerOptions.filter((item) => item?.name === insurer);
+
+    if(filterInsurer.length > 0) {
+      const elemInsurer = filterInsurer[0];
+      localStorage.setItem('filters', JSON.stringify({year, insurer: elemInsurer}))
+    }
+  }, [year, insurer,insurerOptions])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
       <DashboardHeader />
       
       <main className="flex-1 w-full max-w-full py-4 px-1 page-transition data-container">
-        <section className="mb-3 w-full">
+        <section className="mb-3">
           <DataFilterSelector 
             year={year}
             setYear={handleYearChange}

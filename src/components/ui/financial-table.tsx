@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useMemo, useCallback, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -27,7 +28,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   className = "",
   maxHeight = "70vh"
 }) => {
-  const {value, handleGetCode} = useCode()
+  const { value, handleGetCode } = useCode();
 
   const getCellCode = useCallback((rowCode: string, colCode: string) => {
     if (sheetCode === "2022" && colCode === "04") {
@@ -122,8 +123,8 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   , [rows, renderRow]);
 
   return (
-    <div className={`overflow-auto rounded-md border bg-white/80 backdrop-blur-sm w-full ${className}`} style={{ maxHeight }}>
-      <Table className="w-full min-w-[1200px] text-xs table-fixed">
+    <div className={`overflow-auto rounded-md border bg-white/80 backdrop-blur-sm ${className}`} style={{ maxHeight }}>
+      <Table className="min-w-[1200px] text-xs table-fixed">
         {tableHeader}
         <TableBody className="text-[10px]">
           {tableRows}
