@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import useCode from "@/hooks/use-code";
 
 // Define province/territory codes
 const provinceCodes = {
@@ -109,6 +110,7 @@ const tableRows = [
 ];
 
 const PremiumsTable: React.FC = () => {
+   const {value, handleGetCode} = useCode()
   // Function to generate data cell code
   const generateDataCode = (rowCode: string, provinceCode: string) => {
     if (!rowCode) return "";
@@ -171,11 +173,12 @@ const PremiumsTable: React.FC = () => {
                   const dataCode = generateDataCode(row.rowCode, provinceCode);
                   return (
                     <TableCell 
+                      onMouseEnter={handleGetCode(dataCode)}
                       key={`${index}-${province}`} 
                       className={`text-center py-1 px-4 ${sizeClass} ${fontClass}`}
                       data-code={dataCode}
                     >
-                      {dataCode && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{dataCode}</span>}
+                      {dataCode && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{value ? value : 'Not exist'}</span>}
                     </TableCell>
                   );
                 })}

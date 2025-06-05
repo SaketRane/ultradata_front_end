@@ -1,6 +1,8 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import axios from "axios";
+import useCode from "@/hooks/use-code";
 
 // Define column codes
 const columnCodes = [
@@ -107,11 +109,14 @@ const tableRows = [
 ];
 
 const ClaimsAndAdjustmentExpensesTable: React.FC = () => {
+   const {value, handleGetCode} = useCode()
+
   // Function to generate data cell code - using 6030 prefix for Claims and Adjustment Expenses
   const generateDataCode = (rowCode: string, columnCode: string) => {
     if (!rowCode) return "";
     return `6030${rowCode}${columnCode}`;
   };
+
 
   return (
     <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
@@ -220,12 +225,13 @@ const ClaimsAndAdjustmentExpensesTable: React.FC = () => {
                 {columnCodes.map((col) => {
                   const dataCode = generateDataCode(row.rowCode, col.code);
                   return (
-                    <TableCell 
+                    <TableCell
+                      onMouseEnter={handleGetCode(dataCode)} 
                       key={`${index}-${col.code}`} 
                       className={`text-center py-1 px-1 ${sizeClass} ${fontClass} border-r`}
                       data-code={dataCode}
                     >
-                      {dataCode && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{dataCode}</span>}
+                      <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{value ? value : 'Not exist'}</span>
                     </TableCell>
                   );
                 })}

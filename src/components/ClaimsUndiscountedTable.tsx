@@ -4,12 +4,14 @@ import { Table, TableBody } from "@/components/ui/table";
 import { TABLE_ROWS, PROVINCE_COLUMNS } from "./claims-undiscounted/constants";
 import TableHeader from "./claims-undiscounted/TableHeader";
 import TableRow from "./claims-undiscounted/TableRow";
+import useCode from "@/hooks/use-code";
 
 /**
  * ClaimsUndiscountedTable displays provincial claims data in a structured table format
  * with columns for different provinces and rows for insurance categories
  */
 const ClaimsUndiscountedTable: React.FC = () => {
+    const {value, handleGetCode} = useCode()
   // Memoize the table rows to prevent unnecessary re-renders
   const tableRows = useMemo(() => (
     TABLE_ROWS.map((row, index) => (

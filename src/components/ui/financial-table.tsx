@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { type RowDefinition, type ColumnDefinition } from "@/types/financial";
 import { generateCellCode, getRowClasses } from "@/utils/table-utils";
 import axios from "axios";
+import useCode from "@/hooks/use-code";
 
 interface FinancialTableProps {
   columns: ColumnDefinition[];
@@ -26,7 +27,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   className = "",
   maxHeight = "70vh"
 }) => {
-  const [value, setValue] = useState(null)
+  const {value, handleGetCode} = useCode()
 
   const getCellCode = useCallback((rowCode: string, colCode: string) => {
     if (sheetCode === "2022" && colCode === "04") {
@@ -43,12 +44,6 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
     return "w-48";
   }, [columns.length]);
 
-  const handleGetCode = (dataCode) => async () => {
-    await axios.post('http://194.163.164.118:8094/api/data', {code: dataCode}).then((response) => {
-      const data = response.data;
-      setValue(data?.value)
-    })
-  }
 
   const tableHeader = useMemo(() => (
     <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">

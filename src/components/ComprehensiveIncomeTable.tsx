@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import useCode from "@/hooks/use-code";
 
 // Define comprehensive income table rows with their codes
 const comprehensiveIncomeRows = [
@@ -75,6 +76,7 @@ const columns = [
 ];
 
 const ComprehensiveIncomeTable: React.FC = () => {
+     const {value, handleGetCode} = useCode()
   const generateCellCode = (rowCode: string, colCode: string) => {
     if (!rowCode) return "";
     return `2042${rowCode}${colCode}`;
@@ -148,13 +150,14 @@ const ComprehensiveIncomeTable: React.FC = () => {
                   
                   return (
                     <TableCell 
+                      onMouseEnter={handleGetCode(dataCode)} 
                       key={`${row.rowCode || index}-${col.colCode}`}
                       className={`text-center py-0 px-1 border-r last:border-r-0 group ${cellClass}`}
                       data-code={!isDisabled ? dataCode : ""}
                     >
                       {!isDisabled && dataCode && (
                         <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                          {dataCode}
+                          {value ? value : 'Not exist'}
                         </span>
                       )}
                     </TableCell>

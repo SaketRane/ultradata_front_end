@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import useCode from "@/hooks/use-code";
 
 // Define table rows with their codes and formatting
 const reinsuranceTableRows = [
@@ -49,6 +50,7 @@ const tableColumns = [
 ];
 
 const UnregisteredReinsuranceForeignTable: React.FC = () => {
+  const {value, handleGetCode} = useCode()
   // Function to generate data cell code
   const generateDataCode = (rowCode: string, columnCode: string) => {
     if (!rowCode) return "";
@@ -149,13 +151,14 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                     const dataCode = generateDataCode(row.rowCode, column.code);
                     return [
                       <TableCell 
+                        onMouseEnter={handleGetCode(dataCode)}
                         key={`${row.rowCode}-${column.code}`}
                         className="text-center py-1 px-2 border-r group"
                         data-code={dataCode}
                       >
                         {row.rowCode && (
                           <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                            {dataCode}
+                            {value ? value : 'Not exist'}
                           </span>
                         )}
                       </TableCell>
