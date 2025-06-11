@@ -32,11 +32,18 @@ const Dashboard: React.FC = () => {
       "2010", "2011", "2012", "2014", "2016", "2018", "2022", "2041", "2042", "2045", "2054",
       "4008", "6025", "6080", "6740", "6750", "6760", "6770", "8015", "8025", "7050", "7060"
     ];
+
+    const ifrs17SheetsTo2023 = [
+      "2010", "2011", "2012", "2014", "2016", "2018", '2020', "2022", '2030', "2041", "2042", "2045", "2054",
+      "4007", '6020', '6021', '6030', "6025", "6080", '6710', '6720', '6730', '6731', "6740", "6750", "6760", "6770", '7050', '7060', '7061', "8015", "8025",
+    ];
+
+    const selectYearArray = +year < 2023 ? [...ifrs17SheetsTo2023] : [...ifrs17Sheets];
     
     return sectionSheetsMapping[section]?.sheets.filter(
-      sheet => ifrs17Sheets.includes(sheet.code)
+      sheet => selectYearArray.includes(sheet.code)
     ) || [];
-  }, [section]);
+  }, [section, year]);
 
   const handleYearChange = useCallback((value: string) => {
     setYear(value);

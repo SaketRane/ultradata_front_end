@@ -11,7 +11,7 @@ const useCode = () => {
     const code = filters?.insurer?.code;
     const year = filters?.year;
     const last2SymYear = year.toString().substring(2);
-    const query = countryCode + last2SymYear + code + dataCode;
+    const query = last2SymYear + code + dataCode;
 
     await axios.post('http://194.163.164.118:8094/api/data', {code: query}).then((response) => {
       const data = response.data;

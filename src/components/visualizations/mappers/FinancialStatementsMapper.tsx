@@ -14,6 +14,8 @@ import LiabilitiesAndEquityTable from "@/components/LiabilitiesAndEquityTable";
 import StatementOfProfitOrLossTable from "@/components/StatementOfProfitOrLossTable";
 import StatementOfResidualInterestTable from "@/components/StatementOfResidualInterestTable";
 import { Loader2 } from "lucide-react";
+import LiabilitiesEquityTable from "@/components/LiabilitiesEquityTable";
+import StatementOfIncomeTable from "@/components/StatementOfIncomeTable";
 
 interface FinancialStatementsMapperProps {
   sheetCode: string;
@@ -34,7 +36,9 @@ const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ s
       case "2014": return <InsuranceLiabilitiesByMeasurementTable />;
       case "2016": return <ReinsuranceHeldTable />;
       case "2018": return <InsuranceContractsHeldTable />;
+      case "2020": return <LiabilitiesEquityTable />;
       case "2022": return <StatementOfProfitOrLossTable />;
+      case "2030": return <StatementOfIncomeTable />;
       case "2041": return <StatementOfResidualInterestTable />;
       case "2042": return <ComprehensiveIncomeTable />;
       case "2045": return <HeadOfficeAccountAndReservesTable />;

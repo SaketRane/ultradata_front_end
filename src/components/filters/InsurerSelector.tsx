@@ -57,7 +57,7 @@ const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer, 
           className="z-50 bg-white/95 backdrop-blur-sm border-border max-h-[300px] dropdown-data" 
           position="popper"
         >
-          <div className="px-3 py-1 sticky top-0 bg-white z-10 border-b">
+          <div className="px-3 py-1 sticky top-0 bg-white z-10 border-b" style={{top: '-5px'}}>
             <div className="relative">
               <Search className="absolute left-2 top-1.5 h-3 w-3 text-muted-foreground" />
               <Input

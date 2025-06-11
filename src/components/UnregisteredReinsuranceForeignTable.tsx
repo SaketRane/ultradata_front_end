@@ -135,13 +135,14 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                       const dataCode = generateDataCode(row.rowCode, subColumn.code);
                       return (
                         <TableCell 
+                          onMouseEnter={handleGetCode(dataCode)}
                           key={`${row.rowCode}-${subColumn.code}`}
                           className="text-center py-1 px-2 border-r group"
                           data-code={dataCode}
                         >
                           {row.rowCode && (
                             <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                              {dataCode}
+                              {value ? value : 'Not exist'}
                             </span>
                           )}
                         </TableCell>
