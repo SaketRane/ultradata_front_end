@@ -11,7 +11,6 @@ import useCode from "@/hooks/use-code";
  * with columns for different provinces and rows for insurance categories
  */
 const ClaimsUndiscountedTable: React.FC = () => {
-    const {value, handleGetCode} = useCode()
   // Memoize the table rows to prevent unnecessary re-renders
   const tableRows = useMemo(() => (
     TABLE_ROWS.map((row, index) => (

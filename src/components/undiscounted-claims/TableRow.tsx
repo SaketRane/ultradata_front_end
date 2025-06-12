@@ -3,6 +3,7 @@ import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { InsuranceRowDefinition, ClaimColumnDefinition } from "./types";
 import { generateDataCellCode, getRowClasses } from "./utils";
+import useCode from "@/hooks/use-code";
 
 interface TableRowProps {
   row: InsuranceRowDefinition;
@@ -19,6 +20,8 @@ const TableRowComponent: React.FC<TableRowProps> = ({ row, index, columns }) => 
     row.isTotal, 
     row.isSubtotal
   );
+
+     const {value, handleGetCode} = useCode()
   
   return (
     <TableRow 
@@ -40,13 +43,14 @@ const TableRowComponent: React.FC<TableRowProps> = ({ row, index, columns }) => 
         
         return (
           <TableCell
+            onMouseEnter={handleGetCode(dataCode)} 
             key={`${row.rowCode || index}-${column.colCode}`}
             className={`text-center py-1 px-2 ${sizeClass} ${fontClass}`}
             data-code={dataCode}
           >
             {row.rowCode && dataCode && (
               <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">
-                {dataCode}
+                {value ? value : null}
               </span>
             )}
           </TableCell>

@@ -29,10 +29,8 @@ const SECTION_TITLE_MAPS: Record<string, Record<string, string>> = {
     "6025": "Insurance Service Result",
     "6080": "Changes in Onerous Contracts for the Current Period"
   },
-  "Commissions": {
-    "8010": "Commissions"
-  },
   "Commissions & Expenses": {
+    "8010": "Commissions",
     "8015": "Commissions",
     "8025": "Insurance Service and Other Operating Expenses"
   },

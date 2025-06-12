@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React from "react";
 import FinancialTable from "@/components/ui/financial-table";
 import { RowDefinition, ColumnDefinition } from "@/types/financial";
 
-const CommissionsTable: React.FC = () => {
+const CommissionsTable: React.FC<any> = ({code = '8015'}) => {
   const rows: RowDefinition[] = [
     { name: "Property - total", rowCode: "010", indent: 0, isTotal: false },
     { name: "Automobile - total", rowCode: "020", indent: 0, isTotal: false },
@@ -22,7 +23,7 @@ const CommissionsTable: React.FC = () => {
     <FinancialTable 
       rows={rows} 
       columns={columns} 
-      sheetCode="8015"
+      sheetCode={code}
     />
   );
 };

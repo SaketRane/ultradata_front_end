@@ -10,6 +10,8 @@ const CommissionsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
   switch (sheetCode) {
     case "8015":
       return <CommissionsTable />;
+    case "8010":
+      return <CommissionsTable />;
     case "8025":
       return <InsuranceServiceOperatingExpensesTable />;
     default:

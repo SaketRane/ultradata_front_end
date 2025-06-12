@@ -142,7 +142,7 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                         >
                           {row.rowCode && (
                             <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                              {value ? value : 'Not exist'}
+                              {value ? value : null}
                             </span>
                           )}
                         </TableCell>
@@ -159,7 +159,7 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                       >
                         {row.rowCode && (
                           <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                            {value ? value : 'Not exist'}
+                            {value ? value : null}
                           </span>
                         )}
                       </TableCell>

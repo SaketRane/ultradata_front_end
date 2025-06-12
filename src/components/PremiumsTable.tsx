@@ -178,7 +178,7 @@ const PremiumsTable: React.FC = () => {
                       className={`text-center py-1 px-4 ${sizeClass} ${fontClass}`}
                       data-code={dataCode}
                     >
-                      {dataCode && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{value ? value : 'Not exist'}</span>}
+                      {dataCode && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{value ? value : null}</span>}
                     </TableCell>
                   );
                 })}

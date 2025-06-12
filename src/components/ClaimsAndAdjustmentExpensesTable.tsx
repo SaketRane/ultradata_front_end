@@ -231,7 +231,7 @@ const ClaimsAndAdjustmentExpensesTable: React.FC = () => {
                       className={`text-center py-1 px-1 ${sizeClass} ${fontClass} border-r`}
                       data-code={dataCode}
                     >
-                      <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{value ? value : 'Not exist'}</span>
+                      <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{value ? value : null}</span>
                     </TableCell>
                   );
                 })}

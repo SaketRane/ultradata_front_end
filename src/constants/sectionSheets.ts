@@ -38,6 +38,14 @@ export const sectionSheetsMapping = {
       { code: "6030", label: "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year" }
     ]
   },
+  "Premiums, Claims, & LAE": {
+    code: "LAE",
+    sheets: [
+      { code: "6020", label: "Premiums and Claims" },
+      { code: "6021", label: "Undiscounted Claims Incurred" },
+      { code: "6030", label: "Claims and Adjustment Expenses - Paid, Current Year and Unpaid, Current and Prior Year" },
+    ]
+  },
   "Provincial Stats": {
     code: "PROV",
     sheets: [

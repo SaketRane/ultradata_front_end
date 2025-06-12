@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import DashboardHeader from "@/components/DashboardHeader";
@@ -16,7 +17,7 @@ const Dashboard: React.FC = () => {
   const [yearOptions, setYearOptions] = useState([]);
     const [insurerOptions, setInsurerOptions] = useState([]);
 
-  const availableSections = useMemo(() => [
+  const availableSections2024 = useMemo(() => [
     "Financial Statements",
     "Investments",
     "Insurance Results & Onerous Contracts",
@@ -25,17 +26,28 @@ const Dashboard: React.FC = () => {
     "Reinsurance"
   ], []);
 
+  const availableSections2015 = useMemo(() => [
+    "Financial Statements",
+    "Investments",
+    "Premiums, Claims, & LAE",
+    "Provincial Stats",
+    "Commissions & Expenses",
+    "Reinsurance"
+  ], []);
+
+  const currentSections = useMemo(() => {
+    return +year < 2023 ? availableSections2015 : availableSections2024;
+  }, [year])
+
   const availableSheets = useMemo(() => {
     if (!section) return [];
     
     const ifrs17Sheets = [
-      "2010", "2011", "2012", "2014", "2016", "2018", "2022", "2041", "2042", "2045", "2054",
-      "4008", "6025", "6080", "6740", "6750", "6760", "6770", "8015", "8025", "7050", "7060"
+      "2010", "2011", "2012", "2014", "2016", "2018", "2022", "2041", "2042", "2045", "2054", "4008", "6025", "6080", "6740", "6750", "6760", "6770", "8015", "8025", "7050", "7060"
     ];
 
     const ifrs17SheetsTo2023 = [
-      "2010", "2011", "2012", "2014", "2016", "2018", '2020', "2022", '2030', "2041", "2042", "2045", "2054",
-      "4007", '6020', '6021', '6030', "6025", "6080", '6710', '6720', '6730', '6731', "6740", "6750", "6760", "6770", '7050', '7060', '7061', "8015", "8025",
+      "2010", "2020", "2030", "2042", "2045", "2054", "4007", "6020", "6021", "6030", "6710", "6720", "6730", "6731", "8010", "7050", "7060", "7061"
     ];
 
     const selectYearArray = +year < 2023 ? [...ifrs17SheetsTo2023] : [...ifrs17Sheets];
@@ -140,7 +152,7 @@ const Dashboard: React.FC = () => {
             setSheet={handleSheetChange}
             availableSheets={availableSheets}
             sectionSheetsMapping={sectionSheetsMapping}
-            availableSections={availableSections}
+            availableSections={currentSections}
             yearOptions={yearOptions}
             insurerOptions={insurerOptions}
           />
