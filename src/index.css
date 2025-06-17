@@ -81,3 +81,9 @@
     @apply animate-fade-up;
   }
 }
+
+
+.text-green-600 {
+  color: #1b1b1b !important;
+  font-size: 10px !important;
+}
