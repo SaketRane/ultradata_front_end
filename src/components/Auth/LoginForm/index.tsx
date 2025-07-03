@@ -1,10 +1,15 @@
-
-import React from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import StandardLoginForm from "./StandardLoginForm";
-import TwoFactorForm from "./TwoFactorForm";
-import LoginFooter from "./LoginFooter";
-import { useLoginForm } from "./useLoginForm";
+import React from 'react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import StandardLoginForm from './StandardLoginForm';
+import TwoFactorForm from './TwoFactorForm';
+import LoginFooter from './LoginFooter';
+import { useLoginForm } from './useLoginForm';
 
 /**
  * Main login form component that manages the authentication UI
@@ -29,7 +34,9 @@ const LoginForm: React.FC = () => {
   return (
     <Card className="w-full max-w-md shadow-lg glass animate-fade-up">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl text-center font-bold">Sign in to your account</CardTitle>
+        <CardTitle className="text-2xl text-center font-bold">
+          Sign in to your account
+        </CardTitle>
         <CardDescription className="text-center">
           Enter your work email and password to access your dashboard
         </CardDescription>

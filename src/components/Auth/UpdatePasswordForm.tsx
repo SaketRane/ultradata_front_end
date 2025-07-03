@@ -1,60 +1,66 @@
-
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { EyeIcon, EyeOffIcon, Lock } from "lucide-react";
-import { toast } from "sonner";
-import { useAuth } from "@/contexts/AuthContext";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { EyeIcon, EyeOffIcon, Lock } from 'lucide-react';
+import { toast } from 'sonner';
+import { useAuth } from '@/contexts/AuthContext';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { updatePassword } from '@/services/auth-service';
 
 const UpdatePasswordForm: React.FC = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
-  const navigate = useNavigate();
-  const { updatePassword } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!password || !confirmPassword) {
-      toast.error("Please fill in all fields");
+      toast.error('Please fill in all fields');
       return;
     }
-    
+
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      toast.error("Passwords do not match");
+      setError('Passwords do not match');
+      toast.error('Passwords do not match');
       return;
     }
-    
+
     if (password.length < 8) {
-      setError("Password must be at least 8 characters long");
-      toast.error("Password must be at least 8 characters long");
+      setError('Password must be at least 8 characters long');
+      toast.error('Password must be at least 8 characters long');
       return;
     }
-    
+
     setIsLoading(true);
     setError(null);
-    
+
+    const token = searchParams.get('token');
+
     try {
-      const { error } = await updatePassword(password);
-      
-      if (error) {
-        setError(error.message);
-        toast.error(error.message);
-        return;
-      }
-      
-      toast.success("Password updated successfully");
-      navigate("/dashboard");
+      updatePassword(password, confirmPassword, token).then((response) => {
+        if (response.success) {
+          toast.success('Password updated successfully');
+          navigate('/login');
+        }
+      });
     } catch (err: any) {
       setError(err.message);
       toast.error(err.message);
@@ -66,7 +72,9 @@ const UpdatePasswordForm: React.FC = () => {
   return (
     <Card className="w-full max-w-md shadow-lg glass animate-fade-up">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl text-center font-bold">Set New Password</CardTitle>
+        <CardTitle className="text-2xl text-center font-bold">
+          Set New Password
+        </CardTitle>
         <CardDescription className="text-center">
           Create a new password for your account
         </CardDescription>
@@ -77,7 +85,7 @@ const UpdatePasswordForm: React.FC = () => {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="password">New Password</Label>
@@ -85,7 +93,7 @@ const UpdatePasswordForm: React.FC = () => {
               <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 className="pl-10 pr-10"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -111,7 +119,7 @@ const UpdatePasswordForm: React.FC = () => {
               <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
                 id="confirmPassword"
-                type={showConfirmPassword ? "text" : "password"}
+                type={showConfirmPassword ? 'text' : 'password'}
                 className="pl-10 pr-10"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -131,20 +139,16 @@ const UpdatePasswordForm: React.FC = () => {
               </button>
             </div>
           </div>
-          <Button 
-            type="submit" 
-            className="w-full" 
-            disabled={isLoading}
-          >
-            {isLoading ? "Updating..." : "Update Password"}
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? 'Updating...' : 'Update Password'}
           </Button>
         </form>
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">
         <div className="text-center text-sm text-muted-foreground">
-          Remember your password?{" "}
-          <button 
-            onClick={() => navigate("/")}
+          Remember your password?{' '}
+          <button
+            onClick={() => navigate('/login')}
             className="text-primary-600 hover:text-primary-500 font-medium"
           >
             Back to login

@@ -1,10 +1,10 @@
-
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { EyeIcon, EyeOffIcon, Lock, Mail } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { EyeIcon, EyeOffIcon, Lock, Mail } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 /**
  * Props for the StandardLoginForm component
@@ -14,7 +14,7 @@ interface StandardLoginFormProps {
   setEmail: (email: string) => void;
   password: string;
   setPassword: (password: string) => void;
-  handleSubmit: (e: React.FormEvent) => Promise<void>;
+  handleSubmit: any;
   isLoading: boolean;
   error: string | null;
   handleResetPassword: () => void;
@@ -42,7 +42,7 @@ const StandardLoginForm: React.FC<StandardLoginFormProps> = ({
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
-      
+
       <div className="space-y-2">
         <Label htmlFor="email">Work Email</Label>
         <div className="relative">
@@ -58,12 +58,12 @@ const StandardLoginForm: React.FC<StandardLoginFormProps> = ({
           />
         </div>
       </div>
-      
+
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label htmlFor="password">Password</Label>
-          <button 
-            type="button" 
+          <button
+            type="button"
             onClick={handleResetPassword}
             className="text-sm text-primary-600 hover:text-primary-500 font-medium"
           >
@@ -74,7 +74,7 @@ const StandardLoginForm: React.FC<StandardLoginFormProps> = ({
           <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
             id="password"
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             className="pl-10 pr-10"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -93,13 +93,9 @@ const StandardLoginForm: React.FC<StandardLoginFormProps> = ({
           </button>
         </div>
       </div>
-      
-      <Button 
-        type="submit" 
-        className="w-full" 
-        disabled={isLoading}
-      >
-        {isLoading ? "Signing in..." : "Sign in"}
+
+      <Button type="submit" className="w-full" disabled={isLoading}>
+        {isLoading ? 'Signing in...' : 'Sign in'}
       </Button>
     </form>
   );
