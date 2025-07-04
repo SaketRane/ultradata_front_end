@@ -1,35 +1,40 @@
-
-import React from "react";
-import { TableCell, TableRow } from "@/components/ui/table";
-import { InsuranceRowDefinition, ClaimColumnDefinition } from "./types";
-import { generateDataCellCode, getRowClasses } from "./utils";
-import useCode from "@/hooks/use-code";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useLayoutEffect } from 'react';
+import { TableCell, TableRow } from '@/components/ui/table';
+import { InsuranceRowDefinition, ClaimColumnDefinition } from './types';
+import { generateDataCellCode, getRowClasses } from './utils';
+import useCode from '@/hooks/use-code';
 
 interface TableRowProps {
   row: InsuranceRowDefinition;
   index: number;
   columns: ClaimColumnDefinition[];
+  values?: any;
 }
 
 /**
  * Table row component for UndiscountedClaimsTable
  */
-const TableRowComponent: React.FC<TableRowProps> = ({ row, index, columns }) => {
+const TableRowComponent: React.FC<TableRowProps> = ({
+  row,
+  index,
+  columns,
+  values,
+}) => {
   const { paddingClass, bgClass, fontClass, sizeClass } = getRowClasses(
-    row.indent, 
-    row.isTotal, 
-    row.isSubtotal
+    row.indent,
+    row.isTotal,
+    row.isSubtotal,
   );
 
-     const {value, handleGetCode} = useCode()
-  
+  const { parseCode } = useCode();
+
   return (
-    <TableRow 
-      key={index} 
-      className={bgClass} 
-      data-row-code={row.rowCode}
-    >
-      <TableCell className={`${paddingClass} ${fontClass} py-1 px-2 ${sizeClass}`}>
+    <TableRow key={index} className={bgClass} data-row-code={row.rowCode}>
+      <TableCell
+        className={`${paddingClass} ${fontClass} py-1 px-2 ${sizeClass}`}
+      >
         {row.name}
         {row.rowCode && (
           <span className="text-orange-500 ml-2 opacity-50 text-[8px]">
@@ -37,22 +42,19 @@ const TableRowComponent: React.FC<TableRowProps> = ({ row, index, columns }) => 
           </span>
         )}
       </TableCell>
-      
-      {columns.map(column => {
+
+      {columns.map((column) => {
         const dataCode = generateDataCellCode(row.rowCode, column.colCode);
-        
+
+        const parsedCode = parseCode(dataCode);
+
         return (
           <TableCell
-            onMouseEnter={handleGetCode(dataCode)} 
             key={`${row.rowCode || index}-${column.colCode}`}
             className={`text-center py-1 px-2 ${sizeClass} ${fontClass}`}
             data-code={dataCode}
           >
-            {row.rowCode && dataCode && (
-              <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">
-                {value ? value : null}
-              </span>
-            )}
+            {values ? values[parsedCode] : null}
           </TableCell>
         );
       })}

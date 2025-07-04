@@ -1,12 +1,11 @@
-
-import React from "react";
-import { 
+import React from 'react';
+import {
   RegisteredReinsuranceNetExpensesTable,
   UnregisteredReinsuranceNetExpensesTable,
-  UnregisteredReinsuranceForeignTable 
-} from "@/components/tables/reinsurance";
-import UnregisteredReinsuranceTable from "@/components/UnregisteredReinsuranceTable";
-import UnregisteredReinsuranceConsolidatedTable from "@/components/UnregisteredReinsuranceConsolidatedTable";
+  UnregisteredReinsuranceForeignTable,
+} from '@/components/tables/reinsurance';
+import UnregisteredReinsuranceTable from '@/components/UnregisteredReinsuranceTable';
+import UnregisteredReinsuranceConsolidatedTable from '@/components/UnregisteredReinsuranceConsolidatedTable';
 
 interface ReinsuranceMapperProps {
   sheetCode: string;
@@ -18,15 +17,15 @@ interface ReinsuranceMapperProps {
  */
 const ReinsuranceMapper: React.FC<ReinsuranceMapperProps> = ({ sheetCode }) => {
   switch (sheetCode) {
-    case "7050":
+    case '7050':
       return <RegisteredReinsuranceNetExpensesTable />;
-    case "7055":
+    case '7055':
       return <UnregisteredReinsuranceNetExpensesTable />;
-    case "7060":
+    case '7060':
       return <UnregisteredReinsuranceTable />;
-    case "7061":
+    case '7061':
       return <UnregisteredReinsuranceForeignTable />;
-    case "7065":
+    case '7065':
       return <UnregisteredReinsuranceConsolidatedTable />;
     default:
       return (
