@@ -1,3 +1,4 @@
+import { baseURL } from '@/api/api';
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -22,12 +23,10 @@ const useCode = () => {
     const last2SymYear = year.toString().substring(2);
     const query = last2SymYear + code + dataCode;
 
-    await axios
-      .post('http://194.163.164.118:8094/api/data', { code: query })
-      .then((response) => {
-        const data = response.data;
-        setValue(data?.value);
-      });
+    await axios.post(baseURL + '/data', { code: query }).then((response) => {
+      const data = response.data;
+      setValue(data?.value);
+    });
   };
 
   const handleBatchCode = async (arrayCodes) => {
@@ -43,7 +42,7 @@ const useCode = () => {
     });
 
     await axios
-      .post('http://194.163.164.118:8094/api/data/batch', {
+      .post(baseURL + '/data/batch', {
         codeList: [...batch],
       })
       .then((response) => {

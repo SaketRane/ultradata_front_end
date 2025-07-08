@@ -7,6 +7,7 @@ import DataFilterSelector from '@/components/DataFilterSelector';
 import DataVisualization from '@/components/DataVisualization';
 import { sectionSheetsMapping } from '@/constants/sectionSheets';
 import { apiClient } from '@/integrations/database/client';
+import { baseURL } from '@/api/api';
 
 const Dashboard: React.FC = () => {
   const [year, setYear] = useState<string>('');
@@ -134,7 +135,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     axios
-      .post('http://194.163.164.118:8094/api/insurer/get/year', {
+      .post(baseURL + '/insurer/get/year', {
         insurerName: insurer,
       })
       .then((response) => {
@@ -157,26 +158,24 @@ const Dashboard: React.FC = () => {
   }, [insurer]);
 
   useEffect(() => {
-    axios
-      .post('http://194.163.164.118:8094/api/insurer/get/insurer', { year })
-      .then((response) => {
-        const data = response.data;
-        const list = data?.insurerList;
+    axios.post(baseURL + '/insurer/get/insurer', { year }).then((response) => {
+      const data = response.data;
+      const list = data?.insurerList;
 
-        if (list) {
-          const parseArray = list.map((item) => {
-            return {
-              name: item.name,
-              code: item.code,
-              countryCode: item?.countryCode,
-            };
-          });
-          setInsurerOptions(parseArray);
-          return;
-        }
+      if (list) {
+        const parseArray = list.map((item) => {
+          return {
+            name: item.name,
+            code: item.code,
+            countryCode: item?.countryCode,
+          };
+        });
+        setInsurerOptions(parseArray);
+        return;
+      }
 
-        setInsurerOptions([]);
-      });
+      setInsurerOptions([]);
+    });
   }, [year]);
 
   useEffect(() => {
