@@ -4,10 +4,10 @@ import { jwtDecode } from 'jwt-decode';
 import { Navigate } from 'react-router-dom';
 
 const PrivateGuard = ({ children }: any) => {
-  const accessToken = localStorage.getItem('access');
-  const decoded = jwtDecode(accessToken);
+  const accessToken = localStorage.getItem('access') || null;
+  const decoded = accessToken && jwtDecode(accessToken);
 
-  if (Date.now() >= decoded.exp * 1000) {
+  if (decoded && Date.now() >= decoded.exp * 1000) {
     return <Navigate to={'/login'} replace />;
   }
 
