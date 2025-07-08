@@ -12,8 +12,6 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import PrivateGuard from './pages/guards/PrivateGuard';
 
-const queryClient = new QueryClient();
-
 const App = () => (
   <TooltipProvider>
     <Toaster />

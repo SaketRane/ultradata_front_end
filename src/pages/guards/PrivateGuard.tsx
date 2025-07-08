@@ -7,7 +7,7 @@ const PrivateGuard = ({ children }: any) => {
   const accessToken = localStorage.getItem('access') || null;
   const decoded = accessToken && jwtDecode(accessToken);
 
-  if (decoded && Date.now() >= decoded.exp * 1000) {
+  if (!decoded || Date.now() >= decoded.exp * 1000) {
     return <Navigate to={'/login'} replace />;
   }
 
