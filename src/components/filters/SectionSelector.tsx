@@ -1,5 +1,4 @@
-
-import React from "react";
+import React from 'react';
 import {
   Select,
   SelectContent,
@@ -8,8 +7,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { SectionSheetMapping } from "../DataFilterSelector";
+} from '@/components/ui/select';
+import { SectionSheetMapping } from '../DataFilterSelector';
 
 /**
  * Props for the SectionSelector component
@@ -27,18 +26,18 @@ export interface SectionSelectorProps {
 
 /**
  * SectionSelector component for selecting data section
- * 
+ *
  * This component renders a dropdown that allows users to select
  * the section of financial data they want to view.
- * 
+ *
  * @param {SectionSelectorProps} props - Component props
  * @returns {JSX.Element} A Select component for section selection
  */
-const SectionSelector: React.FC<SectionSelectorProps> = ({ 
-  section, 
-  setSection, 
+const SectionSelector: React.FC<SectionSelectorProps> = ({
+  section,
+  setSection,
   sectionSheetsMapping,
-  availableSections 
+  availableSections,
 }) => {
   // Use the provided availableSections if provided, otherwise use all sections
   const sections = availableSections || Object.keys(sectionSheetsMapping);
@@ -47,7 +46,7 @@ const SectionSelector: React.FC<SectionSelectorProps> = ({
     setSection(value);
     // If the section exists in the mapping, log its code
     if (sectionSheetsMapping[value]) {
-      console.log("Selected section code:", sectionSheetsMapping[value].code);
+      console.log('Selected section code:', sectionSheetsMapping[value].code);
     }
   };
 
@@ -58,7 +57,10 @@ const SectionSelector: React.FC<SectionSelectorProps> = ({
         <SelectTrigger className="w-full h-8 text-xs">
           <SelectValue placeholder="Select Section" />
         </SelectTrigger>
-        <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
+        <SelectContent
+          className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data"
+          position="popper"
+        >
           <SelectGroup>
             <SelectLabel>Sections</SelectLabel>
             {sections.map((sec) => (

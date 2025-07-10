@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import YearSelector, { YearOption } from "./filters/YearSelector";
-import InsurerSelector from "./filters/InsurerSelector";
-import SectionSelector from "./filters/SectionSelector";
-import SheetSelector from "./filters/SheetSelector";
+import React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import YearSelector, { YearOption } from './filters/YearSelector';
+import InsurerSelector from './filters/InsurerSelector';
+import SectionSelector from './filters/SectionSelector';
+import SheetSelector from './filters/SheetSelector';
 
 /**
  * Sheet object interface representing a data sheet
@@ -59,11 +59,11 @@ export interface DataFilterSelectorProps {
 
 /**
  * DataFilterSelector component
- * 
+ *
  * This component provides the filter interface for the dashboard, allowing users
  * to select year, insurer, section, and sheet to view specific financial data.
  * The filters have dependencies (e.g., available sheets depend on the selected section).
- * 
+ *
  * @param {DataFilterSelectorProps} props - Component props
  * @returns {JSX.Element} A card containing the filter selection UI
  */
@@ -80,25 +80,33 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
   sectionSheetsMapping,
   availableSections,
   yearOptions,
-  insurerOptions
+  insurerOptions,
 }) => {
   return (
     <Card className="shadow-lg glass w-full">
       <CardContent className="p-2">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 dropdown-data compact-dropdown">
-          <YearSelector year={year} setYear={setYear} yearOptions={yearOptions}/>
-          <InsurerSelector insurer={insurer} setInsurer={setInsurer} options={insurerOptions}/>
-          <SectionSelector 
-            section={section} 
-            setSection={setSection} 
-            sectionSheetsMapping={sectionSheetsMapping} 
+          <YearSelector
+            year={year}
+            setYear={setYear}
+            yearOptions={yearOptions}
+          />
+          <InsurerSelector
+            insurer={insurer}
+            setInsurer={setInsurer}
+            options={insurerOptions}
+          />
+          <SectionSelector
+            section={section}
+            setSection={setSection}
+            sectionSheetsMapping={sectionSheetsMapping}
             availableSections={availableSections}
           />
-          <SheetSelector 
-            sheet={sheet} 
-            setSheet={setSheet} 
+          <SheetSelector
+            sheet={sheet}
+            setSheet={setSheet}
             section={section}
-            availableSheets={availableSheets} 
+            availableSheets={availableSheets}
           />
         </div>
       </CardContent>

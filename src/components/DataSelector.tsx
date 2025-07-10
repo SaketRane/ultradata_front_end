@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -8,29 +7,42 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDownIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChevronDownIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface DataSelectorProps {
   className?: string;
 }
 
 const DataSelector: React.FC<DataSelectorProps> = ({ className }) => {
-  const [year, setYear] = useState<string>("");
-  const [insurer, setInsurer] = useState<string>("");
-  const [section, setSection] = useState<string>("");
-  const [sheet, setSheet] = useState<string>("");
+  const [year, setYear] = useState<string>('');
+  const [insurer, setInsurer] = useState<string>('');
+  const [section, setSection] = useState<string>('');
+  const [sheet, setSheet] = useState<string>('');
 
   // Mock data for dropdowns
-  const years = ["2024", "2023", "2022", "2021", "2020"];
-  const insurers = ["Allianz", "AXA", "Zurich", "Liberty Mutual", "Travelers", "Chubb"];
-  const sections = ["Claims", "Premiums", "Policies", "Exposure", "Losses"];
-  const sheets = ["Summary", "Detailed", "YoY Comparison", "Quarterly", "Regional"];
+  const years = ['2024', '2023', '2022', '2021', '2020'];
+  const insurers = [
+    'Allianz',
+    'AXA',
+    'Zurich',
+    'Liberty Mutual',
+    'Travelers',
+    'Chubb',
+  ];
+  const sections = ['Claims', 'Premiums', 'Policies', 'Exposure', 'Losses'];
+  const sheets = [
+    'Summary',
+    'Detailed',
+    'YoY Comparison',
+    'Quarterly',
+    'Regional',
+  ];
 
   return (
-    <Card className={cn("shadow-lg glass", className)}>
+    <Card className={cn('shadow-lg glass', className)}>
       <CardHeader className="pb-3">
         <CardTitle className="text-xl font-semibold">Data Selector</CardTitle>
       </CardHeader>
@@ -42,7 +54,10 @@ const DataSelector: React.FC<DataSelectorProps> = ({ className }) => {
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select Year" />
               </SelectTrigger>
-              <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
+              <SelectContent
+                className="z-50 bg-white/95 backdrop-blur-sm border-border"
+                position="popper"
+              >
                 <SelectGroup>
                   <SelectLabel>Years</SelectLabel>
                   {years.map((y) => (
@@ -61,7 +76,10 @@ const DataSelector: React.FC<DataSelectorProps> = ({ className }) => {
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select Insurer" />
               </SelectTrigger>
-              <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
+              <SelectContent
+                className="z-50 bg-white/95 backdrop-blur-sm border-border"
+                position="popper"
+              >
                 <SelectGroup>
                   <SelectLabel>Insurers</SelectLabel>
                   {insurers.map((ins) => (
@@ -80,7 +98,10 @@ const DataSelector: React.FC<DataSelectorProps> = ({ className }) => {
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select Section" />
               </SelectTrigger>
-              <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
+              <SelectContent
+                className="z-50 bg-white/95 backdrop-blur-sm border-border"
+                position="popper"
+              >
                 <SelectGroup>
                   <SelectLabel>Sections</SelectLabel>
                   {sections.map((sec) => (
@@ -99,7 +120,10 @@ const DataSelector: React.FC<DataSelectorProps> = ({ className }) => {
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select Sheet" />
               </SelectTrigger>
-              <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border" position="popper">
+              <SelectContent
+                className="z-50 bg-white/95 backdrop-blur-sm border-border"
+                position="popper"
+              >
                 <SelectGroup>
                   <SelectLabel>Sheets</SelectLabel>
                   {sheets.map((s) => (

@@ -8,6 +8,7 @@ import DataVisualization from '@/components/DataVisualization';
 import { sectionSheetsMapping } from '@/constants/sectionSheets';
 import { apiClient } from '@/integrations/database/client';
 import { baseURL } from '@/api/api';
+import { Button } from '@/components/ui/button';
 
 const Dashboard: React.FC = () => {
   const [year, setYear] = useState<string>('');
@@ -192,6 +193,17 @@ const Dashboard: React.FC = () => {
     }
   }, [year, insurer, insurerOptions]);
 
+  const isFiltering = useMemo(() => {
+    return section && sheet && year && insurer;
+  }, [section, sheet, year, insurer]);
+
+  const handleResetFilters = () => {
+    setYear('');
+    setInsurer('');
+    setSection('');
+    setSheet('');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
       <DashboardHeader />
@@ -213,6 +225,23 @@ const Dashboard: React.FC = () => {
             yearOptions={yearOptions}
             insurerOptions={insurerOptions}
           />
+
+          <div className="w-full flex justify-end mt-3">
+            {isFiltering && (
+              <Button
+                type="submit"
+                style={{
+                  width: '100px',
+                  padding: '5px',
+                  fontSize: '14px',
+                  height: 'unset',
+                }}
+                onClick={handleResetFilters}
+              >
+                Reset
+              </Button>
+            )}
+          </div>
         </section>
 
         <DataVisualization
