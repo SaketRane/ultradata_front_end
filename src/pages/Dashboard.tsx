@@ -169,6 +169,7 @@ const Dashboard: React.FC = () => {
             name: item.name,
             code: item.code,
             countryCode: item?.countryCode,
+            ...item,
           };
         });
         setInsurerOptions(parseArray);

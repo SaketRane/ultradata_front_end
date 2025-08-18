@@ -79,7 +79,15 @@ const InsurerSelector: React.FC<InsurerSelectorProps> = ({
             {filteredInsurers.length > 0 ? (
               filteredInsurers.map((ins) => (
                 <SelectItem key={ins.code} value={ins.name}>
-                  {ins.name}
+                  {ins?.isChildren ? (
+                    <span
+                      style={{ display: 'inline-block', paddingLeft: '20px' }}
+                    >
+                      {ins.name}
+                    </span>
+                  ) : (
+                    ins.name
+                  )}
                 </SelectItem>
               ))
             ) : (
