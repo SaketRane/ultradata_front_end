@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  ultradata-nginx:
+    container_name: ultradata-nginx
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '3222:80'
+    volumes:
+      - ./:/project
+      - /node_modules
