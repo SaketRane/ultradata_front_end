@@ -82,7 +82,7 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
       <CardContent className="p-2">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 dropdown-data compact-dropdown">
           <YearSelector year={year} setYear={setYear} />
-          <InsurerSelector insurer={insurer} setInsurer={setInsurer} />
+          <InsurerSelector insurer={insurer} setInsurer={setInsurer} year={year ? parseInt(year) : undefined} />
           <SectionSelector 
             section={section} 
             setSection={setSection} 

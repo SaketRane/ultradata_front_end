@@ -134,7 +134,7 @@ const PremiumsTable: React.FC = () => {
             ))}
           </TableRow>
         </TableHeader>
-        <TableBody className="text-[10px]">
+        <TableBody className="text-xs">
           {tableRows.map((row, index) => {
             // Calculate left padding based on indentation level
             const paddingClass = row.indent === 0 
@@ -158,13 +158,12 @@ const PremiumsTable: React.FC = () => {
                 : "";
                 
             // Determine font size
-            const sizeClass = row.indent > 0 && !row.isSubtotal ? "text-[9px]" : "";
+            const sizeClass = "";
             
             return (
               <TableRow key={index} className={bgClass} data-row-code={row.rowCode}>
                 <TableCell className={`${paddingClass} ${fontClass} py-1 px-4 ${sizeClass}`}>
                   {row.name}
-                  {row.rowCode && <span className="text-orange-500 ml-2 opacity-50 text-[8px]">{row.rowCode}</span>}
                 </TableCell>
                 
                 {Object.entries(provinceCodes).map(([province, provinceCode]) => {
@@ -175,7 +174,6 @@ const PremiumsTable: React.FC = () => {
                       className={`text-center py-1 px-4 ${sizeClass} ${fontClass}`}
                       data-code={dataCode}
                     >
-                      {dataCode && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{dataCode}</span>}
                     </TableCell>
                   );
                 })}

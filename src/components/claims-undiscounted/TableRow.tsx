@@ -30,14 +30,9 @@ const TableRowComponent: React.FC<TableRowProps> = ({ row, index, columns }) => 
       return (
         <TableCell 
           key={`${index}-${column.name}`} 
-          className={`text-center py-1 px-4 ${sizeClass} ${fontClass}`}
+          className={`text-center py-1 px-4 ${fontClass}`}
           data-code={dataCode}
         >
-          {dataCode && (
-            <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">
-              {dataCode}
-            </span>
-          )}
         </TableCell>
       );
     })
@@ -51,11 +46,6 @@ const TableRowComponent: React.FC<TableRowProps> = ({ row, index, columns }) => 
     >
       <TableCell className={`${paddingClass} ${fontClass} py-1 px-4 ${sizeClass}`}>
         {row.name}
-        {row.rowCode && (
-          <span className="text-orange-500 ml-2 opacity-50 text-[8px]">
-            {row.rowCode}
-          </span>
-        )}
       </TableCell>
       
       {cells}

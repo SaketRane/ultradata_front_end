@@ -136,55 +136,55 @@ const ClaimsAndAdjustmentExpensesTable: React.FC = () => {
               &nbsp;
             </TableHead>
             {/* Claims and adjustment expenses paid - current year */}
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="01">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="01">
               Direct
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="02">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="02">
               Reinsurance assumed
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="03">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="03">
               Reinsurance ceded
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="04">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="04">
               Net (01+02-03)
             </TableHead>
             
             {/* Provision for unpaid claims */}
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="05">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="05">
               Direct
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="06">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="06">
               Reinsurance assumed
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="07">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="07">
               Reinsurance ceded
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="08">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="08">
               Net
             </TableHead>
             
             {/* Margin or deficiency */}
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="09">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="09">
               Net provision at prior year end
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="11">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="11">
               Net provision for portfolio acquisition/ disposition
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="10">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="10">
               Net amount paid during the year for claims of prior years
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="13">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="13">
               Investment income on unpaid claims of prior years
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-r border-b" data-column-code="15">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-r border-b" data-column-code="15">
               Net provision for claims of prior years
             </TableHead>
-            <TableHead className="text-[9px] font-semibold text-center py-1 px-2 border-b" data-column-code="19">
+                          <TableHead className="text-xs font-semibold text-center py-1 px-2 border-b" data-column-code="19">
               Margin or (Deficiency) (09+11-10+13-15)
             </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="text-[10px]">
+        <TableBody className="text-xs">
           {tableRows.map((row, index) => {
             // Calculate left padding based on indentation level
             const paddingClass = row.indent === 0 
@@ -208,13 +208,12 @@ const ClaimsAndAdjustmentExpensesTable: React.FC = () => {
                 : "";
                 
             // Determine font size
-            const sizeClass = row.indent > 0 && !row.isSubtotal ? "text-[9px]" : "";
+            const sizeClass = "";
             
             return (
               <TableRow key={index} className={bgClass} data-row-code={row.rowCode}>
                 <TableCell className={`${paddingClass} ${fontClass} py-1 px-4 ${sizeClass} border-r`}>
                   {row.name}
-                  {row.rowCode && <span className="text-orange-500 ml-2 opacity-50 text-[8px]">{row.rowCode}</span>}
                 </TableCell>
                 
                 {columnCodes.map((col) => {
@@ -225,7 +224,6 @@ const ClaimsAndAdjustmentExpensesTable: React.FC = () => {
                       className={`text-center py-1 px-1 ${sizeClass} ${fontClass} border-r`}
                       data-code={dataCode}
                     >
-                      {dataCode && <span className="text-green-600 opacity-0 hover:opacity-50 text-[7px]">{dataCode}</span>}
                     </TableCell>
                   );
                 })}

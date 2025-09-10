@@ -87,7 +87,7 @@ const StatementOfChangesInEquityTable: React.FC = () => {
             ))}
           </TableRow>
         </TableHeader>
-        <TableBody className="text-[10px]">
+        <TableBody className="text-xs">
           {equityChangesRows.map((row, index) => {
             // Determine background color for total rows
             const bgClass = row.isTotal ? "bg-gray-50" : "";
@@ -121,9 +121,6 @@ const StatementOfChangesInEquityTable: React.FC = () => {
                   className={`${paddingClass} ${fontClass} py-0 pr-2 border-r text-left`}
                 >
                   {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
-                  )}
                 </TableCell>
                 
                 {columns.map((col) => {
@@ -142,11 +139,7 @@ const StatementOfChangesInEquityTable: React.FC = () => {
                       className={`text-center py-0 px-1 border-r last:border-r-0 group ${cellClass}`}
                       data-code={!isDisabled ? dataCode : ""}
                     >
-                      {!isDisabled && dataCode && (
-                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                          {dataCode}
-                        </span>
-                      )}
+
                     </TableCell>
                   );
                 })}

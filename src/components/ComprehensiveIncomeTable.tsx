@@ -1,9 +1,10 @@
 
 import React from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import FinancialTable from "@/components/ui/financial-table";
+import { RowDefinition, ColumnDefinition } from "@/types/financial";
 
 // Define comprehensive income table rows with their codes
-const comprehensiveIncomeRows = [
+const comprehensiveIncomeRows: RowDefinition[] = [
   // Comprehensive Income (Loss) section
   { name: "Comprehensive Income (Loss)", rowCode: "", indent: 0, isSection: true, isHeader: true },
   { name: "Net Income", rowCode: "01", indent: 1, isTotal: false },
@@ -69,103 +70,27 @@ const comprehensiveIncomeRows = [
 ];
 
 // Define column data
-const columns = [
+const columns: ColumnDefinition[] = [
   { id: "currentPeriod", label: "Current Period", colCode: "01" },
-  { id: "priorPeriod", label: "Prior Period", colCode: "03" }
+  { id: "priorPeriod", label: "Prior Period Restated", colCode: "03" }
 ];
 
-const ComprehensiveIncomeTable: React.FC = () => {
-  const generateCellCode = (rowCode: string, colCode: string) => {
-    if (!rowCode) return "";
-    return `2042${rowCode}${colCode}`;
-  };
+interface ComprehensiveIncomeTableProps {
+  year?: string;
+  insurer?: string;
+}
 
+const ComprehensiveIncomeTable: React.FC<ComprehensiveIncomeTableProps> = ({ year, insurer }) => {
+  console.log('ComprehensiveIncomeTable received:', { year, insurer });
+  console.log('ComprehensiveIncomeTable passing to FinancialTable:', { year, insurer, sheetCode: "2042" });
   return (
-    <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
-      <Table className="min-w-[800px] text-xs">
-        <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-          <TableRow className="h-6">
-            <TableHead className="w-[450px] text-xs font-semibold text-left py-0 px-2 border-r"></TableHead>
-            {columns.map((col) => (
-              <TableHead 
-                key={col.id} 
-                data-column-code={col.colCode}
-                className="text-xs font-semibold text-center py-0 px-1 border-r last:border-r-0"
-              >
-                {col.label}
-                <span className="block text-orange-500 text-[9px]">{col.colCode}</span>
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody className="text-[10px]">
-          {comprehensiveIncomeRows.map((row, index) => {
-            // Determine background color for total rows
-            const bgClass = row.isTotal ? "bg-gray-50" : "";
-            
-            // Determine font styling
-            const fontClass = row.isSection 
-              ? "font-semibold uppercase" 
-              : row.isHeader 
-                ? "font-medium italic" 
-                : row.isFinalTotal 
-                  ? "font-bold uppercase" 
-                  : row.isTotal
-                    ? "font-medium"
-                    : "font-normal";
-            
-            // Calculate left padding based on indentation level
-            const paddingClass = 
-              row.indent === 0 ? "pl-2" : 
-              row.indent === 1 ? "pl-6" : 
-              row.indent === 2 ? "pl-10" : 
-              row.indent === 3 ? "pl-14" :
-              row.indent === 4 ? "pl-18" : "pl-22";
-            
-            // Add dotted bottom border for most rows
-            const borderClass = row.isHeader ? "" : "border-dotted border-b border-gray-300";
-            
-            return (
-              <TableRow 
-                key={index} 
-                className={`${bgClass} ${borderClass} h-5`} 
-                data-row-code={row.rowCode}
-              >
-                <TableCell 
-                  className={`${paddingClass} ${fontClass} py-0 pr-2 border-r text-left`}
-                >
-                  {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
-                  )}
-                </TableCell>
-                
-                {columns.map((col) => {
-                  const dataCode = generateCellCode(row.rowCode, col.colCode);
-                  // Skip data cells for section headers and regular headers
-                  const isDisabled = !row.rowCode;
-                  const cellClass = isDisabled ? "bg-gray-200" : "";
-                  
-                  return (
-                    <TableCell 
-                      key={`${row.rowCode || index}-${col.colCode}`}
-                      className={`text-center py-0 px-1 border-r last:border-r-0 group ${cellClass}`}
-                      data-code={!isDisabled ? dataCode : ""}
-                    >
-                      {!isDisabled && dataCode && (
-                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                          {dataCode}
-                        </span>
-                      )}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </div>
+    <FinancialTable 
+      rows={comprehensiveIncomeRows} 
+      columns={columns} 
+      sheetCode="2042"
+      year={year}
+      insurer={insurer}
+    />
   );
 };
 

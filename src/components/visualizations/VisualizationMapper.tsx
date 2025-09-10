@@ -14,9 +14,11 @@ interface VisualizationMapperProps {
   section: string;
   sheet: string;
   sheetCode: string;
+  year: string;
+  insurer: string;
 }
 
-const visualizationMappers: Record<string, React.ComponentType<{sheetCode: string}>> = {
+const visualizationMappers: Record<string, React.ComponentType<{sheetCode: string; year?: string; insurer?: string}>> = {
   "Provincial Stats": ProvincialStatsMapper,
   "Insurance Results & Onerous Contracts": InsuranceResultsMapper,
   "Premiums, Claims, & LAE": InsuranceResultsMapper,
@@ -36,7 +38,9 @@ const LoadingFallback = () => (
 
 const VisualizationMapper: React.FC<VisualizationMapperProps> = ({
   section,
-  sheetCode
+  sheetCode,
+  year,
+  insurer
 }) => {
   const MapperComponent = useMemo(() => {
     return visualizationMappers[section] || null;
@@ -49,7 +53,7 @@ const VisualizationMapper: React.FC<VisualizationMapperProps> = ({
   
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <MapperComponent sheetCode={sheetCode} />
+      <MapperComponent sheetCode={sheetCode} year={year} insurer={insurer} />
     </Suspense>
   );
 };

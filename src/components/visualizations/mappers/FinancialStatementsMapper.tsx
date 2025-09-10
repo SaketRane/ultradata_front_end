@@ -17,9 +17,12 @@ import { Loader2 } from "lucide-react";
 
 interface FinancialStatementsMapperProps {
   sheetCode: string;
+  year: string;
+  insurer: string;
 }
 
-const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ sheetCode }) => {
+const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ sheetCode, year, insurer }) => {
+  console.log('FinancialStatementsMapper received:', { sheetCode, year, insurer });
   const LoadingFallback = () => (
     <div className="flex justify-center items-center p-8">
       <Loader2 className="animate-spin h-6 w-6 text-primary" />
@@ -36,7 +39,7 @@ const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({ s
       case "2018": return <InsuranceContractsHeldTable />;
       case "2022": return <StatementOfProfitOrLossTable />;
       case "2041": return <StatementOfResidualInterestTable />;
-      case "2042": return <ComprehensiveIncomeTable />;
+      case "2042": return <ComprehensiveIncomeTable year={year} insurer={insurer} />;
       case "2045": return <HeadOfficeAccountAndReservesTable />;
       case "2054": return <StatementOfChangesInEquityTable />;
       default:

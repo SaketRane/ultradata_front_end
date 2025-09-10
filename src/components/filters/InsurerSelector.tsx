@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Search } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -11,25 +11,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { insurers } from "@/data/insurers";
+import { useInsurers } from "@/hooks/useApiData";
 
 interface InsurerSelectorProps {
   insurer: string;
   setInsurer: (insurer: string) => void;
+  year?: number;
 }
 
-const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer }) => {
+const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer, year }) => {
   const [insurerSearchTerm, setInsurerSearchTerm] = useState<string>("");
+  const { data: insurersData, isLoading, error } = useInsurers(year);
   
   const filteredInsurers = insurerSearchTerm.length > 0
-    ? insurers.filter(ins => 
-        ins.name.toLowerCase().startsWith(insurerSearchTerm.toLowerCase()))
-    : insurers;
+    ? insurersData?.filter(ins => 
+        ins.toLowerCase().startsWith(insurerSearchTerm.toLowerCase())) || []
+    : insurersData || [];
 
   const handleInsurerChange = (value: string) => {
     setInsurer(value);
-    const selectedInsurer = insurers.find(ins => ins.name === value);
-    console.log("Selected insurer code:", selectedInsurer?.code);
+    console.log("Selected insurer:", value);
   };
 
   const handleOpenChange = (open: boolean) => {
@@ -47,7 +48,7 @@ const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer }
         onOpenChange={handleOpenChange}
       >
         <SelectTrigger className="w-full h-8 text-xs">
-          <SelectValue placeholder="Select Insurer" />
+          <SelectValue placeholder={isLoading ? "Loading..." : "Select Insurer"} />
         </SelectTrigger>
         <SelectContent 
           className="z-50 bg-white/95 backdrop-blur-sm border-border max-h-[300px] dropdown-data" 
@@ -66,15 +67,24 @@ const InsurerSelector: React.FC<InsurerSelectorProps> = ({ insurer, setInsurer }
           </div>
           <SelectGroup>
             <SelectLabel className="px-3 pt-1">Insurers</SelectLabel>
-            {filteredInsurers.length > 0 ? (
+            {isLoading ? (
+              <div className="flex items-center justify-center py-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="ml-2 text-xs">Loading insurers...</span>
+              </div>
+            ) : error ? (
+              <div className="px-3 py-2 text-xs text-red-500">
+                Error loading insurers
+              </div>
+            ) : filteredInsurers.length > 0 ? (
               filteredInsurers.map((ins) => (
-                <SelectItem key={ins.code} value={ins.name}>
-                  {ins.name}
+                <SelectItem key={ins} value={ins}>
+                  {ins}
                 </SelectItem>
               ))
             ) : (
               <div className="px-3 py-1 text-xs text-muted-foreground">
-                No insurers found
+                {year ? "No insurers found for this year" : "Select a year first"}
               </div>
             )}
           </SelectGroup>

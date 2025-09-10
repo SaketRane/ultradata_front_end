@@ -51,10 +51,7 @@
   line-height: 1rem;
 }
 
-.text-[9px] {
-  font-size: 9px !important;
-  line-height: 1 !important;
-}
+
 
 /* Wider container for better data display */
 .data-container {

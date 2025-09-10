@@ -18,10 +18,24 @@ export const memoize = <T extends (...args: any[]) => any>(fn: T): T => {
 };
 
 /**
- * Generate a cell code for data identification
+ * Extract insurer code from insurer name
+ * Example: "Intact Insurance Company (A480)_D" -> "A480"
  */
-export const generateCellCode = (sheetCode: string, rowCode: string, colCode: string): string => {
+export const extractInsurerCode = (insurerName: string): string => {
+  if (!insurerName) return "";
+  const match = insurerName.match(/\(([A-Z0-9]+)\)/);
+  return match ? match[1] : "";
+};
+
+/**
+ * Generate a cell code for data identification
+ * Format: [InsurerCode][SheetCode][RowCode][ColumnCode]
+ */
+export const generateCellCode = (sheetCode: string, rowCode: string, colCode: string, insurerCode?: string): string => {
   if (!rowCode) return "";
+  if (insurerCode) {
+    return `${insurerCode}${sheetCode}${rowCode}${colCode}`;
+  }
   return `${sheetCode}${rowCode}${colCode}`;
 };
 
@@ -58,7 +72,7 @@ export const getRowClasses = (
 
   const borderClass = isHeader ? "" : "border-dotted border-b border-gray-300";
   
-  const sizeClass = "text-xs";
+  const sizeClass = "";
 
   return {
     paddingClass,

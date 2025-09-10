@@ -2,7 +2,8 @@
 import React, { useMemo, useCallback } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { type RowDefinition, type ColumnDefinition } from "@/types/financial";
-import { generateCellCode, getRowClasses } from "@/utils/table-utils";
+import { generateCellCode, getRowClasses, extractInsurerCode } from "@/utils/table-utils";
+import DataCell from "@/components/ui/DataCell";
 
 interface FinancialTableProps {
   columns: ColumnDefinition[];
@@ -11,6 +12,8 @@ interface FinancialTableProps {
   secondaryHeader?: React.ReactNode;
   className?: string;
   maxHeight?: string;
+  year?: string;
+  insurer?: string;
 }
 
 /**
@@ -23,14 +26,23 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
   sheetCode,
   secondaryHeader,
   className = "",
-  maxHeight = "70vh"
+  maxHeight = "70vh",
+  year,
+  insurer
 }) => {
+  console.log('FinancialTable received:', { year, insurer, sheetCode });
   const getCellCode = useCallback((rowCode: string, colCode: string) => {
     if (sheetCode === "2022" && colCode === "04") {
       return rowCode === "520" ? "202252004" : "";
     }
-    return generateCellCode(sheetCode, rowCode, colCode);
-  }, [sheetCode]);
+    const insurerCode = extractInsurerCode(insurer || "");
+    const code = generateCellCode(sheetCode, rowCode, colCode, insurerCode);
+    // Temporary debug logging for first few codes
+    if (rowCode === "01" && (colCode === "01" || colCode === "03")) {
+      console.log(`Debug: Generated code ${code} from insurer="${insurer}", insurerCode="${insurerCode}", sheetCode="${sheetCode}", rowCode="${rowCode}", colCode="${colCode}"`);
+    }
+    return code;
+  }, [sheetCode, insurer]);
 
   const getColumnWidth = useMemo(() => {
     const numColumns = columns.length;
@@ -83,9 +95,6 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
           className={`${paddingClass} ${fontClass} py-0 pr-3 border-r text-left min-w-[400px]`}
         >
           {row.name}
-          {row.rowCode && (
-            <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
-          )}
         </TableCell>
         
         {columns.map((col) => {
@@ -93,17 +102,16 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
           const isDisabled = !row.rowCode || row.isHeader || (col.id.includes('Vested') && row.hasVested === false);
           const cellClass = isDisabled ? "bg-gray-200" : "";
           
+          
           return (
             <TableCell 
               key={`${row.rowCode || index}-${col.colCode}`}
               className={`text-center py-0 px-2 border-r last:border-r-0 group ${cellClass} ${getColumnWidth} min-w-[150px]`}
               data-code={!isDisabled ? dataCode : ""}
             >
-              {!isDisabled && dataCode && (
-                <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                  {dataCode}
-                </span>
-              )}
+              {!isDisabled && dataCode ? (
+                <DataCell code={dataCode} />
+              ) : null}
             </TableCell>
           );
         })}
@@ -119,7 +127,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
     <div className={`overflow-auto rounded-md border bg-white/80 backdrop-blur-sm w-full ${className}`} style={{ maxHeight }}>
       <Table className="w-full min-w-[1200px] text-xs table-fixed">
         {tableHeader}
-        <TableBody className="text-[10px]">
+        <TableBody className="text-xs">
           {tableRows}
         </TableBody>
       </Table>

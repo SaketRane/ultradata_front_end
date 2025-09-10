@@ -26,7 +26,7 @@ const UndiscountedClaimsTable: React.FC = () => {
     <div className="overflow-auto max-h-[70vh] rounded-md border bg-white/80 backdrop-blur-sm">
       <Table className="min-w-full text-xs dropdown-data">
         <TableHeader columns={CLAIM_COLUMNS} />
-        <TableBody className="text-[10px]">
+        <TableBody className="text-xs">
           {tableRows}
         </TableBody>
       </Table>

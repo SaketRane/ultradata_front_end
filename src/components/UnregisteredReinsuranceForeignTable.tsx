@@ -103,7 +103,7 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
             })}
           </TableRow>
         </TableHeader>
-        <TableBody className="text-[10px]">
+        <TableBody className="text-xs">
           {reinsuranceTableRows.map((row, index) => {
             // Determine text weight
             const fontClass = row.isBold ? "font-semibold" : "font-normal";
@@ -121,9 +121,6 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                   className={`${fontClass} py-1 px-2 border-r text-left`}
                 >
                   {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
-                  )}
                 </TableCell>
                 
                 {/* Generate column cells */}
@@ -137,11 +134,7 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                           className="text-center py-1 px-2 border-r group"
                           data-code={dataCode}
                         >
-                          {row.rowCode && (
-                            <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                              {dataCode}
-                            </span>
-                          )}
+
                         </TableCell>
                       );
                     });
@@ -153,11 +146,7 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                         className="text-center py-1 px-2 border-r group"
                         data-code={dataCode}
                       >
-                        {row.rowCode && (
-                          <span className="invisible group-hover:visible text-green-600 text-[9px]">
-                            {dataCode}
-                          </span>
-                        )}
+
                       </TableCell>
                     ];
                   }

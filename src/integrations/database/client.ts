@@ -6,8 +6,8 @@
  * using fetch, axios, or another HTTP client of their choice.
  */
 
-// Base API URL - Update this when Spring Boot backend is available
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+// Base API URL - Use relative URLs in development (proxy handles routing)
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 const MAX_RETRIES = 1; // Number of retry attempts for failed requests
 const RETRY_DELAY = 1000; // Delay between retries in ms
 
@@ -28,14 +28,21 @@ export const apiClient = {
     queryParams: Record<string, string> = {}, 
     retries = 0
   ): Promise<T> => {
-    const url = new URL(`${API_BASE_URL}${endpoint}`);
-    Object.entries(queryParams).forEach(([key, value]) => {
-      url.searchParams.append(key, value);
-    });
+    // Handle relative URLs for development (when using proxy)
+    const fullUrl = API_BASE_URL.startsWith('http') 
+      ? `${API_BASE_URL}${endpoint}`
+      : `${API_BASE_URL}${endpoint}`;
+    
+    // Build query string if there are query parameters
+    const queryString = Object.entries(queryParams)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .join('&');
+    
+    const finalUrl = queryString ? `${fullUrl}?${queryString}` : fullUrl;
 
-    console.log(`[API] GET ${url}`);
+    console.log(`[API] GET ${finalUrl}`);
     try {
-      const response = await fetch(url.toString(), {
+      const response = await fetch(finalUrl, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

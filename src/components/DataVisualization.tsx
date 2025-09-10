@@ -8,6 +8,8 @@ interface DataVisualizationProps {
   section: string;
   sheet: string;
   availableSheets: Array<{code: string, label: string}>;
+  year: string;
+  insurer: string;
 }
 
 /**
@@ -17,7 +19,9 @@ interface DataVisualizationProps {
 const DataVisualization: React.FC<DataVisualizationProps> = ({
   section,
   sheet,
-  availableSheets
+  availableSheets,
+  year,
+  insurer
 }) => {
   // If no section or sheet is selected, don't render anything
   if (!section || !sheet) {
@@ -54,7 +58,9 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
           <VisualizationMapper 
             section={section} 
             sheet={sheet} 
-            sheetCode={sheetCode} 
+            sheetCode={sheetCode}
+            year={year}
+            insurer={insurer}
           />
         </CardContent>
       </Card>

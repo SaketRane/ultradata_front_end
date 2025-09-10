@@ -78,6 +78,8 @@ const Dashboard: React.FC = () => {
           section={section}
           sheet={sheet}
           availableSheets={availableSheets}
+          year={year}
+          insurer={insurer}
         />
       </main>
       
