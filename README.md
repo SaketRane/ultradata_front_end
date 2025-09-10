@@ -89,3 +89,4 @@ The application uses Tanstack Query for data fetching. Data requests follow a co
 ## Deployment
 
 The application is configured for deployment through CI/CD pipelines. Environment-specific configuration is handled through environment variables.
+# Test deployment - Wed Sep 10 11:34:00 EDT 2025
