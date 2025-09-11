@@ -123,9 +123,6 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                   className={`${fontClass} py-1 px-2 border-r text-left`}
                 >
                   {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
-                  )}
                 </TableCell>
                 
                 {/* Generate column cells */}
@@ -141,7 +138,7 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                           data-code={dataCode}
                         >
                           {row.rowCode && (
-                            <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                            <span className="invisible group-hover:visible text-green-600 text-[10px]">
                               {value ? value : null}
                             </span>
                           )}
@@ -158,7 +155,7 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                         data-code={dataCode}
                       >
                         {row.rowCode && (
-                          <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                          <span className="invisible group-hover:visible text-green-600 text-[10px]">
                             {value ? value : null}
                           </span>
                         )}

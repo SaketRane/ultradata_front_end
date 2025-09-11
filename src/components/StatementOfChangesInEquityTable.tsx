@@ -123,9 +123,6 @@ const StatementOfChangesInEquityTable: React.FC = () => {
                   className={`${paddingClass} ${fontClass} py-0 pr-2 border-r text-left`}
                 >
                   {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
-                  )}
                 </TableCell>
                 
                 {columns.map((col) => {
@@ -146,7 +143,7 @@ const StatementOfChangesInEquityTable: React.FC = () => {
                       data-code={!isDisabled ? dataCode : ""}
                     >
                       {!isDisabled && dataCode && (
-                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                        <span className="invisible group-hover:visible text-green-600 text-[10px]">
                           {value ? value : null}
                         </span>
                       )}

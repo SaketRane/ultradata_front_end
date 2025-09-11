@@ -60,7 +60,7 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
       <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
         {secondaryHeader}
         <TableRow className="h-6">
-          <TableHead className="w-[500px] text-xs font-semibold text-left py-0 px-3 border-r min-w-[400px]"></TableHead>
+          <TableHead className="w-auto text-xs font-semibold text-left py-0 px-3 border-r min-w-[200px] max-w-[350px]"></TableHead>
           {columns.map((col) => (
             <TableHead
               key={col.id}
@@ -104,14 +104,9 @@ const FinancialTable: React.FC<FinancialTableProps> = ({
           data-row-code={row.rowCode}
         >
           <TableCell
-            className={`${paddingClass} ${fontClass} py-0 pr-3 border-r text-left min-w-[400px]`}
+            className={`${paddingClass} ${fontClass} py-0 pr-3 border-r text-left min-w-[200px] max-w-[350px]`}
           >
             {row.name}
-            {row.rowCode && (
-              <span className="text-orange-500 ml-2 text-[9px]">
-                {row.rowCode}
-              </span>
-            )}
           </TableCell>
 
           {columns.map((col) => {

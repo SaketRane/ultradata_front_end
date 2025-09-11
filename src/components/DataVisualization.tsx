@@ -47,10 +47,10 @@ const DataVisualization: React.FC<DataVisualizationProps> = ({
   }
 
   return (
-    <section className="mb-4">
+    <section className="mb-2">
       <Card className="shadow-lg glass">
-        <CardContent className="p-2">
-          <h2 className="text-lg font-semibold mb-3">{title}</h2>
+        <CardContent className="p-1">
+          <h2 className="text-lg font-semibold mb-1">{title}</h2>
           <VisualizationMapper 
             section={section} 
             sheet={sheet} 

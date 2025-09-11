@@ -112,10 +112,11 @@ const Dashboard: React.FC = () => {
     setSheet('');
   }, []);
 
-  const handleInsurerChange = useCallback(
-    (value: string) => setInsurer(value),
-    [],
-  );
+  const handleInsurerChange = useCallback((value: string) => {
+    setInsurer(value);
+    setSection('');
+    setSheet('');
+  }, []);
 
   const handleSectionChange = useCallback((value: string) => {
     setSection(value);
@@ -209,8 +210,8 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
       <DashboardHeader />
 
-      <main className="flex-1 w-full max-w-full py-4 px-1 page-transition data-container">
-        <section className="mb-3">
+      <main className="flex-1 w-full max-w-full py-2 px-1 page-transition data-container">
+        <section className="mb-2">
           <DataFilterSelector
             year={year}
             setYear={handleYearChange}
@@ -225,24 +226,9 @@ const Dashboard: React.FC = () => {
             availableSections={currentSections}
             yearOptions={yearOptions}
             insurerOptions={insurerOptions}
+            onReset={handleResetFilters}
+            isFiltering={isFiltering}
           />
-
-          <div className="w-full flex justify-end mt-3">
-            {isFiltering && (
-              <Button
-                type="submit"
-                style={{
-                  width: '100px',
-                  padding: '5px',
-                  fontSize: '14px',
-                  height: 'unset',
-                }}
-                onClick={handleResetFilters}
-              >
-                Reset
-              </Button>
-            )}
-          </div>
         </section>
 
         <DataVisualization

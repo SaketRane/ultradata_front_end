@@ -101,7 +101,6 @@ const CommissionsTable: React.FC = () => {
                 <TableRow key={index} className={`${bgClass} h-5`} data-row-code={row.rowCode}>
                   <TableCell className="font-medium py-0 px-2">
                     {row.name}
-                    <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>
                   </TableCell>
                   
                   {Object.values(mainTableColumnCodes).map((columnCode) => {
@@ -112,7 +111,7 @@ const CommissionsTable: React.FC = () => {
                         className="text-center py-0 px-2 group"
                         data-code={dataCode}
                       >
-                        <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                        <span className="invisible group-hover:visible text-green-600 text-[10px]">
                           {dataCode}
                         </span>
                       </TableCell>
@@ -150,7 +149,6 @@ const CommissionsTable: React.FC = () => {
                 <TableRow key={index} className="h-5" data-row-code={row.rowCode}>
                   <TableCell className={`${paddingClass} ${fontClass} py-0 px-2 border-b`}>
                     {row.name}
-                    {row.rowCode && <span className="text-orange-500 ml-2 text-[9px]">{row.rowCode}</span>}
                   </TableCell>
                   
                   <TableCell 
@@ -158,7 +156,7 @@ const CommissionsTable: React.FC = () => {
                     data-code={generateSummaryTableDataCode(row.rowCode)}
                   >
                     {row.rowCode && (
-                      <span className="invisible group-hover:visible text-green-600 text-[9px]">
+                      <span className="invisible group-hover:visible text-green-600 text-[10px]">
                         {generateSummaryTableDataCode(row.rowCode)}
                       </span>
                     )}

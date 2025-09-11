@@ -534,9 +534,8 @@ const PremiumsTable: React.FC = () => {
                 ? 'font-medium'
                 : '';
 
-            // Determine font size
-            const sizeClass =
-              row.indent > 0 && !row.isSubtotal ? 'text-[9px]' : '';
+            // Determine font size - standardized to text-[10px]
+            const sizeClass = 'text-[10px]';
 
             return (
               <TableRow
@@ -548,11 +547,6 @@ const PremiumsTable: React.FC = () => {
                   className={`${paddingClass} ${fontClass} py-1 px-4 ${sizeClass}`}
                 >
                   {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 opacity-50 text-[8px]">
-                      {row.rowCode}
-                    </span>
-                  )}
                 </TableCell>
 
                 {Object.entries(provinceCodes).map(

@@ -48,7 +48,7 @@ const SheetSelector: React.FC<SheetSelectorProps> = ({
   };
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       <label className="text-xs font-medium">Sheet</label>
       <Select 
         value={sheet} 

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import YearSelector, { YearOption } from './filters/YearSelector';
 import InsurerSelector from './filters/InsurerSelector';
 import SectionSelector from './filters/SectionSelector';
@@ -55,6 +56,10 @@ export interface DataFilterSelectorProps {
   availableSections?: string[];
   yearOptions: any;
   insurerOptions: any;
+  /** Function to reset all filters */
+  onReset?: () => void;
+  /** Whether any filters are currently applied */
+  isFiltering?: boolean;
 }
 
 /**
@@ -81,11 +86,13 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
   availableSections,
   yearOptions,
   insurerOptions,
+  onReset,
+  isFiltering,
 }) => {
   return (
     <Card className="shadow-lg glass w-full">
-      <CardContent className="p-2">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 dropdown-data compact-dropdown">
+      <CardContent className="p-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-1 dropdown-data compact-dropdown">
           <YearSelector
             year={year}
             setYear={setYear}
@@ -108,6 +115,22 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
             section={section}
             availableSheets={availableSheets}
           />
+          {onReset && (
+            <div className="flex items-end">
+              <Button
+                type="button"
+                style={{
+                  width: '100%',
+                  padding: '5px',
+                  fontSize: '14px',
+                  height: '32px',
+                }}
+                onClick={onReset}
+              >
+                Reset
+              </Button>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

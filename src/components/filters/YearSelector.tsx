@@ -52,7 +52,7 @@ const YearSelector: React.FC<YearSelectorProps> = ({ year, setYear, yearOptions 
   // ];
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       <label className="text-xs font-medium">Year</label>
       <Select value={year} onValueChange={setYear}>
         <SelectTrigger className="w-full h-8 text-xs">

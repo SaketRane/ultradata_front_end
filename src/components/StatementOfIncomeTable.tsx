@@ -216,7 +216,7 @@ const StatementOfIncomeTable: React.FC = () => {
                 className="text-xs font-semibold text-center py-0 px-1 border-r last:border-r-0"
               >
                 {col.label}
-                <span className="block text-orange-500 text-[9px]">
+                <span className="block text-orange-500 text-[10px]">
                   {col.colCode}
                 </span>
               </TableHead>
@@ -264,11 +264,6 @@ const StatementOfIncomeTable: React.FC = () => {
                   className={`${paddingClass} ${fontClass} py-0 pr-2 border-r text-left`}
                 >
                   {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 text-[9px]">
-                      {row.rowCode}
-                    </span>
-                  )}
                 </TableCell>
 
                 {columns.map((col) => {
