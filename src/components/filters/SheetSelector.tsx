@@ -43,9 +43,12 @@ const SheetSelector: React.FC<SheetSelectorProps> = ({
 }) => {
   const handleSheetChange = (value: string) => {
     setSheet(value);
-    const selectedSheet = availableSheets.find(s => s.label === value);
+    const selectedSheet = availableSheets.find(s => s.code === value);
     console.log("Selected sheet code:", selectedSheet?.code);
   };
+
+  // Find the label for the current sheet code
+  const selectedSheetLabel = availableSheets.find(s => s.code === sheet)?.label || '';
 
   return (
     <div className="space-y-0.5">
@@ -55,15 +58,17 @@ const SheetSelector: React.FC<SheetSelectorProps> = ({
         onValueChange={handleSheetChange}
         disabled={!section}
       >
-        <SelectTrigger className="w-full h-8 text-xs">
-          <SelectValue placeholder={!section ? "Select Section First" : "Select Sheet"} />
+        <SelectTrigger className="w-full h-8 text-xs text-center">
+          <SelectValue placeholder={!section ? "Select Section First" : "Select Sheet"}>
+            {selectedSheetLabel}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">
           <SelectGroup>
             <SelectLabel>Sheets</SelectLabel>
             {availableSheets.length > 0 ? (
               availableSheets.map((s) => (
-                <SelectItem key={s.code} value={s.label}>
+                <SelectItem key={s.code} value={s.code}>
                   {s.label}
                 </SelectItem>
               ))

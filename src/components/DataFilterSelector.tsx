@@ -119,12 +119,7 @@ const DataFilterSelector: React.FC<DataFilterSelectorProps> = ({
             <div className="flex items-end">
               <Button
                 type="button"
-                style={{
-                  width: '100%',
-                  padding: '5px',
-                  fontSize: '14px',
-                  height: '32px',
-                }}
+                className="w-full h-8 text-sm bg-black hover:bg-gray-800 text-white"
                 onClick={onReset}
               >
                 Reset

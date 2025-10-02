@@ -54,7 +54,7 @@ const SectionSelector: React.FC<SectionSelectorProps> = ({
     <div className="space-y-0.5">
       <label className="text-xs font-medium">Section</label>
       <Select value={section} onValueChange={handleSectionChange}>
-        <SelectTrigger className="w-full h-8 text-xs">
+        <SelectTrigger className="w-full h-8 text-xs text-center">
           <SelectValue placeholder="Select Section" />
         </SelectTrigger>
         <SelectContent

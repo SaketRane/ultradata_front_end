@@ -9,24 +9,25 @@ import UnregisteredReinsuranceConsolidatedTable from '@/components/UnregisteredR
 
 interface ReinsuranceMapperProps {
   sheetCode: string;
+  year?: string;
 }
 
 /**
  * Maps reinsurance sheet codes to their corresponding table components
  * Handles both registered and unregistered reinsurance data visualization
  */
-const ReinsuranceMapper: React.FC<ReinsuranceMapperProps> = ({ sheetCode }) => {
+const ReinsuranceMapper: React.FC<ReinsuranceMapperProps> = ({ sheetCode, year }) => {
   switch (sheetCode) {
     case '7050':
-      return <RegisteredReinsuranceNetExpensesTable />;
+      return <RegisteredReinsuranceNetExpensesTable year={year} />;
     case '7055':
-      return <UnregisteredReinsuranceNetExpensesTable />;
+      return <UnregisteredReinsuranceNetExpensesTable year={year} />;
     case '7060':
-      return <UnregisteredReinsuranceTable />;
+      return <UnregisteredReinsuranceTable year={year} />;
     case '7061':
-      return <UnregisteredReinsuranceForeignTable />;
+      return <UnregisteredReinsuranceForeignTable year={year} />;
     case '7065':
-      return <UnregisteredReinsuranceConsolidatedTable />;
+      return <UnregisteredReinsuranceConsolidatedTable year={year} />;
     default:
       return (
         <div className="flex justify-center items-center p-8 text-muted-foreground">

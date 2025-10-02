@@ -4,16 +4,17 @@ import { CommissionsTable, InsuranceServiceOperatingExpensesTable } from "@/comp
 
 interface CategoryMapperProps {
   sheetCode: string;
+  year?: string;
 }
 
-const CommissionsMapper: React.FC<CategoryMapperProps> = ({ sheetCode }) => {
+const CommissionsMapper: React.FC<CategoryMapperProps> = ({ sheetCode, year }) => {
   switch (sheetCode) {
     case "8015":
-      return <CommissionsTable />;
+      return <CommissionsTable year={year} />;
     case "8010":
-      return <CommissionsTable />;
+      return <CommissionsTable year={year} />;
     case "8025":
-      return <InsuranceServiceOperatingExpensesTable />;
+      return <InsuranceServiceOperatingExpensesTable year={year} />;
     default:
       return (
         <div className="flex justify-center items-center p-8 text-muted-foreground">

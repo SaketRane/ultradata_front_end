@@ -26,7 +26,7 @@ const DashboardHeader: React.FC = () => {
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
-      <div className="container mx-auto py-2 px-1">
+      <div className="container mx-auto py-1 px-1">
         <div className="flex items-center justify-between">
           <Logo size="md" />
 
@@ -36,7 +36,7 @@ const DashboardHeader: React.FC = () => {
                 <Button variant="ghost" className="flex items-center space-x-2">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src="" />
-                    <AvatarFallback className="bg-primary-100 text-primary-700">
+                    <AvatarFallback className="bg-gray-200 text-gray-800">
                       JD
                     </AvatarFallback>
                   </Avatar>

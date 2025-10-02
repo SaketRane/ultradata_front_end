@@ -107,8 +107,15 @@ export const getSheetCode = memoize((
   sheet: string, 
   availableSheets: Array<{code: string, label: string}>
 ): string => {
-  const selectedSheet = availableSheets.find(s => s.label === sheet);
-  return selectedSheet?.code || "";
+  // Check if sheet is already a code by looking for exact match
+  const selectedSheet = availableSheets.find(s => s.code === sheet);
+  if (selectedSheet) {
+    return selectedSheet.code;
+  }
+  
+  // If not found as code, try to find by label (for backward compatibility)
+  const selectedSheetByLabel = availableSheets.find(s => s.label === sheet);
+  return selectedSheetByLabel?.code || sheet; // Return the original sheet if not found
 });
 
 /**
