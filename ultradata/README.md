@@ -28,7 +28,7 @@ npm install
 Start dev server on port **3222**:
 
 ```bash
-npm run start -- --port=3222
+npm run dev -- --port=3222
 ```
 
 ---

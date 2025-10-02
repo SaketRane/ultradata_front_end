@@ -18,10 +18,12 @@ import StatementOfIncomeTable from '@/components/StatementOfIncomeTable';
 
 interface FinancialStatementsMapperProps {
   sheetCode: string;
+  year?: string;
 }
 
 const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({
   sheetCode,
+  year,
 }) => {
   const LoadingFallback = () => (
     <div className="flex justify-center items-center p-8">
@@ -32,7 +34,7 @@ const FinancialStatementsMapper: React.FC<FinancialStatementsMapperProps> = ({
   const renderTable = () => {
     switch (sheetCode) {
       case '2010':
-        return <AssetsTable />;
+        return <AssetsTable year={year} />;
       case '2011':
         return <LiabilitiesAndEquityTable />;
       case '2012':

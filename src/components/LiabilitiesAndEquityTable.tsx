@@ -6,8 +6,7 @@ import { RowDefinition, ColumnDefinition } from "@/types/financial";
 const LiabilitiesAndEquityTable: React.FC = () => {
   const columns: ColumnDefinition[] = [
     { id: "currentPeriod", label: "Current Period", colCode: "01" },
-    { id: "priorPeriodRestated", label: "Prior Period Restated", colCode: "03" },
-    { id: "openingPriorPeriodRestated", label: "Opening Prior Period Restated", colCode: "05" }
+    { id: "priorPeriodRestated", label: "Prior Period Restated", colCode: "03" }
   ];
 
   const rows: RowDefinition[] = [

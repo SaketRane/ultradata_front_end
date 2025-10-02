@@ -14,8 +14,8 @@ const DashboardFooter: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-white border-t border-gray-200 py-3 md:py-4">
-      <div className="container mx-auto px-4 md:px-6 text-center text-sm text-gray-600">
+    <footer className="bg-white border-t border-gray-200 py-1 md:py-1">
+      <div className="container mx-auto px-4 md:px-6 text-center text-xs text-gray-600">
         <p>© {currentYear} UltraData. All rights reserved.</p>
       </div>
     </footer>

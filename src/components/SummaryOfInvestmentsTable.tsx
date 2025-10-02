@@ -63,33 +63,16 @@ const SummaryOfInvestmentsTable: React.FC = () => {
     { id: "cashFlowHedges", label: "Cash Flow Hedges", colCode: "20" },
     { id: "amortizedCost", label: "Amortized Cost", colCode: "30" },
     { id: "balanceSheetValue", label: "Balance Sheet Value Col.", colCode: "35" },
-    { id: "provisionsStageI", label: "Stage I", colCode: "40" },
-    { id: "provisionsStageII", label: "Stage II", colCode: "45" },
-    { id: "provisionsStageIII", label: "Stage III", colCode: "50" },
-    { id: "provisionsTotal", label: "Total", colCode: "59" },
     { id: "impairedAmount", label: "Impaired Amount (Before Provisions)", colCode: "60" },
     { id: "marketValue", label: "Market Value of Column (30)", colCode: "65" },
     { id: "indexLinkedProducts", label: "Balance Sheet Value of Assets Used to Back Index Linked Products", colCode: "70" }
   ];
-
-  // Create a secondary header for the ECL provisions
-  const secondaryHeader = (
-    <tr className="h-6 border-b">
-      <th className="w-[350px] text-xs font-semibold text-left py-0 px-2 border-r"></th>
-      <th className="text-xs font-semibold text-center py-0 px-1 border-r" colSpan={6}></th>
-      <th className="text-xs font-semibold text-center py-0 px-1 border-r bg-blue-50" colSpan={4}>
-        Provisions including Expected Credit Loss (ECL)
-      </th>
-      <th className="text-xs font-semibold text-center py-0 px-1 border-r" colSpan={2}></th>
-    </tr>
-  );
 
   return (
     <FinancialTable 
       rows={rows} 
       columns={columns} 
       sheetCode="4008"
-      secondaryHeader={secondaryHeader}
     />
   );
 };

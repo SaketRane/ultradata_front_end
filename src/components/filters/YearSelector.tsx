@@ -52,10 +52,10 @@ const YearSelector: React.FC<YearSelectorProps> = ({ year, setYear, yearOptions 
   // ];
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       <label className="text-xs font-medium">Year</label>
       <Select value={year} onValueChange={setYear}>
-        <SelectTrigger className="w-full h-8 text-xs">
+        <SelectTrigger className="w-full h-8 text-xs text-center">
           <SelectValue placeholder="Select Year" />
         </SelectTrigger>
         <SelectContent className="z-50 bg-white/95 backdrop-blur-sm border-border dropdown-data" position="popper">

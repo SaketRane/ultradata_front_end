@@ -156,11 +156,6 @@ const UnregisteredReinsuranceForeignTable: React.FC = () => {
                   className={`${fontClass} py-1 px-2 border-r text-left`}
                 >
                   {row.name}
-                  {row.rowCode && (
-                    <span className="text-orange-500 ml-2 text-[9px]">
-                      {row.rowCode}
-                    </span>
-                  )}
                 </TableCell>
 
                 {tableColumns.flatMap((column) => {

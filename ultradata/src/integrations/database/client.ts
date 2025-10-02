@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * This file will be replaced with an HTTP client for Spring Boot API integration.
  *

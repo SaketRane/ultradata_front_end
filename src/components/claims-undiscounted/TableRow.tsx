@@ -60,11 +60,6 @@ const TableRowComponent: React.FC<TableRowProps> = ({
         className={`${paddingClass} ${fontClass} py-1 px-4 ${sizeClass}`}
       >
         {row.name}
-        {row.rowCode && (
-          <span className="text-orange-500 ml-2 opacity-50 text-[8px]">
-            {row.rowCode}
-          </span>
-        )}
       </TableCell>
 
       {cells}

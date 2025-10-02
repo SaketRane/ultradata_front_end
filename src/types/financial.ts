@@ -32,6 +32,7 @@ export interface ColumnDefinition {
   label: string;
   colCode: string;
   colSpan?: number;
+  isAOCI?: boolean;
 }
 
 // Column definition for claim tables

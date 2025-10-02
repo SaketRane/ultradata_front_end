@@ -24,14 +24,12 @@ const Logo: React.FC<LogoProps> = ({ className, size = 'md' }) => {
   };
 
   return (
-    <div className={cn("font-semibold flex items-center gap-2", sizeClasses[size], className)}>
-      <div className="relative">
-        <div className="h-8 w-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-          <span className="text-white font-bold text-lg">U</span>
-        </div>
-        <div className="absolute -top-1 -right-1 h-3 w-3 bg-primary-300 rounded-full animate-pulse-slow"></div>
-      </div>
-      <span className="text-gradient">UltraData</span>
+    <div className={cn("flex items-center", className)}>
+      <img 
+        src="/Logo.png" 
+        alt="UltraData Logo" 
+        className="h-10 w-32 object-contain"
+      />
     </div>
   );
 };

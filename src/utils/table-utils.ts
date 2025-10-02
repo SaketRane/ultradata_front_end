@@ -58,7 +58,7 @@ export const getRowClasses = (
 
   const borderClass = isHeader ? "" : "border-dotted border-b border-gray-300";
   
-  const sizeClass = "text-xs";
+  const sizeClass = "text-[10px]";
 
   return {
     paddingClass,
