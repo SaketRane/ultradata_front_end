@@ -88,8 +88,7 @@ const Dropdown: React.FC = () => {
 const IndexContent: React.FC = () => (
   <main className="flex-1 flex items-center justify-center p-6">
     <div className="w-full max-w-md text-center text-lg">
-      Login & signup are currently disabled. Use the dropdowns on /dashboard to build your
-      application.
+      Welcome to UltraData! Use the dropdowns on /dashboard to build your application.
     </div>
   </main>
 );

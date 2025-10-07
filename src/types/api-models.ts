@@ -5,56 +5,6 @@
  */
 
 /**
- * Login request payload
- */
-export interface LoginRequest {
-  username: string; // Spring Security typically uses 'username'
-  password: string;
-}
-
-/**
- * Login response
- */
-export interface LoginResponse {
-  token?: string; // If using JWT
-  success: boolean;
-  requiresTwoFactor?: boolean;
-}
-
-/**
- * Registration request payload
- */
-export interface RegistrationRequest {
-  email: string;
-  password: string;
-  firstName?: string;
-  lastName?: string;
-}
-
-/**
- * Password reset request
- */
-export interface PasswordResetRequest {
-  email: string;
-}
-
-/**
- * Password update request
- */
-export interface PasswordUpdateRequest {
-  password: string;
-  token?: string; // For password reset flow
-}
-
-/**
- * Two-factor authentication verification request
- */
-export interface TwoFactorVerificationRequest {
-  token: string;
-  sessionId?: string;
-}
-
-/**
  * Error response from the API
  */
 export interface ApiErrorResponse {

@@ -16,7 +16,6 @@ The UltraData Financial Dashboard follows a component-based architecture built w
 - `/src/components`: React components organized by feature
   - `/src/components/ui`: Reusable UI components from shadcn
   - `/src/components/visualizations`: Data visualization components
-  - `/src/components/Auth`: Authentication-related components
   - `/src/components/tables`: Financial table components
   - `/src/components/filters`: Filter selection components
 - `/src/contexts`: React context providers for global state
@@ -54,19 +53,9 @@ The visualization system follows a mapper pattern:
 2. `VisualizationMapper` loads the appropriate mapper component based on selection
 3. Mapper components render the specific visualizations for each section/sheet
 
-### Authentication
-
-Authentication is handled through Supabase:
-- Login/signup functionality through `LoginForm` and related components
-- Session management via `AuthContext`
-- Role-based access control via user profiles
-
-For development purposes, a DEV_MODE flag is available that uses mock authentication.
-
 ## State Management
 
 The application uses:
-- React's Context API for authentication state
 - React's useState and useCallback for component state
 - Tanstack Query for data fetching and caching
 
@@ -132,11 +121,6 @@ Understanding the relationships between components is crucial for maintenance:
 
 ## Common Issues and Troubleshooting
 
-### Authentication Issues
-
-If experiencing authentication issues:
-- Check Supabase configuration
-- Verify that the correct roles and policies are set up
 - In development, ensure DEV_MODE is properly configured
 
 ### Data Visualization Issues

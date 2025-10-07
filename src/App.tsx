@@ -1,16 +1,9 @@
 import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { QueryClient } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from '@/contexts/AuthContext';
-import Index from './pages/Index';
 import Dashboard from './pages/Dashboard';
-import ResetPassword from './pages/ResetPassword';
-import UpdatePassword from './pages/UpdatePassword';
 import NotFound from './pages/NotFound';
-import Login from './pages/Login';
-import PrivateGuard from './pages/guards/PrivateGuard';
 
 const App = () => (
   <TooltipProvider>
@@ -19,17 +12,7 @@ const App = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to={'/dashboard'} replace />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ResetPassword />} />
-        <Route path="/reset-password" element={<UpdatePassword />} />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateGuard>
-              <Dashboard />
-            </PrivateGuard>
-          }
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
